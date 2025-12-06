@@ -1,0 +1,46 @@
+services:
+  # Config Server
+  configsvr:
+    container_name: configsvr
+    image: mongo:6.0
+    command: mongod --configsvr --replSet configRS --port 27019 --bind_ip localhost,configsvr
+    ports:
+      - 27019:27019
+    networks:
+      - mongonetwork
+
+  shardButchery:
+    container_name: shardButchery
+    image: mongo:6.0
+    command: mongod --shardsvr --replSet shardButcheryRS --port 27018 --bind_ip localhost,shardButchery
+    ports:
+      - 27018:27018
+    networks:
+      - mongonetwork
+
+  shardBakery:
+    container_name: shardBakery
+    image: mongo:6.0
+    command: mongod --shardsvr --replSet shardBakeryRS --port 27017 --bind_ip localhost,shardBakery
+    ports:
+      - 27017:27017
+    networks:
+      - mongonetwork
+
+  # Mongo Router (mongos)
+  mongos:
+    container_name: mongos
+    image: mongo:6.0
+    command: mongos --configdb configRS/configsvr:27019 --port 27020 --bind_ip localhost,mongos
+    ports:
+      - 27020:27020
+    networks:
+      - mongonetwork
+    depends_on:
+      - configsvr
+      - shardButchery
+      - shardBakery
+
+networks:
+  mongonetwork:
+    driver: bridge
