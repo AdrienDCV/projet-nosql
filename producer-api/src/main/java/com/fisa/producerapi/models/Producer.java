@@ -33,5 +33,7 @@ public class Producer {
   private String email;
   @Field("PHONE")
   private String phone;
+  @Field("PASSWORD")
+  private String password;
 
 }
