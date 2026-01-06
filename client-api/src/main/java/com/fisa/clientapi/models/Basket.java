@@ -6,10 +6,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
+import org.springframework.aop.framework.adapter.AdvisorAdapterRegistrationManager;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Getter
@@ -17,21 +20,15 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document("users")
-public class User {
+@Document("baskets")
 
-  @Id
-  private ObjectId id;
+public class Basket {
 
-  @Field("USERID")
-  private String userId;
-  @Field("LASTNAME")
-  private String lastname;
-  @Field("FIRSTNAME")
-  private String firstname;
-  @Field("EMAIL")
-  private String email;
-  @Field("PASSWORD")
-  private String password;
+    @Id
+    private ObjectId id;
 
+    @Field("BASKETID")
+    private String basketId;
+    @Field("ARTICLES")
+    private List<BasketEntry> articles;
 }
