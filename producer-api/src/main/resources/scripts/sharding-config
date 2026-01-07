@@ -1,0 +1,72 @@
+#!/bin/bash
+
+echo "=== Configuration du Config Server ==="
+docker exec -i configsvr mongosh --port 27019 <<EOF
+rs.initiate({
+  _id: "configRS",
+  configsvr: true,
+  members: [{ _id: 0, host: "configsvr:27019" }]
+})
+EOF
+
+echo "Attente de l'initialisation du configRS..."
+sleep 10
+
+echo "=== Configuration du Shard Butchery ==="
+docker exec -i shardButchery mongosh --port 27018 <<EOF
+rs.initiate({
+  _id: "shardButcheryRS",
+  members: [{ _id: 0, host: "shardButchery:27018" }]
+})
+EOF
+
+echo "Attente de l'initialisation du shardButcheryRS..."
+sleep 10
+
+echo "=== Configuration du Shard Bakery ==="
+docker exec -i shardBakery mongosh --port 27017 <<EOF
+rs.initiate({
+  _id: "shardBakeryRS",
+  members: [{ _id: 0, host: "shardBakery:27017" }]
+})
+EOF
+
+echo "Attente de l'initialisation du shardBakeryRS..."
+sleep 10
+
+echo "=== Ajout des Shards au Mongos ==="
+docker exec -i mongos mongosh --port 27020 <<EOF
+sh.addShard("shardButcheryRS/shardButchery:27018")
+sh.addShard("shardBakeryRS/shardBakery:27017")
+EOF
+
+echo "Attente de l'ajout des shards..."
+sleep 3
+
+echo "=== Configuration du Sharding sur la base de données ==="
+docker exec -i mongos mongosh --port 27020 <<EOF
+use projetnosql
+db.projetnosql.createIndex({ "BUSINESS": 1 })
+sh.enableSharding("projetnosql")
+sh.shardCollection("projetnosql.products", { "BUSINESS": 1 })
+sh.shardCollection("projetnosql.commands", { "BUSINESS": 1 })
+EOF
+
+echo "Attente de la configuration du sharding..."
+sleep 3
+
+echo "=== Distribution des chunks et création de l'utilisateur admin ==="
+docker exec -i mongos mongosh --port 27020 <<EOF
+sh.splitAt("projetnosql.products", { BUSINESS: "BUTCHER" })
+sh.splitAt("projetnosql.products", { BUSINESS: "BAKER" })
+sh.moveChunk("projetnosql.products", { BUSINESS: "BUTCHER" }, "shardButcheryRS")
+sh.moveChunk("projetnosql.products", { BUSINESS: "BAKER" }, "shardBakeryRS")
+use admin
+db.createUser({
+  user: "admin",
+  pwd: "password123",
+  roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]
+})
+EOF
+
+echo "=== Configuration terminée avec succès ! ==="

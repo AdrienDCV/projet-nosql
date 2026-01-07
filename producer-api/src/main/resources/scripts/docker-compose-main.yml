@@ -1,51 +1,39 @@
 services:
-  # =====================
-  # Config Server
-  # =====================
   configsvr:
     container_name: configsvr
     image: mongo:7.0
     command: mongod --configsvr --replSet configRS --port 27019 --bind_ip_all
     ports:
-      - 27019:27019
-    volumes:
-      - config_data:/data/db
+    - 27019:27019
     networks:
-      - mongonetwork
-
-  # =====================
-  # Shard core (users, core data)
-  # =====================
+    - scripts_default
+    volumes:
+    - config_data:/data/db
   coreshard:
     container_name: coreshard
     image: mongo:7.0
     command: mongod --shardsvr --replSet coreRS --port 27018 --bind_ip_all
     ports:
-      - 27018:27018
-    volumes:
-      - core_data:/data/db
+    - 27018:27018
     networks:
-      - mongonetwork
-
-  # =====================
-  # Mongo Router
-  # =====================
+    - scripts_default
+    volumes:
+    - core_data:/data/db
   mongos:
     container_name: mongos
     image: mongo:7.0
     command: mongos --configdb configRS/configsvr:27019 --port 27020 --bind_ip_all
     ports:
-      - 27020:27020
-    depends_on:
-      - configsvr
-      - coreshard
+    - 27020:27020
     networks:
-      - mongonetwork
-
+    - scripts_default
+    depends_on:
+    - configsvr
+    - coreshard
 networks:
-  mongonetwork:
+  scripts_default:
     driver: bridge
-
+    name: scripts_default
 volumes:
-  config_data:
-  core_data:
+  config_data: null
+  core_data: null

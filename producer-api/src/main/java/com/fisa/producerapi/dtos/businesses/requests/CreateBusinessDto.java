@@ -22,7 +22,7 @@ public class CreateBusinessDto {
   private String description;
   private String phoneNumber;
   private String email;
-  private UUID producerId;
+  private String producerId;
 
   public static Business toEntity(CreateBusinessDto createBusinessDto){
     return Business.builder()

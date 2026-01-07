@@ -24,7 +24,7 @@ public class Producer {
   private ObjectId id;
 
   @Field("PRODUCERID")
-  private UUID producerId;
+  private String producerId;
   @Field("LASTNAME")
   private String lastname;
   @Field("FIRSTNAME")

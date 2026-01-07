@@ -1,0 +1,28 @@
+meta {
+  name: Create business
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/api/businesses
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Test",
+    "address": "test",
+    "profession": "BUTCHERY",
+    "description": "Ceci est la description",
+    "phoneNumber": "0102030405",
+    "email": "email@business.com",
+    "producerId": "4c634615-08f6-4789-8ef9-c03ceae72a09"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

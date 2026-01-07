@@ -16,14 +16,14 @@ import java.util.UUID;
 @Builder
 public class BusinessDto {
 
-  private UUID businessId;
+  private String businessId;
   private String name;
   private String address;
   private Profession profession;
   private String description;
   private String phoneNumber;
   private String email;
-  private UUID producerId;
+  private String producerId;
 
   public static Business toEntity(BusinessDto businessDto){
     return Business.builder()

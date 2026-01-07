@@ -1,0 +1,13 @@
+services:
+  shard:
+    image: mongo:7
+    container_name: ${CONTAINER_NAME}
+    command: mongod --shardsvr --replSet ${SHARD_NAME} --port 27017
+    networks:
+      - mongo-cluster
+    ports:
+      - "${PORT}:27017"
+
+networks:
+  mongo-cluster:
+    external: true

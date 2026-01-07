@@ -14,7 +14,7 @@ import java.util.UUID;
 @Builder
 public class ProducerDto {
 
-  private UUID producerId;
+  private String producerId;
   private String lastname;
   private String firstname;
   private String email;

@@ -25,7 +25,7 @@ public class Business {
   private ObjectId id;
 
   @Field("BUSINESSID")
-  private UUID businessId;
+  private String businessId;
   @Field("NAME")
   private String name;
   @Field("ADDRESS")
@@ -39,6 +39,6 @@ public class Business {
   @Field("EMAIL")
   private String email;
   @Field("PRODUCERID")
-  private UUID producerId;
+  private String producerId;
 
 }
