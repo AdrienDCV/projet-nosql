@@ -35,7 +35,7 @@ export function Caroussel() {
                         <img
                             src={src}
                             alt={`Slide ${idx}`}
-                            className="w-full h-100 mt-10 object-cover"
+                            className="w-full h-100 object-cover"
                         />
                     </SwiperSlide>
                 ))}
