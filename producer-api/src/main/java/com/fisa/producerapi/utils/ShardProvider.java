@@ -40,7 +40,7 @@ public class ShardProvider {
       this.updateMainCompose(businessId);
 
       // 3. Démarrer UNIQUEMENT ce nouveau shard
-      this.runDockerCompose(shardFileName);
+      this.runDockerCompose(shardFileName, businessId);
 
       return new ShardInfo(businessId, port, shardFileName);
     } catch (Exception e) {
@@ -163,8 +163,8 @@ public class ShardProvider {
     }
   }
 
-  public void runDockerCompose(String configFile) throws IOException, InterruptedException {
-    new ProcessBuilder("docker", "compose", "-f", configFile, "up", "-d")
+  public void runDockerCompose(String configFile, String businessId) throws IOException, InterruptedException {
+    new ProcessBuilder("docker", "compose", "--project-name", businessId, "-f", configFile, "up", "-d")
             .inheritIO()
             .start()
             .waitFor();
