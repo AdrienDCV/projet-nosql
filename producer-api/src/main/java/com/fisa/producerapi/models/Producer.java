@@ -10,8 +10,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.UUID;
-
 @Setter
 @Getter
 @Builder
@@ -24,7 +22,7 @@ public class Producer {
   private ObjectId id;
 
   @Field("PRODUCERID")
-  private UUID producerId;
+  private String producerId;
   @Field("LASTNAME")
   private String lastname;
   @Field("FIRSTNAME")
@@ -33,5 +31,7 @@ public class Producer {
   private String email;
   @Field("PHONE")
   private String phone;
+  @Field("PASSWORD")
+  private String password;
 
 }

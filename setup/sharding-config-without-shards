@@ -1,0 +1,45 @@
+#!/bin/bash
+
+echo "=== Configuration du Config Server ==="
+docker exec -i configsvr mongosh --port 27019 <<EOF
+rs.initiate({
+  _id: "configRS",
+  configsvr: true,
+  members: [{ _id: 0, host: "configsvr:27019" }]
+})
+EOF
+
+echo "Attente de l'initialisation du configRS..."
+sleep 8
+
+echo "=== Configuration du shard core ==="
+docker exec -i coreshard mongosh --port 27018 <<EOF
+rs.initiate({
+  _id: "coreRS",
+  members: [{ _id: 0, host: "coreshard:27018" }]
+})
+EOF
+
+echo "Attente de l'initialisation du coreRS..."
+sleep 8
+
+echo "=== Ajout du shard core au cluster ==="
+docker exec -i mongos mongosh --port 27020 <<EOF
+sh.addShard("coreRS/coreshard:27018")
+sh.status()
+EOF
+
+echo "=== Création de l'utilisateur admin ==="
+docker exec -i mongos mongosh --port 27020 <<EOF
+use admin
+db.createUser({
+  user: "admin",
+  pwd: "password123",
+  roles: [
+    { role: "userAdminAnyDatabase", db: "admin" },
+    { role: "clusterAdmin", db: "admin" }
+  ]
+})
+EOF
+
+echo "=== Configuration terminée avec succès ! ==="

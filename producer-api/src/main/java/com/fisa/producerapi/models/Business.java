@@ -1,5 +1,6 @@
 package com.fisa.producerapi.models;
 
+import com.fisa.producerapi.models.enums.Profession;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,30 +11,34 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.util.UUID;
+
 @Setter
 @Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document("producers")
+@Builder
+@Document("businesses")
 public class Business {
 
   @Id
   private ObjectId id;
 
+  @Field("BUSINESSID")
+  private String businessId;
   @Field("NAME")
   private String name;
   @Field("ADDRESS")
-  private Address address;
+  private String address;
   @Field("PROFESSION")
-  private String profession;
+  private Profession profession;
   @Field("DESCRIPTION")
   private String description;
   @Field("PHONENUMER")
   private String phoneNumber;
   @Field("EMAIL")
   private String email;
-  @Field("PRODUCTERID")
-  private String producterId;
+  @Field("PRODUCERID")
+  private String producerId;
 
 }
