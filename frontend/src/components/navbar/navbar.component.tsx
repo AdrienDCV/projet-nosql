@@ -3,15 +3,15 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-export function Navbar(): React.JSX.Element {
+export function NavbarComponent(): React.JSX.Element {
     return (
-        <nav className="flex items-center justify-between px-6 h-[70px] rounded-b-3xl" style={{ backgroundColor: '#FFE4B9' }}>
+        <nav className="flex items-center justify-between px-6 h-[70px] rounded-b-3xl bg-[#FFE4B9]" >
 
             {/* Gauche */}
             <div className="flex items-center gap-2">
-                <div className="flex flex-col items-center font-bold text-white" style={{marginLeft: "30px" }}>
+                <div className="flex flex-col items-center ml-8 font-bold text-white" >
                     <LogoutIcon style={{ color: "#FF5733", fontSize: "32px" }} />
-                    <p style={{ color: "#B02E0C" }}>Connexion</p>
+                    <p className="text-secondary">Connexion</p>
                 </div>
             </div>
 

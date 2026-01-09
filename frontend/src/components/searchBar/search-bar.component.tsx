@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { FiSearch, FiX } from "react-icons/fi"; // icons de react-icons
+import { FiSearch, FiX } from "react-icons/fi";
 
-export function SearchBar() {
+export function SearchBarComponent() {
     const [searchTerm, setSearchTerm] = useState("");
 
     const handleClear = () => {
@@ -11,7 +11,6 @@ export function SearchBar() {
     return (
         <div className="w-128 max-w-4xl mx-auto py-16 px-4">
             <div className="relative flex bg-[#fff] rounded-full items-center">
-                {/* Champ de recherche */}
                 <input
                     type="text"
                     value={searchTerm}
@@ -20,7 +19,6 @@ export function SearchBar() {
                     className="w-full p-3 pl-10 pr-10 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
                 />
 
-                {/* Croix pour vider le champ */}
                 {searchTerm && (
                     <button
                         onClick={handleClear}
@@ -30,7 +28,6 @@ export function SearchBar() {
                     </button>
                 )}
 
-                {/* Icône loupe */}
                 <button className="absolute right-3 text-gray-500 hover:text-gray-700">
                     <FiSearch size={20} />
                 </button>

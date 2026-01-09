@@ -1,8 +1,8 @@
 import InstagramIcon from '@mui/icons-material/Instagram';
 
-export function Footer() {
+export function FooterComponent() {
     return (
-        <footer className="w-full bg-[#FFD086] text-[#B02E0C] py-6">
+        <footer className="w-full bg-[#FFD086] text-[#B02E0C] py-6 mt-8">
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between px-6 text-sm">
                 {/* Texte copyright */}
                 <p className="mb-2 md:mb-0">© 2026 — QUETTA</p>

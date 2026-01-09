@@ -37,7 +37,7 @@ export function ProducerCard() {
                                 className="w-44 h-44 rounded-full object-cover mb-4 shadow-lg"
                             />
 
-                            <h3 className="text-xl text-[#B02E0C] font-semibold mb-2">
+                            <h3 className="text-xl text-secondary font-semibold mb-2">
                                 {partner.name}
                             </h3>
 
