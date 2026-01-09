@@ -1,0 +1,25 @@
+meta {
+  name: Create product
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/products
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "businessId": "a21dad05-2859-4250-b222-c49631da83ca",
+    "label" : "test",
+    "price" : 19.25,
+    "uniteMesure" : "UNIT"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

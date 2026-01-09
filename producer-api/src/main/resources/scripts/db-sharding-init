@@ -1,0 +1,78 @@
+#!/bin/bash
+
+#################################
+# CONFIG SERVER REPLICA SET
+#################################
+echo "=== [1/4] Init Config Server Replica Set ==="
+docker exec -i configsvr mongosh --port 27019 <<EOF
+rs.initiate({
+  _id: "configRS",
+  configsvr: true,
+  members: [
+    { _id: 0, host: "configsvr:27019" }
+  ]
+})
+EOF
+
+sleep 8
+
+#################################
+# CORE SHARD REPLICA SET
+#################################
+echo "=== [2/4] Init Core Shard Replica Set ==="
+docker exec -i coreshard mongosh --port 27018 <<EOF
+rs.initiate({
+  _id: "coreRS",
+  members: [
+    { _id: 0, host: "coreshard:27018" }
+  ]
+})
+EOF
+
+sleep 8
+
+#################################
+# CLUSTER WIRING (mongos)
+#################################
+echo "=== [3/4] Cluster wiring (add shard) ==="
+docker exec -i mongos mongosh --port 27020 <<EOF
+sh.addShard("coreRS/coreshard:27018")
+EOF
+
+sleep 3
+
+#################################
+# SHARDING LOGIQUE
+#################################
+echo "=== [4/4] Enable sharding and shard collections ==="
+docker exec -i mongos mongosh --port 27020 <<EOF
+// Activer le sharding sur la base
+sh.enableSharding("projetnosql")
+
+// Index de shard
+db.getSiblingDB("projetnosql").products.createIndex({ businessId: 1 })
+db.getSiblingDB("projetnosql").orders.createIndex({ businessId: 1 })
+
+// Sharding des collections
+sh.shardCollection("projetnosql.products", { businessId: 1 })
+sh.shardCollection("projetnosql.orders", { businessId: 1 })
+EOF
+
+sleep 3
+
+#################################
+# ADMIN USER
+#################################
+echo "=== [SECURITY] Create admin user ==="
+docker exec -i mongos mongosh --port 27020 <<EOF
+db.getSiblingDB("admin").createUser({
+  user: "admin",
+  pwd: "password123",
+  roles: [
+    { role: "userAdminAnyDatabase", db: "admin" },
+    { role: "clusterAdmin", db: "admin" }
+  ]
+})
+EOF
+
+echo "=== ✅ MongoDB sharded cluster ready ==="

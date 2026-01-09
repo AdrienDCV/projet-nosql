@@ -12,31 +12,28 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import com.fisa.producerapi.models.enums.UniteMesure;
 
-import java.util.UUID;
-
 @Setter
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Document("products")
-
 public class Product {
 
     @Id 
     private ObjectId id;
 
-    @Field("PRODUCTID")
-    private UUID productId;
-    @Field("BUSINESSID")
-    private UUID businessId;
-    @Field("LABEL")
+    @Field("productId")
+    private String productId;
+    @Field("businessId")
+    private String businessId;
+    @Field("label")
     private String label;
-    @Field("PRICE")
+    @Field("price")
     private Double price;
-    @Field("QUANTITY")
+    @Field("quantity")
     private Integer quantity;
-    @Field("UNITEMESURE")
+    @Field("uniteMesure")
     private UniteMesure uniteMesure;
 
 }
