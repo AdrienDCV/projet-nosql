@@ -20,7 +20,7 @@ const partners = [
     },
 ];
 
-export function ProductCard() {
+export function ProducerCard() {
     return (
         <div className="flex flex-col bg-[#FFF6E8]">
             {/* Section partenaires */}
