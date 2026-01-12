@@ -32,14 +32,14 @@ public class ShardProvider {
     try {
       int port = this.getNextAvailablePort();
 
-      // 1. Créer le fichier docker-compose pour le shard
+      // Créer le fichier docker-compose pour le shard
       String shardFileName = String.format("%s/%s_shard.yml", SHARDS_DIR, businessId);
       this.generateShardFile(businessId, port, shardFileName);
 
-      // 2. Mettre à jour le fichier principal
+      // Mettre à jour le fichier principal
       this.updateMainCompose(businessId);
 
-      // 3. Démarrer UNIQUEMENT ce nouveau shard
+      // Démarrer le nouveau shard
       this.runDockerCompose(shardFileName, businessId);
 
       return new ShardInfo(businessId, port, shardFileName);

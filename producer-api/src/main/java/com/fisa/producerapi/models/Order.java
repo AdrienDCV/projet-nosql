@@ -12,6 +12,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import com.fisa.producerapi.models.enums.OrderStatus;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -26,19 +28,27 @@ public class Order {
     @Id 
     private ObjectId id;
 
-    @Field("ORDERID")
-    private UUID orderId;
-    @Field("BUSINESSID")
-    private UUID businessId;
-    @Field("CLIENTID")
-    private UUID clientId;
-    @Field("DELIVERYADDRESS")
+    @Field("orderId")
+    private String orderId;
+    @Field("clientOrderId")
+    private String clientOrderId;
+    @Field("businessId")
+    private String businessId;
+    @Field("clientId")
+    private String clientId;
+    @Field("deliveryAddress")
     private Address deliveryAddress;
-    @Field("MAIL")
-    private String mail;
-    @Field("PRODUCTS")
-    private Map<Product, Integer> products;
-    @Field("ORDERSTATUS")
+    @Field("email")
+    private String email;
+    @Field("phone")
+    private String phone;
+    @Field("products")
+    private List<Product> products;
+    @Field("orderStatus")
     private OrderStatus orderStatus;
+    @Field("createdAt")
+    private LocalDateTime createdAt;
+    @Field("updatedeAt")
+    private LocalDateTime updatedAt;
 
 }
