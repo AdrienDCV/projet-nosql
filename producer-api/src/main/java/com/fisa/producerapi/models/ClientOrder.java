@@ -1,18 +1,13 @@
-package com.fisa.clientapi.models;
+package com.fisa.producerapi.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import com.fisa.clientapi.models.enums.OrderStatus;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -20,33 +15,24 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document("orders")
-public class Order {
+@Document("clientOrders")
+public class ClientOrder {
 
-  @Id
-  private ObjectId id;
-
-  @Field("orderId")
-  private String orderId;
   @Field("clientOrderId")
   private String clientOrderId;
-  @Field("businessId")
-  private String businessId;
   @Field("clientId")
   private String clientId;
+  @Field("products")
+  private List<Product> products;
   @Field("deliveryAddress")
   private Address deliveryAddress;
   @Field("email")
   private String email;
   @Field("phone")
   private String phone;
-  @Field("products")
-  private List<Product> products;
-  @Field("orderStatus")
-  private OrderStatus orderStatus;
   @Field("createdAt")
-  private LocalDateTime createdAt;
-  @Field("updatedeAt")
-  private LocalDateTime updatedAt;
+  private String createdAt;
+  @Field("updatedAt")
+  private String updatedAt;
 
 }
