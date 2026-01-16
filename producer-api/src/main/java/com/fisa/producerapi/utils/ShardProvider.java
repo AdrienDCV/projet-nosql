@@ -3,20 +3,14 @@ package com.fisa.producerapi.utils;
 import com.fisa.producerapi.models.ShardInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.yaml.snakeyaml.DumperOptions;
-import org.yaml.snakeyaml.Yaml;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -25,7 +19,6 @@ import java.util.stream.Stream;
 public class ShardProvider {
 
   private static final String SHARDS_DIR = "src/main/resources/scripts/shards";
-  private static final String MAIN_COMPOSE_FILE = "src/main/resources/scripts/docker-compose-main.yml";
   private static final int BASE_PORT = 27021;
 
   public ShardInfo createUserShard(String businessId) {
@@ -35,9 +28,6 @@ public class ShardProvider {
       // Créer le fichier docker-compose pour le shard
       String shardFileName = String.format("%s/%s_shard.yml", SHARDS_DIR, businessId);
       this.generateShardFile(businessId, port, shardFileName);
-
-      // Mettre à jour le fichier principal
-      this.updateMainCompose(businessId);
 
       // Démarrer le nouveau shard
       this.runDockerCompose(shardFileName, businessId);
@@ -126,41 +116,6 @@ public class ShardProvider {
                 """.formatted(businessId, port, dbName);
 
     Files.writeString(Paths.get(filename), template);
-  }
-
-  public void updateMainCompose(String userId) throws IOException {
-    Yaml yaml = new Yaml();
-    Path path = Paths.get(MAIN_COMPOSE_FILE);
-    Map<String, Object> oldData = Files.exists(path) ? yaml.load(Files.readString(path)) : new LinkedHashMap<>();
-    if (oldData == null) oldData = new LinkedHashMap<>();
-
-    List<Object> includes = (oldData.get("include") instanceof List<?> list) ? new ArrayList<>(list) : new ArrayList<>();
-    String shardPath = String.format("./shards/%s_shard.yml", userId);
-
-    boolean alreadyIncluded = includes.stream().anyMatch(inc ->
-            (inc instanceof Map<?, ?> m) ? shardPath.equals(m.get("path")) : shardPath.equals(inc)
-    );
-
-    if (!alreadyIncluded) {
-      includes.add(Map.of("path", shardPath));
-    }
-
-    Map<String, Object> composeData = new LinkedHashMap<>();
-    composeData.put("include", includes);
-
-    Map<String, Object> finalOldData = oldData;
-    List.of("services", "networks", "volumes").forEach(key -> {
-      if (finalOldData.containsKey(key)) composeData.put(key, finalOldData.get(key));
-    });
-
-    DumperOptions options = new DumperOptions();
-    options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
-    options.setPrettyFlow(true);
-    options.setIndent(2);
-
-    try (FileWriter writer = new FileWriter(MAIN_COMPOSE_FILE)) {
-      new Yaml(options).dump(composeData, writer);
-    }
   }
 
   public void runDockerCompose(String configFile, String businessId) throws IOException, InterruptedException {
