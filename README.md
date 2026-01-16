@@ -18,13 +18,18 @@ Les deux API se connectent à la même base de données MongoDb mais sont indép
 ## Instruction d\'installation
 
 ### 1. Initialisation des containers Docker 
-A la racine du projet, exécuter la commande `docker compose up` pour intialiser les containers Docker.
 ```bash
-docker compose up
+cd producer-api/src/main/resources/scripts
 ```
 
-### 2. Mise en place du sharding
-Dans le répertoire `./setup`, exécuter le script de configuration du sharding de la BDD compatible avec votre OS.
+```bash
+docker compose -f docker-compose-main.yml up 
+```
 
-- Linux/macOS : `sharding-config`
-- Windows : `sharding-config.ps1`
+```bash
+# Sous UNIX/macOS
+./db-sharding-init
+
+# Sous Windows
+./dbShardingInit.ps1
+```
