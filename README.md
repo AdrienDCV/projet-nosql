@@ -31,5 +31,17 @@ docker compose -f docker-compose-main.yml up
 ./db-sharding-init
 
 # Sous Windows
-./dbShardingInit.ps1
+./DbShardingInit.ps1
+```
+
+Si des shards se trouvent dans le répertoire `/shards`, alors exécuter le script `build-shards.sh` pour reconstruire
+les shards. Pour des raisons de sécurité et laisser le temps au shard de se configurer, un intervale de 15 secondes est
+configuré entre la création et configuration d'un shard.
+
+```bash
+# Sous UNIX/macOS
+./build-shards.sh
+
+# Sous Windows
+./DbShardingInit.ps1
 ```
