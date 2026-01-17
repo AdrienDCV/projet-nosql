@@ -1,7 +1,7 @@
 server:
   port: ${PORT:8081}
   servlet:
-    context-path: /api
+    context-path: /client-api
   http2:
     enabled: true
   compression:
@@ -10,8 +10,13 @@ server:
 
 spring:
   mongodb:
-    uri: mongodb://admin:password123@localhost:27020/projetnosql?authSource=admin
+    uri: ${SPRING_DATA_MONGODB_URI}
   servlet:
     encoding:
       charset: UTF-8
       force: true
+
+app:
+  jwt:
+    secret: ${APP_JWT_SECRET}
+    expiration: ${APP_JWT_EXPIRATION}
