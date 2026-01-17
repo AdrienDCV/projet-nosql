@@ -1,6 +1,7 @@
 package com.fisa.producerapi.dtos.products.responses;
 
 import com.fisa.producerapi.models.Product;
+import com.fisa.producerapi.models.enums.StockStatus;
 import com.fisa.producerapi.models.enums.UniteMesure;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +19,8 @@ public class ProductDto {
   private String label;
   private Double price;
   private Integer quantity;
+  private Integer stock;
+  private StockStatus stockStatus;
   private UniteMesure uniteMesure;
 
   public static Product toEntity(ProductDto productDto) {
@@ -27,6 +30,8 @@ public class ProductDto {
             .label(productDto.getLabel())
             .price(productDto.getPrice())
             .quantity(productDto.getQuantity())
+            .stock(productDto.getStock())
+            .stockStatus(productDto.getStockStatus())
             .uniteMesure(productDto.getUniteMesure())
             .build();
   }
@@ -38,6 +43,8 @@ public class ProductDto {
             .label(product.getLabel())
             .price(product.getPrice())
             .quantity(product.getQuantity())
+            .stock(product.getStock())
+            .stockStatus(product.getStockStatus())
             .uniteMesure(product.getUniteMesure())
             .build();
   }

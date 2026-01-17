@@ -1,5 +1,6 @@
 package com.fisa.producerapi.models;
 
+import com.fisa.producerapi.models.enums.StockStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,6 +34,10 @@ public class Product {
     private Double price;
     @Field("quantity")
     private Integer quantity;
+    @Field("stock")
+    private Integer stock;
+    @Field("stockStatus")
+    private StockStatus stockStatus;
     @Field("uniteMesure")
     private UniteMesure uniteMesure;
 

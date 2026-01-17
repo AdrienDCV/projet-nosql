@@ -16,7 +16,7 @@ public class CreateProductDto {
   private String businessId;
   private String label;
   private Double price;
-  private Integer quantity;
+  private Integer stock;
   private UniteMesure uniteMesure;
 
   public static Product toEntity(CreateProductDto createProductDto) {
@@ -24,7 +24,6 @@ public class CreateProductDto {
             .businessId(createProductDto.getBusinessId())
             .label(createProductDto.getLabel())
             .price(createProductDto.getPrice())
-            .quantity(createProductDto.getQuantity())
             .uniteMesure(createProductDto.getUniteMesure())
             .build();
   }
