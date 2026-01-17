@@ -1,5 +1,6 @@
 package com.fisa.producerapi.services;
 
+import com.fisa.producerapi.exceptions.products.ProductNotFoundException;
 import com.fisa.producerapi.models.Product;
 import com.fisa.producerapi.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,12 +20,17 @@ public class ProductService {
 
   public Product createProduct(Product newProduct) {
     newProduct.setProductId(UUID.randomUUID().toString());
+    newProduct.setQuantity(0);
 
     return productRepository.save(newProduct);
   }
 
   public Page<Product> retrieveAllProducts(Pageable pageable) {
     return productRepository.findAll(pageable);
+  }
+
+  public Product retrieveProductById(String productId) {
+    return productRepository.findByProductId(productId).orElseThrow(ProductNotFoundException::new);
   }
 
 }

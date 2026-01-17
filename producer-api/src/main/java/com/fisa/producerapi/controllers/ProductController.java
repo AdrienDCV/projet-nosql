@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,5 +61,12 @@ public class ProductController {
     );
   }
 
+  @GetMapping("/{productId}")
+  public ResponseEntity<ProductDto> retrieveProductById(@PathVariable String productId) {
+    return new ResponseEntity<>(
+            ProductDto.toDto(productService.retrieveProductById(productId)),
+            HttpStatus.OK
+    );
+  }
 
 }
