@@ -3,14 +3,11 @@ package com.fisa.producerapi.controllers;
 import com.fisa.producerapi.dtos.authentication.ProducerSignInRequestDto;
 import com.fisa.producerapi.dtos.authentication.ProducerSignUpRequestDto;
 import com.fisa.producerapi.dtos.authentication.ProducerAuthenticationResponseDto;
-import com.fisa.producerapi.repositories.ProducerRepository;
-import com.fisa.producerapi.security.JwtTokenProvider;
 import com.fisa.producerapi.services.ProducerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,11 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 public class AuthenticationController {
 
-  private final AuthenticationManager authenticationManager;
-
-  private final JwtTokenProvider tokenProvider;
-
-  private final ProducerRepository producerRepository;
   private final ProducerService producerService;
 
   private PasswordEncoder passwordEncoder;
