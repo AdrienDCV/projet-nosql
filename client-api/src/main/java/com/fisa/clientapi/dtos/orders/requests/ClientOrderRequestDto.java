@@ -1,8 +1,9 @@
 package com.fisa.clientapi.dtos.orders.requests;
 
 import com.fisa.clientapi.dtos.AddressDto;
-import com.fisa.clientapi.dtos.products.responses.ProductDto;
+import com.fisa.clientapi.dtos.orders.OrderEntryDto;
 import com.fisa.clientapi.models.ClientOrder;
+import com.fisa.clientapi.models.OrderEntry;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +20,7 @@ import java.util.List;
 public class ClientOrderRequestDto {
 
   private String clientId;
-  private List<ProductDto> products;
+  private List<OrderEntry> orderEntries;
   private AddressDto deliveryAddress;
   private String email;
   private String phone;
@@ -27,7 +28,7 @@ public class ClientOrderRequestDto {
   public static ClientOrder toEntity(ClientOrderRequestDto createOrderDto) {
     return ClientOrder.builder()
             .clientId(createOrderDto.getClientId())
-            .products(createOrderDto.getProducts().stream().map(ProductDto::toEntity).toList())
+            .orderEntries(createOrderDto.getOrderEntries().stream().map(OrderEntryDto::toEntity).toList())
             .deliveryAddress(AddressDto.toEntity(createOrderDto.getDeliveryAddress()))
             .email(createOrderDto.getEmail())
             .phone(createOrderDto.getPhone())
