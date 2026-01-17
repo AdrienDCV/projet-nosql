@@ -1,8 +1,10 @@
 package com.fisa.producerapi.services;
 
-import com.fisa.producerapi.exceptions.EmailAlreadyUsedException;
+import com.fisa.producerapi.exceptions.authentication.EmailAlreadyUsedException;
+import com.fisa.producerapi.exceptions.producers.ProducerNotFoundException;
 import com.fisa.producerapi.models.Producer;
 import com.fisa.producerapi.models.AuthenticatedProducer;
+import com.fisa.producerapi.models.ProducerSignInRequest;
 import com.fisa.producerapi.models.ProducerSignUpRequest;
 import com.fisa.producerapi.models.enums.Role;
 import com.fisa.producerapi.repositories.ProducerRepository;
@@ -71,6 +73,27 @@ public class ProducerService {
             .message("Registration successful")
             .enabled(true)
             .producer(createdProducer)
+            .build();
+  }
+
+  public AuthenticatedProducer signInUser(ProducerSignInRequest producerSignInRequest) {
+    final Producer existingProducer = producerRepository.findByUsername(producerSignInRequest.getUsername())
+            .orElseThrow(ProducerNotFoundException::new);
+
+    final Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                    producerSignInRequest.getUsername(),
+                    producerSignInRequest.getPassword()
+            )
+    );
+
+    final String token = jwtTokenProvider.generateToken(authentication);
+
+    return AuthenticatedProducer.builder()
+            .jwt(token)
+            .message("Login successful")
+            .enabled(true)
+            .producer(existingProducer)
             .build();
   }
 }

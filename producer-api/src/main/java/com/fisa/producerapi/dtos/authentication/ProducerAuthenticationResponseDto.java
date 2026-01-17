@@ -12,15 +12,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProducerSignUpResponseDto {
+public class ProducerAuthenticationResponseDto {
 
   private String jwt;
   private String message;
   private Boolean enabled;
   private ProducerDto producer;
 
-  public static ProducerSignUpResponseDto toDto(AuthenticatedProducer authenticatedProducer) {
-    return ProducerSignUpResponseDto.builder()
+  public static ProducerAuthenticationResponseDto toDto(AuthenticatedProducer authenticatedProducer) {
+    return ProducerAuthenticationResponseDto.builder()
             .jwt(authenticatedProducer.getJwt())
             .message(authenticatedProducer.getMessage())
             .enabled(authenticatedProducer.getEnabled())
