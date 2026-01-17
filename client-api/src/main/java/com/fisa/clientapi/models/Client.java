@@ -1,5 +1,6 @@
 package com.fisa.clientapi.models;
 
+import com.fisa.clientapi.models.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,28 +11,33 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document("users")
-public class User {
+@Document("clients")
+public class Client {
 
   @Id
   private ObjectId id;
 
-  @Field("USERID")
-  private String userId;
-  @Field("LASTNAME")
-  private String lastname;
-  @Field("FIRSTNAME")
-  private String firstname;
-  @Field("EMAIL")
-  private String email;
-  @Field("PASSWORD")
+  @Field("username")
+  private String username;
+  @Field("password")
   private String password;
+  @Field("email")
+  private String email;
+  @Field("role")
+  private Role role;
+
+  @Field("clientId")
+  private String clientId;
+  @Field("lastname")
+  private String lastname;
+  @Field("firstname")
+  private String firstname;
+  @Field("phone")
+  private String phone;
 
 }

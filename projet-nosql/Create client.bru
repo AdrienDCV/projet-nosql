@@ -1,0 +1,27 @@
+meta {
+  name: Create client
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:8081/client-api/auth/sign-up
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "username": "email.detest@test.com",
+    "password": "ceciEstUnMotDePasse",
+    "firstname": "testUser",
+    "lastname": "NOM DE FAMILLE",
+    "email": "email.detest@test.com",
+    "phone": "0102030405"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
