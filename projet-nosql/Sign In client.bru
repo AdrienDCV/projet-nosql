@@ -1,0 +1,23 @@
+meta {
+  name: Sign In client
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:8081/client-api/auth/sign-in
+  body: json
+  auth: inherit
+}
+
+body:json {
+    {
+      "username": "email.detest@test.com",
+      "password": "ceciEstUnMotDePasse"
+    }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

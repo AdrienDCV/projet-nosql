@@ -1,8 +1,10 @@
 package com.fisa.clientapi.services;
 
+import com.fisa.clientapi.exceptions.ClientNotFoundException;
 import com.fisa.clientapi.exceptions.EmailAlreadyUsedException;
 import com.fisa.clientapi.models.AuthenticatedClient;
 import com.fisa.clientapi.models.Client;
+import com.fisa.clientapi.models.ClientSignInRequest;
 import com.fisa.clientapi.models.ClientSignUpRequest;
 import com.fisa.clientapi.models.enums.Role;
 import com.fisa.clientapi.repositories.ClientRepository;
@@ -76,4 +78,24 @@ public class ClientService {
             .build();
   }
 
+  public AuthenticatedClient signInClient(ClientSignInRequest clientSignInRequest) {
+    final Client existingClient = clientRepository.findByUsername(clientSignInRequest.getUsername())
+            .orElseThrow(ClientNotFoundException::new);
+
+    final Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                    clientSignInRequest.getUsername(),
+                    clientSignInRequest.getPassword()
+            )
+    );
+
+    final String token = jwtTokenProvider.generateToken(authentication);
+
+    return AuthenticatedClient.builder()
+            .jwt(token)
+            .message("Login successful")
+            .enabled(true)
+            .client(existingClient)
+            .build();
+  }
 }
