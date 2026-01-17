@@ -1,0 +1,16 @@
+meta {
+  name: Retrieve product by ID (client-api)
+  type: http
+  seq: 10
+}
+
+get {
+  url: http://localhost:8081/client-api/products/21117c05-16b0-4c5b-ba2b-e98ca298ad47
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

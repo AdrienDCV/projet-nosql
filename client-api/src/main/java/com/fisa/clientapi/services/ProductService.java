@@ -1,5 +1,6 @@
 package com.fisa.clientapi.services;
 
+import com.fisa.clientapi.exceptions.ProductNotFoundException;
 import com.fisa.clientapi.models.Product;
 import com.fisa.clientapi.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,10 @@ public class ProductService {
 
   public Page<Product> retrieveAllProducts(Pageable pageable) {
     return productRepository.findAll(pageable);
+  }
+
+  public Product retrieveProductById(String productId) {
+    return productRepository.findByProductId(productId).orElseThrow(ProductNotFoundException::new);
   }
 
 }
