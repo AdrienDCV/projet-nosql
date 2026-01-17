@@ -2,7 +2,6 @@ package com.fisa.clientapi.dtos.orders.responses;
 
 import com.fisa.clientapi.dtos.AddressDto;
 import com.fisa.clientapi.dtos.products.responses.ProductDto;
-import com.fisa.clientapi.models.Address;
 import com.fisa.clientapi.models.ClientOrder;
 import com.fisa.clientapi.models.enums.OrderStatus;
 import lombok.AllArgsConstructor;

@@ -5,18 +5,19 @@ meta {
 }
 
 post {
-  url: http://localhost:8080/api/producers
+  url: http://localhost:8080/producer-api/auth/sign-up
   body: json
   auth: inherit
 }
 
 body:json {
   {
-    "lastname": "DA COSTA VEIGA",
-    "firstname": "Adrien",
-    "email": "adrien.dacostaveiga@test.fr",
-    "phone": "0102030405",
-    "password": "azerty"
+    "username": "email.detest@test.com",
+    "password": "ceciEstUnMotDePasse",
+    "firstname": "testUser",
+    "lastname": "NOM DE FAMILLE",
+    "email": "email.detest@test.com",
+    "phone": "0102030405"
   }
 }
 
