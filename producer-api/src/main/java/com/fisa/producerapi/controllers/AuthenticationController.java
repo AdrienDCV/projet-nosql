@@ -1,7 +1,8 @@
 package com.fisa.producerapi.controllers;
 
+import com.fisa.producerapi.dtos.authentication.ProducerSignInRequestDto;
 import com.fisa.producerapi.dtos.authentication.ProducerSignUpRequestDto;
-import com.fisa.producerapi.dtos.authentication.ProducerSignUpResponseDto;
+import com.fisa.producerapi.dtos.authentication.ProducerAuthenticationResponseDto;
 import com.fisa.producerapi.repositories.ProducerRepository;
 import com.fisa.producerapi.security.JwtTokenProvider;
 import com.fisa.producerapi.services.ProducerService;
@@ -33,11 +34,22 @@ public class AuthenticationController {
 
 
   @PostMapping("/sign-up")
-  public ResponseEntity<ProducerSignUpResponseDto> registerUser(@RequestBody ProducerSignUpRequestDto producerSignUpRequestDto) {
+  public ResponseEntity<ProducerAuthenticationResponseDto> registerUser(@RequestBody ProducerSignUpRequestDto producerSignUpRequestDto) {
     return new ResponseEntity<>(
-            ProducerSignUpResponseDto.toDto(
+            ProducerAuthenticationResponseDto.toDto(
                     producerService.createProducer(
                             ProducerSignUpRequestDto.toEntity(producerSignUpRequestDto)
+                    )
+            ),
+            HttpStatus.OK);
+  }
+
+  @PostMapping("/sign-in")
+  public ResponseEntity<ProducerAuthenticationResponseDto> signInUser(@RequestBody ProducerSignInRequestDto producerSignInRequestDto) {
+    return new ResponseEntity<>(
+            ProducerAuthenticationResponseDto.toDto(
+                    producerService.signInUser(
+                            ProducerSignInRequestDto.toEntity(producerSignInRequestDto)
                     )
             ),
             HttpStatus.OK);

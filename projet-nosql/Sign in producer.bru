@@ -1,0 +1,23 @@
+meta {
+  name: Sign in producer
+  type: http
+  seq: 7
+}
+
+post {
+  url: http://localhost:8080/producer-api/auth/sign-in
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "username": "email.detest@test.com",
+    "password": "ceciEstUnMotDePasse"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

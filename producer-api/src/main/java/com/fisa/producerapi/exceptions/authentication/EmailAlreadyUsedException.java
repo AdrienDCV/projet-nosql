@@ -1,5 +1,6 @@
-package com.fisa.producerapi.exceptions;
+package com.fisa.producerapi.exceptions.authentication;
 
+import com.fisa.producerapi.exceptions.BusinessException;
 import org.springframework.http.HttpStatus;
 
 /**
