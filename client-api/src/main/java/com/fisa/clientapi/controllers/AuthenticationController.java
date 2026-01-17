@@ -1,8 +1,8 @@
 package com.fisa.clientapi.controllers;
 
+import com.fisa.clientapi.dtos.authentication.ClientSignInRequestDto;
 import com.fisa.clientapi.dtos.authentication.ClientSignUpRequestDto;
-import com.fisa.clientapi.dtos.authentication.ClientSignUpResponseDto;
-import com.fisa.clientapi.models.Client;
+import com.fisa.clientapi.dtos.authentication.ClientAuthenticationResponseDto;
 import com.fisa.clientapi.repositories.ClientRepository;
 import com.fisa.clientapi.security.JwtTokenProvider;
 import com.fisa.clientapi.services.ClientService;
@@ -34,11 +34,22 @@ public class AuthenticationController {
 
 
   @PostMapping("/sign-up")
-  public ResponseEntity<ClientSignUpResponseDto> registerUser(@RequestBody ClientSignUpRequestDto clientSignUpRequestDto) {
+  public ResponseEntity<ClientAuthenticationResponseDto> registerUser(@RequestBody ClientSignUpRequestDto clientSignUpRequestDto) {
     return new ResponseEntity<>(
-            ClientSignUpResponseDto.toDto(
+            ClientAuthenticationResponseDto.toDto(
                     clientService.createClient(
                             ClientSignUpRequestDto.toEntity(clientSignUpRequestDto)
+                    )
+            ),
+            HttpStatus.OK);
+  }
+
+  @PostMapping("/sign-in")
+  public ResponseEntity<ClientAuthenticationResponseDto> signInUser(@RequestBody ClientSignInRequestDto clientSignInRequestDto) {
+    return new ResponseEntity<>(
+            ClientAuthenticationResponseDto.toDto(
+                    clientService.signInClient(
+                            ClientSignInRequestDto.toEntity(clientSignInRequestDto)
                     )
             ),
             HttpStatus.OK);
