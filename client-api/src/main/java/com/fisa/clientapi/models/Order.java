@@ -40,8 +40,8 @@ public class Order {
   private String email;
   @Field("phone")
   private String phone;
-  @Field("products")
-  private List<Product> products;
+  @Field("orderEntries")
+  private List<OrderEntry> orderEntries;
   @Field("orderStatus")
   private OrderStatus orderStatus;
   @Field("createdAt")

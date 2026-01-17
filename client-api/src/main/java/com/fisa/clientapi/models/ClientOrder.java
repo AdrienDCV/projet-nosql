@@ -1,5 +1,6 @@
 package com.fisa.clientapi.models;
 
+import com.fisa.clientapi.models.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -22,8 +24,8 @@ public class ClientOrder {
   private String clientOrderId;
   @Field("clientId")
   private String clientId;
-  @Field("products")
-  private List<Product> products;
+  @Field("orderEntries")
+  private List<OrderEntry> orderEntries;
   @Field("deliveryAddress")
   private Address deliveryAddress;
   @Field("email")
@@ -34,5 +36,11 @@ public class ClientOrder {
   private String createdAt;
   @Field("updatedAt")
   private String updatedAt;
+  @Field("orderStatus")
+  private OrderStatus orderStatus;
+  @Field("orderDate")
+  private LocalDateTime orderDate;
+  @Field("totalPrice")
+  private Double totalPrice;
 
 }
