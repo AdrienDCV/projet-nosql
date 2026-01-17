@@ -1,6 +1,7 @@
 package com.fisa.producerapi.dtos.producers.responses;
 
 import com.fisa.producerapi.models.Producer;
+import com.fisa.producerapi.models.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class ProducerDto {
   private String firstname;
   private String email;
   private String phone;
+  private Role role;
 
   public static Producer toEntity(ProducerDto producerDto) {
     return Producer.builder()
@@ -27,6 +29,7 @@ public class ProducerDto {
             .firstname(producerDto.getFirstname())
             .email(producerDto.getEmail())
             .phone(producerDto.getPhone())
+            .role(producerDto.getRole())
             .build();
   }
 
@@ -37,6 +40,7 @@ public class ProducerDto {
             .firstname(producer.getFirstname())
             .email(producer.getEmail())
             .phone(producer.getPhone())
+            .role(producer.getRole())
             .build();
   }
 
