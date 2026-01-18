@@ -1,6 +1,6 @@
-package com.fisa.producerapi.models;
+package com.fisa.clientapi.models;
 
-import com.fisa.producerapi.models.enums.Profession;
+import com.fisa.clientapi.models.enums.Profession;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -10,8 +10,6 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-
-import java.util.UUID;
 
 @Setter
 @Getter

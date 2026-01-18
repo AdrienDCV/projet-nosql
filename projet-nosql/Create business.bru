@@ -5,9 +5,13 @@ meta {
 }
 
 post {
-  url: http://localhost:8080/api/businesses
+  url: http://localhost:8080/producer-api/businesses
   body: json
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
 }
 
 body:json {
@@ -18,7 +22,7 @@ body:json {
     "description": "Ceci est la description",
     "phoneNumber": "0102030405",
     "email": "email@business.com",
-    "producerId": "778291a6-4720-4719-aabe-65bfa1e20abc"
+    "producerId": "e54c6cfd-ecc0-41f1-8f91-3f1c6b434b47"
   }
 }
 
