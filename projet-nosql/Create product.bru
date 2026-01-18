@@ -5,14 +5,18 @@ meta {
 }
 
 post {
-  url: http://localhost:8080/api/products
+  url: http://localhost:8080/producer-api/products
   body: json
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
 }
 
 body:json {
   {
-    "businessId": "3e87940f-3a52-45b1-af3e-94fe5236fa29",
+    "businessId": "a6a04b40-c3db-48fd-9426-e505773d9446",
     "label" : "test",
     "price" : 19.25,
     "quantity": "44",
