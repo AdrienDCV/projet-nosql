@@ -3,19 +3,24 @@ import './App.css'
 import {HomePage} from "./pages/home/home.page.tsx";
 import {Navigate, Route, Routes} from "react-router";
 import {FooterComponent} from "./components/footer/footer.component.tsx";
-import {NavbarComponent} from "./components/navbar/navbar.component.tsx";
 import {BasketPage} from "./pages/basket/basket.page.tsx";
+import ProtectedRoute from "./components/protected-route/protected-route.component.tsx";
+import {SignUpPage} from "./pages/authentication/sign-up/sign-up.page.tsx";
+import {SignInPage} from "./pages/authentication/sign-in/sign-in.page.tsx";
 
 function App() {
 
   return (
     <div className="w-full h-full flex flex-col gap-8">
-      <NavbarComponent/>
       <Suspense fallback={<h1>Page is loading...</h1>}>
         <Routes>
-          <Route path="/" element={<Navigate to="/home" replace />} />
-          <Route index path='/home' element={<HomePage />} />
-          <Route index path='/basket' element={<BasketPage />} />
+          <Route element={<ProtectedRoute />}>
+            <Route index path='/home' element={<HomePage />} />
+            <Route index path='/basket' element={<BasketPage />} />
+          </Route>
+          <Route path='/sign-up' element={<SignUpPage />} />
+          <Route path='/sign-in' element={<SignInPage />} />
+          <Route path='*' element={<Navigate to='/home' />} />
         </Routes>
       </Suspense>
       <FooterComponent/>

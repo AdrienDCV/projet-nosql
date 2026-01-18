@@ -96,4 +96,8 @@ public class ProducerService {
             .producer(existingProducer)
             .build();
   }
+
+  public void signOutProducer() {
+    SecurityContextHolder.clearContext();
+  }
 }

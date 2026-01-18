@@ -98,4 +98,8 @@ public class ClientService {
             .client(existingClient)
             .build();
   }
+
+  public void signOutClient() {
+    SecurityContextHolder.clearContext();
+  }
 }
