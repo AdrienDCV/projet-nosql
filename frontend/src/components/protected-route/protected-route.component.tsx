@@ -1,8 +1,9 @@
-import { Navigate, Outlet, type RouteProps, useLocation } from 'react-router';
+import {Navigate, Outlet, type RouteProps, useLocation, useNavigate} from 'react-router';
 import React from 'react';
 import {useAuthentication} from "../../hooks/authentication-context.hook.tsx";
 import {CircularProgress} from "@mui/material";
 import {NavbarComponent} from "../navbar/navbar.component.tsx";
+import {UserType} from "../../models/enum/user-type.enum.ts";
 
 type ProtectedRouteProps = RouteProps & {
   redirectPath?: string;
@@ -12,7 +13,7 @@ const ProtectedRoute = ({
                           redirectPath,
                           children,
                         }: ProtectedRouteProps): React.JSX.Element => {
-  const { isAuthenticated, isInitializing } = useAuthentication();
+  const { isAuthenticated, isInitializing, user, isBusinessCreated } = useAuthentication();
   const location = useLocation();
 
   if (isInitializing) {
@@ -28,6 +29,15 @@ const ProtectedRoute = ({
         <Navigate
             to={redirectPath ?? '/sign-in'}
             state={{ from: location }}
+            replace
+        />
+    );
+  }
+
+  if (isAuthenticated && user?.userType === UserType.PRODUCER && !isBusinessCreated && location.pathname !== '/create-business') {
+    return (
+        <Navigate
+            to="/create-business"
             replace
         />
     );

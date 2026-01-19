@@ -51,6 +51,7 @@ public class ProducerService {
             .role(Role.USER)
             .email(producerSignUpRequest.getEmail())
             .phone(producerSignUpRequest.getPhone())
+            .businessCreated(false)
             .build();
 
     Producer createdProducer = producerRepository.save(newProducer);

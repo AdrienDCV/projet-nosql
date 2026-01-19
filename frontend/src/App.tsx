@@ -7,6 +7,7 @@ import {BasketPage} from "./pages/basket/basket.page.tsx";
 import ProtectedRoute from "./components/protected-route/protected-route.component.tsx";
 import {SignUpPage} from "./pages/authentication/sign-up/sign-up.page.tsx";
 import {SignInPage} from "./pages/authentication/sign-in/sign-in.page.tsx";
+import {CreateBusinessPage} from "./pages/create-business/create-business.page.tsx";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route index path='/home' element={<HomePage />} />
             <Route index path='/basket' element={<BasketPage />} />
+            <Route index path='/create-business' element={<CreateBusinessPage />} />
           </Route>
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/sign-in' element={<SignInPage />} />

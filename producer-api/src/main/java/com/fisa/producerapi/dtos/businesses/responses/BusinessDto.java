@@ -1,14 +1,12 @@
 package com.fisa.producerapi.dtos.businesses.responses;
 
+import com.fisa.producerapi.dtos.addresses.AddressDto;
 import com.fisa.producerapi.models.Business;
 import com.fisa.producerapi.models.enums.Profession;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Field;
-
-import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -18,10 +16,10 @@ public class BusinessDto {
 
   private String businessId;
   private String name;
-  private String address;
+  private AddressDto address;
   private Profession profession;
   private String description;
-  private String phoneNumber;
+  private String phone;
   private String email;
   private String producerId;
 
@@ -29,10 +27,10 @@ public class BusinessDto {
     return Business.builder()
             .businessId(businessDto.getBusinessId())
             .name(businessDto.getName())
-            .address(businessDto.getAddress())
+            .address(AddressDto.toEntity(businessDto.getAddress()))
             .profession(businessDto.getProfession())
             .description(businessDto.getDescription())
-            .phoneNumber(businessDto.getPhoneNumber())
+            .phone(businessDto.getPhone())
             .email(businessDto.getEmail())
             .producerId(businessDto.getProducerId())
             .build();
@@ -42,10 +40,10 @@ public class BusinessDto {
     return BusinessDto.builder()
             .businessId(business.getBusinessId())
             .name(business.getName())
-            .address(business.getAddress())
+            .address(AddressDto.toDto(business.getAddress()))
             .profession(business.getProfession())
             .description(business.getDescription())
-            .phoneNumber(business.getPhoneNumber())
+            .phone(business.getPhone())
             .email(business.getEmail())
             .producerId(business.getProducerId())
             .build();
