@@ -18,6 +18,7 @@ export type Client = User & {
 
 export type Producer = User & {
   producerId: string,
+  businessCreated: boolean
 }
 
 export type UserSignUpRequest = {

@@ -4,6 +4,7 @@ public enum Profession {
 
   BAKERY,
   BUTCHERY,
-  MARKET_GARDENER
+  MARKET_GARDENER,
+  DIVERSE
 
 }

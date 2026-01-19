@@ -21,6 +21,7 @@ public class ProducerDto {
   private String email;
   private String phone;
   private Role role;
+  private boolean businessCreated;
 
   public static Producer toEntity(ProducerDto producerDto) {
     return Producer.builder()
@@ -30,6 +31,7 @@ public class ProducerDto {
             .email(producerDto.getEmail())
             .phone(producerDto.getPhone())
             .role(producerDto.getRole())
+            .businessCreated(producerDto.isBusinessCreated())
             .build();
   }
 
@@ -41,6 +43,7 @@ public class ProducerDto {
             .email(producer.getEmail())
             .phone(producer.getPhone())
             .role(producer.getRole())
+            .businessCreated(producer.isBusinessCreated())
             .build();
   }
 

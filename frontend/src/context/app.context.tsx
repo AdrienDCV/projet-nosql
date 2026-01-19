@@ -1,7 +1,11 @@
 import {createContext, } from "react";
 import {useAuthentication} from "../hooks/authentication-context.hook.tsx";
+import type {CreateBusinessRequest} from "../models/create-business-request.model.tsx";
+import {createBusiness} from "../services/business.service.tsx";
+import {useNavigate} from "react-router";
 
 export interface AppContextType {
+  createNewBusiness: (createBusinessRequest: CreateBusinessRequest) => void;
 }
 
 interface AppContextProviderProps {
@@ -11,7 +15,8 @@ interface AppContextProviderProps {
 export const AppContext = createContext<AppContextType | undefined>(undefined)
 
 export const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.Element => {
-  const { isAuthenticated } = useAuthentication();
+  const { isAuthenticated, setIsBusinessCreated } = useAuthentication();
+  const navigate = useNavigate();
 
   // retrieve data
   /*
@@ -22,8 +27,23 @@ export const AppContextProvider = ({ children }: AppContextProviderProps): React
   }, [isAuthenticated]);
   */
 
+  async function createNewBusiness(createNewBusinessRequest: CreateBusinessRequest) {
+    try {
+      if (isAuthenticated) {
+        await createBusiness(createNewBusinessRequest);
+
+        setIsBusinessCreated(true);
+
+        navigate('/home');
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
 
   const value: AppContextType = {
+    createNewBusiness,
   };
 
   return (

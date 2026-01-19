@@ -39,5 +39,7 @@ public class Producer {
   private String firstname;
   @Field("phone")
   private String phone;
+  @Field("businessCreated")
+  private boolean businessCreated;
 
 }

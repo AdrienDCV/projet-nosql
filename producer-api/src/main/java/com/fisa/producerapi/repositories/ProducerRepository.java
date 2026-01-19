@@ -13,4 +13,5 @@ public interface ProducerRepository extends MongoRepository<Producer, UUID> {
   Optional<Producer> findByUsername(String username);
   Optional<Producer> findByEmail(String email);
 
+  Optional<Producer> findByProducerId(String producerId);
 }

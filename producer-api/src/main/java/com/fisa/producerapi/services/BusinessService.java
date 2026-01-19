@@ -1,7 +1,10 @@
 package com.fisa.producerapi.services;
 
+import com.fisa.producerapi.exceptions.producers.ProducerNotFoundException;
 import com.fisa.producerapi.models.Business;
+import com.fisa.producerapi.models.Producer;
 import com.fisa.producerapi.repositories.BusinessRepository;
+import com.fisa.producerapi.repositories.ProducerRepository;
 import com.fisa.producerapi.utils.ShardProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,17 +16,24 @@ import java.util.UUID;
 public class BusinessService {
 
   private final BusinessRepository businessRepository;
+  private final ProducerRepository producerRepository;
+
   private final ShardProvider shardProvider;
 
   public Business createBusiness(Business business) {
     business.setBusinessId(UUID.randomUUID().toString());
 
-    Business savedBusiness = businessRepository.save(business);
+    final Producer existingProducer = producerRepository
+            .findByProducerId(business.getProducerId())
+            .orElseThrow(ProducerNotFoundException::new);
+    existingProducer.setBusinessCreated(true);
 
     // On lance la création lourde du shard en arrière-plan
-    shardProvider.createUserShard(savedBusiness.getBusinessId());
+    shardProvider.createUserShard(business.getBusinessId());
 
-    return savedBusiness; // Retour immédiat à l'utilisateur
+    producerRepository.save(existingProducer);
+
+    return businessRepository.save(business);
   }
 
 }

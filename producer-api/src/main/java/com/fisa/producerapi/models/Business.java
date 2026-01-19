@@ -11,8 +11,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.UUID;
-
 @Setter
 @Getter
 @AllArgsConstructor
@@ -29,13 +27,13 @@ public class Business {
   @Field("name")
   private String name;
   @Field("address")
-  private String address;
+  private Address address;
   @Field("profession")
   private Profession profession;
   @Field("description")
   private String description;
-  @Field("phoneNumber")
-  private String phoneNumber;
+  @Field("phone")
+  private String phone;
   @Field("email")
   private String email;
   @Field("producerId")

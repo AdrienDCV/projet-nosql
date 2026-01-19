@@ -18,18 +18,9 @@ import java.util.UUID;
 @Builder
 public class Address {
 
-  @Id
-  private ObjectId id;
-
-  @Field("ADDRESSID")
-  private UUID addressId;
-  @Field("STREET")
   private String street;
-  @Field("NUMBER")
   private Integer number;
-  @Field("POSTALCODE")
   private String postalCode;
-  @Field("CITY")
   private String city;
 
 }
