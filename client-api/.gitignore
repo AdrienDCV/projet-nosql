@@ -2,8 +2,8 @@
 .env
 .env.local
 .env.*.local
-application-local.yml
+src\main\resources\application.yaml
 application-local.properties
 
 # Secrets
-src/main/resources/application-secrets.yml
+src\main\resources\application-secrets.yaml
