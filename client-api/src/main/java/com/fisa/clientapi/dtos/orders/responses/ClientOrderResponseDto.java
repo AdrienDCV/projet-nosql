@@ -1,7 +1,6 @@
 package com.fisa.clientapi.dtos.orders.responses;
 
 import com.fisa.clientapi.dtos.AddressDto;
-import com.fisa.clientapi.dtos.orders.OrderEntryDto;
 import com.fisa.clientapi.models.ClientOrder;
 import com.fisa.clientapi.models.enums.OrderStatus;
 import lombok.AllArgsConstructor;
@@ -20,7 +19,7 @@ public class ClientOrderResponseDto {
 
   private String parentOrderId;
   private String clientId;
-  private List<OrderEntryDto> orderEntries;
+  private List<ClientOrderItemDto> orderItems;
   private AddressDto deliveryAddress;
   private String email;
   private String phone;
@@ -32,7 +31,7 @@ public class ClientOrderResponseDto {
     return ClientOrderResponseDto.builder()
             .parentOrderId(clientOrder.getClientOrderId())
             .clientId(clientOrder.getClientId())
-            .orderEntries(clientOrder.getOrderEntries().stream().map(OrderEntryDto::toDto).toList())
+            .orderItems(clientOrder.getOrderItems().stream().map(ClientOrderItemDto::toDto).toList())
             .deliveryAddress(AddressDto.toDto(clientOrder.getDeliveryAddress()))
             .email(clientOrder.getEmail())
             .phone(clientOrder.getPhone())

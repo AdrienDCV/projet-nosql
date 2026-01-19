@@ -6,39 +6,26 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
-@Setter
 @Getter
-@Builder
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document("clientOrders")
-public class ClientOrder {
+@Builder
+public class ClientOrderDetails {
 
-  @Field("clientOrderId")
   private String clientOrderId;
-  @Field("clientId")
   private String clientId;
-  @Field("orderItems")
-  private List<ClientOrderItem> orderItems;
-  @Field("deliveryAddress")
+  private Map<String, List<ProducerOrder>> producerOrders;
   private Address deliveryAddress;
-  @Field("email")
   private String email;
-  @Field("phone")
   private String phone;
-  @Field("orderStatus")
   private OrderStatus orderStatus;
-  @Field("orderDate")
   private LocalDateTime orderDate;
-  @Field("updatedAt")
-  private String updatedAt;
-  @Field("totalPrice")
   private Double totalPrice;
 
 }

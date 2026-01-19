@@ -1,9 +1,9 @@
 package com.fisa.clientapi.dtos.orders.requests;
 
 import com.fisa.clientapi.dtos.AddressDto;
-import com.fisa.clientapi.dtos.orders.OrderEntryDto;
+import com.fisa.clientapi.dtos.orders.responses.ClientOrderItemDto;
 import com.fisa.clientapi.models.ClientOrder;
-import com.fisa.clientapi.models.OrderEntry;
+import com.fisa.clientapi.models.ClientOrderRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,18 +17,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ClientOrderRequestDto {
+public class CreateClientOrderRequestDto {
 
   private String clientId;
-  private List<OrderEntry> orderEntries;
+  private List<ClientOrderItemDto> orderItems;
   private AddressDto deliveryAddress;
   private String email;
   private String phone;
 
-  public static ClientOrder toEntity(ClientOrderRequestDto createOrderDto) {
-    return ClientOrder.builder()
+  public static ClientOrderRequest toEntity(CreateClientOrderRequestDto createOrderDto) {
+    return ClientOrderRequest.builder()
             .clientId(createOrderDto.getClientId())
-            .orderEntries(createOrderDto.getOrderEntries().stream().map(OrderEntryDto::toEntity).toList())
+            .orderItems(createOrderDto.getOrderItems().stream().map(ClientOrderItemDto::toEntity).toList())
             .deliveryAddress(AddressDto.toEntity(createOrderDto.getDeliveryAddress()))
             .email(createOrderDto.getEmail())
             .phone(createOrderDto.getPhone())

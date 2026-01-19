@@ -32,8 +32,6 @@ public class Product {
     private String label;
     @Field("price")
     private Double price;
-    @Field("quantity")
-    private Integer quantity;
     @Field("stock")
     private Integer stock;
     @Field("stockStatus")

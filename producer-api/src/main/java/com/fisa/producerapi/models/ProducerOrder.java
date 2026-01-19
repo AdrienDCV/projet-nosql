@@ -14,22 +14,20 @@ import com.fisa.producerapi.models.enums.OrderStatus;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 @Setter
 @Getter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document("orders")
-public class Order {
+@Document("producerOrders")
+public class ProducerOrder {
 
     @Id 
     private ObjectId id;
 
-    @Field("orderId")
-    private String orderId;
+    @Field("producerOrderId")
+    private String producerOrderId;
     @Field("clientOrderId")
     private String clientOrderId;
     @Field("businessId")
