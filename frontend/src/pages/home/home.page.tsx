@@ -1,13 +1,13 @@
 import React from "react";
-import { CarousselComponent } from "../../components/caroussel/caroussel.component.tsx";
 import { JoinButtonComponent } from "../../components/button/join-button.component.tsx";
 import { ProducerCard } from "../../components/cards/product-cards/product-cards.component.tsx";
+import {Carousel} from "../../components/carousel/carousel.tsx";
 
 export function HomePage(): React.JSX.Element {
 
     return (
         <div className="w-full h-full flex flex-col">
-          <CarousselComponent />
+          <Carousel />
           <ProducerCard />
           <JoinButtonComponent />
         </div>
