@@ -1,0 +1,6 @@
+export enum Profession {
+  BUTCHERY = "BUTCHERY",
+  BAKERY = "BAKERY",
+  MARKET_GARDENER = "MARKET_GARDENER",
+  DIVERSE = "DIVERSE",
+}

@@ -47,4 +47,10 @@ public class AuthenticationController {
             HttpStatus.OK);
   }
 
+  @PostMapping("/sign-out")
+  public ResponseEntity<String> signOutUser() {
+    clientService.signOutClient();
+    return ResponseEntity.ok("User logged out successfully");
+  }
+
 }

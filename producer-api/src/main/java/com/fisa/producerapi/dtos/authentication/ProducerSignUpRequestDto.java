@@ -1,6 +1,7 @@
 package com.fisa.producerapi.dtos.authentication;
 
 import com.fisa.producerapi.models.ProducerSignUpRequest;
+import com.fisa.producerapi.models.enums.Profession;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
