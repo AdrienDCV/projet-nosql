@@ -17,7 +17,7 @@ import java.util.List;
 @Builder
 public class ClientOrderResponseDto {
 
-  private String parentOrderId;
+  private String clientOrderId;
   private String clientId;
   private List<ClientOrderItemDto> orderItems;
   private AddressDto deliveryAddress;
@@ -29,7 +29,7 @@ public class ClientOrderResponseDto {
 
   public static ClientOrderResponseDto toDto(ClientOrder clientOrder){
     return ClientOrderResponseDto.builder()
-            .parentOrderId(clientOrder.getClientOrderId())
+            .clientOrderId(clientOrder.getClientOrderId())
             .clientId(clientOrder.getClientId())
             .orderItems(clientOrder.getOrderItems().stream().map(ClientOrderItemDto::toDto).toList())
             .deliveryAddress(AddressDto.toDto(clientOrder.getDeliveryAddress()))

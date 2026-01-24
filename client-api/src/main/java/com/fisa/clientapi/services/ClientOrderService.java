@@ -7,11 +7,12 @@ import com.fisa.clientapi.exceptions.ClientOrderNotFoundException;
 import com.fisa.clientapi.exceptions.ProductNotFoundException;
 import com.fisa.clientapi.models.Business;
 import com.fisa.clientapi.models.ClientOrder;
-import com.fisa.clientapi.models.ClientOrderRequest;
+import com.fisa.clientapi.models.CreateClientOrderRequest;
 import com.fisa.clientapi.models.ProducerOrder;
 import com.fisa.clientapi.models.ClientOrderDetails;
 import com.fisa.clientapi.models.ClientOrderItem;
 import com.fisa.clientapi.models.Product;
+import com.fisa.clientapi.models.UpdateClientOrderRequest;
 import com.fisa.clientapi.models.enums.OrderStatus;
 import com.fisa.clientapi.repositories.BusinessRepository;
 import com.fisa.clientapi.repositories.ClientOrderRepository;
@@ -25,10 +26,12 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -43,27 +46,28 @@ public class ClientOrderService {
   private final BusinessRepository businessRepository;
   private final ProductRepository productRepository;
 
-  public ClientOrder createNewOrder(ClientOrderRequest clientOrderRequest) {
-    if (clientOrderRequest == null) {
+  public ClientOrder createNewOrder(CreateClientOrderRequest createClientOrderRequest) {
+    if (createClientOrderRequest == null) {
       throw new OrderItemsListCannotBeNullException();
     }
 
-    if (clientOrderRequest.getOrderItems() == null || clientOrderRequest.getOrderItems().isEmpty()) {
+    if (createClientOrderRequest.getOrderItems() == null || createClientOrderRequest.getOrderItems().isEmpty()) {
       throw new OrderEntriesCannotBeEmptyOrNullException();
     }
 
-    validateOrderReferences(clientOrderRequest.getOrderItems());
+    validateOrderReferences(createClientOrderRequest.getOrderItems());
 
     final ClientOrder newClientOrder = ClientOrder.builder()
             .clientOrderId(UUID.randomUUID().toString())
-            .clientId(clientOrderRequest.getClientId())
+            .clientId(createClientOrderRequest.getClientId())
             .orderDate(LocalDateTime.now(ZoneOffset.UTC))
             .orderStatus(OrderStatus.REGISTERED)
-            .orderItems(clientOrderRequest.getOrderItems())
-            .deliveryAddress(clientOrderRequest.getDeliveryAddress())
-            .totalPrice(computeTotalPrice(clientOrderRequest.getOrderItems()))
-            .email(clientOrderRequest.getEmail())
-            .phone(clientOrderRequest.getPhone())
+            .orderItems(createClientOrderRequest.getOrderItems())
+            .deliveryAddress(createClientOrderRequest.getDeliveryAddress())
+            .totalPrice(computeTotalPrice(createClientOrderRequest.getOrderItems()))
+            .email(createClientOrderRequest.getEmail())
+            .phone(createClientOrderRequest.getPhone())
+            .updatedAt(LocalDateTime.now(ZoneOffset.UTC))
             .build();
 
     saveProducersOrders(newClientOrder);
@@ -228,6 +232,89 @@ public class ClientOrderService {
 
     if (!missingBusinesses.isEmpty()) {
       throw new BusinessNotFoundException("Producteurs introuvables : " + missingBusinesses);
+    }
+  }
+
+  public ClientOrderDetails updateOrder(UpdateClientOrderRequest updateClientOrderRequest) {
+    final ClientOrder existingClientOrder = clientOrderRepository
+            .findByClientOrderId(updateClientOrderRequest.getClientOrderId())
+            .orElseThrow(ClientOrderNotFoundException::new);
+
+    if (existingClientOrder.getOrderItems() == null || existingClientOrder.getOrderItems().isEmpty()) {
+      throw new OrderEntriesCannotBeEmptyOrNullException();
+    }
+
+    existingClientOrder.setEmail(updateClientOrderRequest.getEmail());
+    existingClientOrder.setPhone(updateClientOrderRequest.getPhone());
+    if (updateClientOrderRequest.getDeliveryAddress() != null) {
+      existingClientOrder.setDeliveryAddress(updateClientOrderRequest.getDeliveryAddress());
+    }
+
+
+    List<ClientOrderItem> allItems = updateClientOrderRequest.getProducerOrders().values().stream()
+            .flatMap(List::stream)
+            .flatMap(po -> po.getClientOrderItems().stream())
+            .toList();
+
+    existingClientOrder.setOrderItems(allItems);
+    existingClientOrder.setUpdatedAt(LocalDateTime.now(ZoneOffset.UTC));
+
+    updateProducerOrders(updateClientOrderRequest.getClientOrderId(), updateClientOrderRequest.getProducerOrders());
+
+    ClientOrder updatedClientOrder = clientOrderRepository.save(existingClientOrder);
+
+    return getOrderDetails(updatedClientOrder.getClientOrderId());
+  }
+
+  private void updateProducerOrders(String clientOrderId, Map<String, List<ProducerOrder>> producerOrdersMap) {
+    List<String> producerOrderIdsInRequest = producerOrdersMap.values().stream()
+            .flatMap(List::stream)
+            .map(ProducerOrder::getProducerOrderId)
+            .toList();
+
+    List<ProducerOrder> allExistingProducerOrders = producerOrderRepository
+            .findByClientOrderId(clientOrderId);
+
+    Map<String, ProducerOrder> existingMap = allExistingProducerOrders.stream()
+            .collect(Collectors.toMap(ProducerOrder::getProducerOrderId, po -> po));
+
+    List<String> updatedProducerOrderToDelete = new ArrayList<>();
+    List<ProducerOrder> toUpdate = producerOrdersMap.values().stream()
+            .flatMap(List::stream)
+            .map(producerOrder -> {
+              ProducerOrder existing = existingMap.get(producerOrder.getProducerOrderId());
+              if (existing != null) {
+                updatedProducerOrderToDelete.add(existing.getProducerOrderId());
+                return ProducerOrder.builder()
+                        .producerOrderId(existing.getProducerOrderId())
+                        .clientOrderId(existing.getClientOrderId())
+                        .businessId(existing.getBusinessId())
+                        .deliveryAddress(existing.getDeliveryAddress())
+                        .email(existing.getEmail())
+                        .phone(existing.getPhone())
+                        .clientOrderItems(producerOrder.getClientOrderItems())
+                        .orderStatus(existing.getOrderStatus())
+                        .createdAt(existing.getCreatedAt())
+                        .updatedAt(LocalDateTime.now(ZoneOffset.UTC))
+                        .build();
+              }
+              return null;
+            })
+            .filter(Objects::nonNull)
+            .toList();
+
+    List<String> producerOrderIdsToDelete = allExistingProducerOrders.stream()
+            .filter(existing -> !producerOrderIdsInRequest.contains(existing.getProducerOrderId()))
+            .map(ProducerOrder::getProducerOrderId)
+            .toList();
+
+    if (!toUpdate.isEmpty()) {
+      producerOrderRepository.deleteAllByProducerOrderIdIn(updatedProducerOrderToDelete);
+      producerOrderRepository.saveAll(toUpdate);
+    }
+
+    if (!producerOrderIdsToDelete.isEmpty()) {
+      producerOrderRepository.deleteAllByProducerOrderIdIn(producerOrderIdsToDelete);
     }
   }
 

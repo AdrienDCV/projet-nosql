@@ -7,16 +7,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ClientOrderRequest {
+public class UpdateClientOrderRequest {
 
+  private String clientOrderId;
   private String clientId;
-  private List<ClientOrderItem> orderItems;
+  private Map<String, List<ProducerOrder>> producerOrders;
   private Address deliveryAddress;
   private String email;
   private String phone;
