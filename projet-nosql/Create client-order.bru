@@ -1,0 +1,52 @@
+meta {
+  name: Create client-order
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8081/client-api/client-orders
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "clientId": "c2900460-0248-4696-9f4f-84ed219cbea5",
+    "orderItems": [
+      {
+        "productId": "bdd5b8f9-c7f5-4ecf-aa25-c0d7c2a991cc",
+        "businessId": "0b0c464c-a3ad-4930-bf06-1d0d6e88c1da",
+        "label" : "test2",
+        "unitPrice": 19.25,
+        "quantity": 44,
+        "unitMesure": "UNIT"
+      },
+      {
+        "productId": "cae2e24d-3021-4abe-83a7-4225130281b0",
+        "businessId": "0b0c464c-a3ad-4930-bf06-1d0d6e88c1da",
+        "label" : "test2",
+        "unitPrice": 3.49,
+        "quantity": 44,
+        "unitMesure": "UNIT"
+      }
+    ],
+    "deliveryAddress": {
+      "street": "Rue des Gorons",
+      "number": 19,
+      "postalCode": "251944",
+      "city": "Hyrule"
+    },
+    "email": "email.email@test.com",
+    "phone": "0102030405"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -20,28 +20,26 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document("orders")
-public class Order {
+@Document("producerOrders")
+public class ProducerOrder {
 
   @Id
   private ObjectId id;
 
-  @Field("orderId")
-  private String orderId;
+  @Field("producerOrderId")
+  private String producerOrderId;
   @Field("clientOrderId")
   private String clientOrderId;
   @Field("businessId")
   private String businessId;
-  @Field("clientId")
-  private String clientId;
   @Field("deliveryAddress")
   private Address deliveryAddress;
   @Field("email")
   private String email;
   @Field("phone")
   private String phone;
-  @Field("orderEntries")
-  private List<OrderEntry> orderEntries;
+  @Field("clientOrderItems")
+  private List<ClientOrderItem> clientOrderItems;
   @Field("orderStatus")
   private OrderStatus orderStatus;
   @Field("createdAt")

@@ -20,7 +20,6 @@ public class ProductService {
 
   public Product createProduct(Product newProduct) {
     newProduct.setProductId(UUID.randomUUID().toString());
-    newProduct.setQuantity(0);
 
     return productRepository.save(newProduct);
   }

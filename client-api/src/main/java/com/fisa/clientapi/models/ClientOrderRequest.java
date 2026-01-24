@@ -6,16 +6,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class OrderEntry {
+public class ClientOrderRequest {
 
-  private String productId;
-  private String businessId;
-  private Double unitPrice;
-  private Integer quantity;
+  private String clientId;
+  private List<ClientOrderItem> orderItems;
+  private Address deliveryAddress;
+  private String email;
+  private String phone;
 
 }

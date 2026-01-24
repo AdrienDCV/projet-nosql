@@ -51,11 +51,11 @@ sh.enableSharding("projetnosql")
 
 // Index de shard
 db.getSiblingDB("projetnosql").products.createIndex({ businessId: 1 })
-db.getSiblingDB("projetnosql").orders.createIndex({ businessId: 1 })
+db.getSiblingDB("projetnosql").producerOrders.createIndex({ businessId: 1 })
 
 // Sharding des collections
 sh.shardCollection("projetnosql.products", { businessId: 1 })
-sh.shardCollection("projetnosql.orders", { businessId: 1 })
+sh.shardCollection("projetnosql.producerOrders", { businessId: 1 })
 EOF
 
 sleep 3

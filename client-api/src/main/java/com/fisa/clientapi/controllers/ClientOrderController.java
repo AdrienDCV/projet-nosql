@@ -1,0 +1,48 @@
+package com.fisa.clientapi.controllers;
+
+import com.fisa.clientapi.dtos.orders.requests.CreateClientOrderRequestDto;
+import com.fisa.clientapi.dtos.orders.responses.ClientOrderResponseDto;
+import com.fisa.clientapi.dtos.orders.responses.ClientOrderDetailsDto;
+import com.fisa.clientapi.services.ClientOrderService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/client-orders")
+public class ClientOrderController {
+
+  private final ClientOrderService clientOrderService;
+
+  @PostMapping
+  public ResponseEntity<ClientOrderResponseDto> createNewOrder(@RequestBody CreateClientOrderRequestDto createClientOrderRequestDto) {
+    return new ResponseEntity<>(
+            ClientOrderResponseDto.toDto(
+                    clientOrderService.createNewOrder(
+                            CreateClientOrderRequestDto.toEntity(createClientOrderRequestDto)
+                    )
+            ),
+            HttpStatus.CREATED
+    );
+  }
+
+  @GetMapping("/{clientOrderId}")
+  public ResponseEntity<ClientOrderDetailsDto> retrieveClientOrderDetails(@PathVariable String clientOrderId) {
+    return new ResponseEntity<>(
+            ClientOrderDetailsDto.toDto(
+                    clientOrderService.getOrderDetails(clientOrderId)
+            ),
+            HttpStatus.OK
+    );
+  }
+
+
+}

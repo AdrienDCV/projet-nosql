@@ -37,5 +37,7 @@ public class Product {
     private StockStatus stockStatus;
     @Field("uniteMesure")
     private UniteMesure uniteMesure;
+    @Field("image")
+    private String image;
 
 }

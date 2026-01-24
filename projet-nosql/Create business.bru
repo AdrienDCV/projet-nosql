@@ -17,12 +17,17 @@ auth:bearer {
 body:json {
   {
     "name": "Test",
-    "address": "test",
+    "address": {
+      "street": "test",
+      "number": 25,
+      "postalCode": "11111",
+      "city": "Test"
+    },
     "profession": "BUTCHERY",
     "description": "Ceci est la description",
     "phoneNumber": "0102030405",
     "email": "email@business.com",
-    "producerId": "e54c6cfd-ecc0-41f1-8f91-3f1c6b434b47"
+    "producerId": "88f55da3-fa10-42b1-9ab9-074cfcff718f"
   }
 }
 

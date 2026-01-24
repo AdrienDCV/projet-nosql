@@ -18,7 +18,6 @@ public class ProductDto {
   private String businessId;
   private String label;
   private Double price;
-  private Integer quantity;
   private Integer stock;
   private StockStatus stockStatus;
   private UniteMesure uniteMesure;
@@ -29,7 +28,6 @@ public class ProductDto {
             .businessId(productDto.getBusinessId())
             .label(productDto.getLabel())
             .price(productDto.getPrice())
-            .quantity(productDto.getQuantity())
             .stock(productDto.getStock())
             .stockStatus(productDto.getStockStatus())
             .uniteMesure(productDto.getUniteMesure())
@@ -42,7 +40,6 @@ public class ProductDto {
             .businessId(product.getBusinessId())
             .label(product.getLabel())
             .price(product.getPrice())
-            .quantity(product.getQuantity())
             .stock(product.getStock())
             .stockStatus(product.getStockStatus())
             .uniteMesure(product.getUniteMesure())
