@@ -2,6 +2,7 @@ package com.fisa.producerapi.services;
 
 import com.fisa.producerapi.exceptions.products.ProductNotFoundException;
 import com.fisa.producerapi.models.Product;
+import com.fisa.producerapi.models.enums.StockStatus;
 import com.fisa.producerapi.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ public class ProductService {
 
   public Product createProduct(Product newProduct) {
     newProduct.setProductId(UUID.randomUUID().toString());
+    newProduct.setStockStatus(StockStatus.IN_STOCK);
 
     return productRepository.save(newProduct);
   }

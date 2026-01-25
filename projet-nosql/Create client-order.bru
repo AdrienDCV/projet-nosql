@@ -7,28 +7,32 @@ meta {
 post {
   url: http://localhost:8081/client-api/client-orders
   body: json
-  auth: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
 }
 
 body:json {
   {
-    "clientId": "c2900460-0248-4696-9f4f-84ed219cbea5",
+    "clientId": "9b80e732-b59d-4730-9b53-29e0e1beb142",
     "orderItems": [
       {
-        "productId": "bdd5b8f9-c7f5-4ecf-aa25-c0d7c2a991cc",
-        "businessId": "0b0c464c-a3ad-4930-bf06-1d0d6e88c1da",
-        "label" : "test2",
-        "unitPrice": 19.25,
-        "quantity": 44,
-        "unitMesure": "UNIT"
+        "productId": "e2b825c8-35fa-4766-87da-3a6c087314b3",
+        "businessId": "1aacbc15-3fe7-4d36-89ac-c047a6b824c1",
+        "label": "produit1",
+        "unitPrice": 3.49,
+        "quantity": 100,
+        "uniteMesure": "UNIT"
       },
       {
-        "productId": "cae2e24d-3021-4abe-83a7-4225130281b0",
-        "businessId": "0b0c464c-a3ad-4930-bf06-1d0d6e88c1da",
-        "label" : "test2",
-        "unitPrice": 3.49,
-        "quantity": 44,
-        "unitMesure": "UNIT"
+        "productId": "c8e18d8a-9066-48ad-8edd-0723b9f80127",
+        "businessId": "1aacbc15-3fe7-4d36-89ac-c047a6b824c1",
+        "label": "produit3",
+        "unitPrice": 7.8,
+        "quantity": 100,
+        "uniteMesure": "KG"
       }
     ],
     "deliveryAddress": {

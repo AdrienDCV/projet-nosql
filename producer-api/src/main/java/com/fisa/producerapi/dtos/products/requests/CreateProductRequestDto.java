@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreateProductDto {
+public class CreateProductRequestDto {
 
   private String businessId;
   private String label;
@@ -19,11 +19,12 @@ public class CreateProductDto {
   private Integer stock;
   private UniteMesure uniteMesure;
 
-  public static Product toEntity(CreateProductDto createProductDto) {
+  public static Product toEntity(CreateProductRequestDto createProductDto) {
     return Product.builder()
             .businessId(createProductDto.getBusinessId())
             .label(createProductDto.getLabel())
             .price(createProductDto.getPrice())
+            .stock(createProductDto.getStock())
             .uniteMesure(createProductDto.getUniteMesure())
             .build();
   }

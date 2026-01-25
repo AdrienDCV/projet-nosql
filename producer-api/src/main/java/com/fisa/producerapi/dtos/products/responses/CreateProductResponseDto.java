@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProductDto {
+public class CreateProductResponseDto {
 
   private String productId;
   private String businessId;
@@ -22,20 +22,20 @@ public class ProductDto {
   private StockStatus stockStatus;
   private UniteMesure uniteMesure;
 
-  public static Product toEntity(ProductDto productDto) {
+  public static Product toEntity(CreateProductResponseDto createProductResponseDto) {
     return Product.builder()
-            .productId(productDto.getProductId())
-            .businessId(productDto.getBusinessId())
-            .label(productDto.getLabel())
-            .price(productDto.getPrice())
-            .stock(productDto.getStock())
-            .stockStatus(productDto.getStockStatus())
-            .uniteMesure(productDto.getUniteMesure())
+            .productId(createProductResponseDto.getProductId())
+            .businessId(createProductResponseDto.getBusinessId())
+            .label(createProductResponseDto.getLabel())
+            .price(createProductResponseDto.getPrice())
+            .stock(createProductResponseDto.getStock())
+            .stockStatus(createProductResponseDto.getStockStatus())
+            .uniteMesure(createProductResponseDto.getUniteMesure())
             .build();
   }
 
-  public static ProductDto toDto(Product product) {
-    return ProductDto.builder()
+  public static CreateProductResponseDto toDto(Product product) {
+    return CreateProductResponseDto.builder()
             .productId(product.getProductId())
             .businessId(product.getBusinessId())
             .label(product.getLabel())
