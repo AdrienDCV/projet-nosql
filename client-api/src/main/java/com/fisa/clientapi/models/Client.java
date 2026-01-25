@@ -20,6 +20,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class Client {
 
   @Id
+  @Field("_id")
   private ObjectId id;
 
   @Field("username")

@@ -2,8 +2,7 @@ package com.fisa.clientapi.dtos.orders.requests;
 
 import com.fisa.clientapi.dtos.AddressDto;
 import com.fisa.clientapi.dtos.orders.responses.ClientOrderItemDto;
-import com.fisa.clientapi.models.ClientOrder;
-import com.fisa.clientapi.models.ClientOrderRequest;
+import com.fisa.clientapi.models.CreateClientOrderRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,8 +24,8 @@ public class CreateClientOrderRequestDto {
   private String email;
   private String phone;
 
-  public static ClientOrderRequest toEntity(CreateClientOrderRequestDto createOrderDto) {
-    return ClientOrderRequest.builder()
+  public static CreateClientOrderRequest toEntity(CreateClientOrderRequestDto createOrderDto) {
+    return CreateClientOrderRequest.builder()
             .clientId(createOrderDto.getClientId())
             .orderItems(createOrderDto.getOrderItems().stream().map(ClientOrderItemDto::toEntity).toList())
             .deliveryAddress(AddressDto.toEntity(createOrderDto.getDeliveryAddress()))

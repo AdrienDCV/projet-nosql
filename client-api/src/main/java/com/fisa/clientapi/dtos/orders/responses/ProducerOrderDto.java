@@ -1,7 +1,5 @@
 package com.fisa.clientapi.dtos.orders.responses;
 
-import com.fisa.clientapi.dtos.AddressDto;
-import com.fisa.clientapi.models.Address;
 import com.fisa.clientapi.models.ProducerOrder;
 import com.fisa.clientapi.models.enums.OrderStatus;
 import lombok.AllArgsConstructor;
@@ -19,7 +17,7 @@ import java.util.List;
 public class ProducerOrderDto {
 
   private String producerOrderId;
-  private AddressDto deliveryAddress;
+  private String businessId;
   private List<ClientOrderItemDto> clientOrderItems;
   private OrderStatus orderStatus;
   private LocalDateTime createdAt;
@@ -28,11 +26,22 @@ public class ProducerOrderDto {
   public static ProducerOrderDto toDto(ProducerOrder producerOrder) {
     return ProducerOrderDto.builder()
             .producerOrderId(producerOrder.getProducerOrderId())
-            .deliveryAddress(AddressDto.toDto(producerOrder.getDeliveryAddress()))
+            .businessId(producerOrder.getBusinessId())
             .clientOrderItems(producerOrder.getClientOrderItems().stream().map(ClientOrderItemDto::toDto).toList())
             .orderStatus(producerOrder.getOrderStatus())
             .createdAt(producerOrder.getCreatedAt())
             .updatedAt(producerOrder.getUpdatedAt())
+            .build();
+  }
+
+  public static ProducerOrder toEntity(ProducerOrderDto producerOrderDto) {
+    return ProducerOrder.builder()
+            .producerOrderId(producerOrderDto.getProducerOrderId())
+            .businessId(producerOrderDto.getBusinessId())
+            .clientOrderItems(producerOrderDto.getClientOrderItems().stream().map(ClientOrderItemDto::toEntity).toList())
+            .orderStatus(producerOrderDto.getOrderStatus())
+            .createdAt(producerOrderDto.getCreatedAt())
+            .updatedAt(producerOrderDto.getUpdatedAt())
             .build();
   }
 

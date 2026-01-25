@@ -1,6 +1,7 @@
 package com.fisa.clientapi.controllers;
 
 import com.fisa.clientapi.dtos.orders.requests.CreateClientOrderRequestDto;
+import com.fisa.clientapi.dtos.orders.requests.UpdateClientOrderRequestDto;
 import com.fisa.clientapi.dtos.orders.responses.ClientOrderResponseDto;
 import com.fisa.clientapi.dtos.orders.responses.ClientOrderDetailsDto;
 import com.fisa.clientapi.services.ClientOrderService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +41,18 @@ public class ClientOrderController {
     return new ResponseEntity<>(
             ClientOrderDetailsDto.toDto(
                     clientOrderService.getOrderDetails(clientOrderId)
+            ),
+            HttpStatus.OK
+    );
+  }
+
+  @PutMapping()
+  public ResponseEntity<ClientOrderDetailsDto> updateClientOrder(@RequestBody UpdateClientOrderRequestDto updateClientOrderRequestDto) {
+    return new ResponseEntity<>(
+            ClientOrderDetailsDto.toDto(
+                    clientOrderService.updateOrder(
+                            UpdateClientOrderRequestDto.toEntity(updateClientOrderRequestDto)
+                    )
             ),
             HttpStatus.OK
     );

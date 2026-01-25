@@ -6,10 +6,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import tools.jackson.databind.annotation.JsonSerialize;
+import tools.jackson.databind.ser.std.ToStringSerializer;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Setter
@@ -19,6 +24,10 @@ import java.util.List;
 @NoArgsConstructor
 @Document("clientOrders")
 public class ClientOrder {
+
+  @Id
+  @Field("_id")
+  private ObjectId id;
 
   @Field("clientOrderId")
   private String clientOrderId;
@@ -37,7 +46,7 @@ public class ClientOrder {
   @Field("orderDate")
   private LocalDateTime orderDate;
   @Field("updatedAt")
-  private String updatedAt;
+  private LocalDateTime updatedAt;
   @Field("totalPrice")
   private Double totalPrice;
 

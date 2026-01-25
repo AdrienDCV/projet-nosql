@@ -20,7 +20,8 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document("products")
 public class Product {
 
-    @Id 
+    @Id
+    @Field("_id")
     private ObjectId id;
 
     @Field("productId")

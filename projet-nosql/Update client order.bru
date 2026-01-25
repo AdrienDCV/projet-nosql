@@ -1,0 +1,64 @@
+meta {
+  name: Update client order
+  type: http
+  seq: 13
+}
+
+put {
+  url: http://localhost:8081/client-api/client-orders
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "clientOrderId": "ecf0ffea-5489-4d9a-b0d1-1ac14bb952d1",
+    "clientId": "ecf0ffea-5489-4d9a-b0d1-1ac14bb952d1",
+    "producerOrders": {
+      "Test": [
+        {
+          "producerOrderId": "a343162e-cd98-4e83-89e1-8b1ac3619130",
+          "businessId": "0b0c464c-a3ad-4930-bf06-1d0d6e88c1da",
+          "clientOrderItems": [
+            {
+              "productId": "bdd5b8f9-c7f5-4ecf-aa25-c0d7c2a991cc",
+              "businessId": "0b0c464c-a3ad-4930-bf06-1d0d6e88c1da",
+              "label": "test2",
+              "unitPrice": 19.25,
+              "quantity": 19,
+              "uniteMesure": null
+            },
+            {
+              "productId": "cae2e24d-3021-4abe-83a7-4225130281b0",
+              "businessId": "0b0c464c-a3ad-4930-bf06-1d0d6e88c1da",
+              "label": "test2",
+              "unitPrice": 3.49,
+              "quantity": 25,
+              "uniteMesure": null
+            }
+          ],
+          "orderStatus": "REGISTERED",
+          "createdAt": "2026-01-24T15:03:07.554",
+          "updatedAt": "2026-01-24T15:03:07.554"
+        }
+      ]
+    },
+    "deliveryAddress": {
+      "street": "Rue des Gorons",
+      "number": 19,
+      "postalCode": "251944",
+      "city": "Hyrule"
+    },
+    "email": "email.email@test.com",
+    "phone": "0102030405"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
