@@ -3,7 +3,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import ReorderIcon from '@mui/icons-material/Reorder';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import {useAuthentication} from "../../hooks/authentication-context.hook.tsx";
 import {signOutClient, signOutProducer} from "../../services/user.service.tsx";
 import {useNavigate} from "react-router";
@@ -66,8 +66,8 @@ export function NavbarComponent(): React.JSX.Element {
             {/* Droite */}
             <div className="flex items-center gap-6">
                 <div>
-                    <a href="/orderList">
-                        <ReorderIcon style={{ color: "#FF8966", fontSize: "32px" }} />
+                    <a href="/order-list">
+                        <FormatListBulletedIcon style={{ color: "#ff6a41", fontSize: "32px" }} />
                     </a>
                 </div>
                 <div>
