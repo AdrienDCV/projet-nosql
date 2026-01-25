@@ -1,6 +1,4 @@
 import React from "react";
-import {Navbar} from "../../components/navbar/navbar.tsx";
-import {Footer} from "../../components/footer/footer.tsx";
 import CropOriginalIcon from "@mui/icons-material/CropOriginal";
 import { useRef, useState } from "react";
 
@@ -27,7 +25,6 @@ export function ProfilePage(): React.JSX.Element {
 
     return (
         <div className="flex flex-col min-h-screen bg-[#FFF6E8]">
-            <Navbar/>
 
             <div className="min-h-screen bg-[#FFF6E8] flex justify-center items-center px-6">
                 <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg p-8 space-y-6">
@@ -134,10 +131,6 @@ export function ProfilePage(): React.JSX.Element {
                     </div>
                 </div>
             </div>
-
-            <Footer/>
-            <main>
-            </main>
         </div>
     );
 }

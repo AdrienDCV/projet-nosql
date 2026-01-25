@@ -74,7 +74,7 @@ export const AuthenticationContextProvider = (props: IAuthenticationContextProvi
         localStorage.setItem('user', JSON.stringify(user));
       }
 
-      navigate("/home");
+      //navigate("/home");
     }
     setIsInitializing(false);
   }, [authToken]);
