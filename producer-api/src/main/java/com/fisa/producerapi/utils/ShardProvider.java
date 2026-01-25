@@ -1,25 +1,24 @@
 package com.fisa.producerapi.utils;
 
 import com.fisa.producerapi.models.ShardInfo;
+import com.fisa.producerapi.repositories.BusinessRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class ShardProvider {
 
   private static final String SHARDS_DIR = "src/main/resources/scripts/shards";
   private static final int BASE_PORT = 27021;
+
+  private final BusinessRepository businessRepository;
 
   public ShardInfo createUserShard(String businessId) {
     try {
@@ -38,29 +37,12 @@ public class ShardProvider {
     }
   }
 
-  public int getNextAvailablePort() throws IOException {
-    try (Stream<Path> paths = Files.list(Paths.get(SHARDS_DIR))) {
-      List<Integer> usedPorts = paths.filter(path -> path.toString().endsWith("_shard.yml"))
-              .map(this::extractPortFromCompose)
-              .flatMap(Optional::stream)
-              .toList();
-
-      return usedPorts.isEmpty() ? BASE_PORT : Collections.max(usedPorts) + 1;
-    }
+  public Long getBusinessNumber() {
+    return businessRepository.count();
   }
 
-  private Optional<Integer> extractPortFromCompose(Path path) {
-    try {
-      String content = Files.readString(path);
-      return Arrays.stream(content.split("\n"))
-              .filter(line -> line.trim().startsWith("- \"") && line.contains(":"))
-              .map(line -> line.trim().replace("- \"", "").replace("\"", "").split(":")[0])
-              .map(Integer::parseInt)
-              .findFirst();
-    } catch (Exception e) {
-      log.error("Erreur de lecture du port dans {}", path, e);
-      return Optional.empty();
-    }
+  public Integer getNextAvailablePort() {
+    return Math.toIntExact(BASE_PORT + getBusinessNumber());
   }
 
   public void generateShardFile(String businessId, int port, String filename) throws IOException {
