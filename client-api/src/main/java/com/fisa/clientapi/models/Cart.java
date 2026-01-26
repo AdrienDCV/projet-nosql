@@ -6,29 +6,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.bson.types.ObjectId;
-import org.springframework.aop.framework.adapter.AdvisorAdapterRegistrationManager;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Document("baskets")
-
-public class Basket {
+@Document("carts")
+public class Cart {
 
     @Id
     private ObjectId id;
 
-    @Field("BASKETID")
-    private String basketId;
-    @Field("ARTICLES")
-    private List<BasketEntry> articles;
+    @Field("cartId")
+    private String cartId;
+    @Field("clientId")
+    private String clientId;
+    @Field("cartEntries")
+    private Map<String, CartEntry> cartEntries;
 }

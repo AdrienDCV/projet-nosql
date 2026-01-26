@@ -1,0 +1,28 @@
+meta {
+  name: Create cart entry
+  type: http
+  seq: 15
+}
+
+post {
+  url: http://localhost:8081/client-api/cart-entries
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "cartId": "12d6276f-230d-4b8a-8fbb-c4302fe7a8a2",
+    "productId": "c8e18d8a-9066-48ad-8edd-0723b9f80127",
+    "quantity": 4
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

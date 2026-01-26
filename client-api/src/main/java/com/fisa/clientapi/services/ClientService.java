@@ -3,6 +3,7 @@ package com.fisa.clientapi.services;
 import com.fisa.clientapi.exceptions.ClientNotFoundException;
 import com.fisa.clientapi.exceptions.EmailAlreadyUsedException;
 import com.fisa.clientapi.models.AuthenticatedClient;
+import com.fisa.clientapi.models.Cart;
 import com.fisa.clientapi.models.Client;
 import com.fisa.clientapi.models.ClientSignInRequest;
 import com.fisa.clientapi.models.ClientSignUpRequest;
@@ -30,20 +31,22 @@ public class ClientService {
   private final ClientRepository clientRepository;
   private final AuthenticationManager authenticationManager;
   private final PasswordEncoder passwordEncoder;
+
   private final JwtTokenProvider jwtTokenProvider;
 
+  private final CartService cartService;
 
-  /**
-   * Crée un nouveau producteur et retourne un JWT token
-   */
+  public Client getCurrentClient() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    return clientRepository.findByUsername(authentication.getName()).orElseThrow(ClientNotFoundException::new);
+  }
+
   public AuthenticatedClient createClient(ClientSignUpRequest clientSignUpRequest) {
 
-    // Vérifier que l'email n'existe pas déjà
     if (clientRepository.findByEmail(clientSignUpRequest.getEmail()).isPresent()) {
       throw new EmailAlreadyUsedException("Email already registered");
     }
 
-    // Créer et sauvegarder le nouveau producteur
     Client newClient = Client.builder()
             .clientId(UUID.randomUUID().toString())
             .username(clientSignUpRequest.getUsername())
@@ -57,7 +60,6 @@ public class ClientService {
 
     Client createdClient = clientRepository.save(newClient);
 
-    // Authentifier automatiquement après l'inscription
     Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                     clientSignUpRequest.getUsername(),
@@ -68,13 +70,18 @@ public class ClientService {
     SecurityContextHolder.getContext().setAuthentication(authentication);
     String token = jwtTokenProvider.generateToken(authentication);
 
-    log.info("Producer created and authenticated: {}", createdClient.getUsername());
+    log.info("Client created and authenticated: {}", createdClient.getUsername());
+
+    final Cart createdCart = cartService.createCart(createdClient.getClientId());
+
+    log.info("Client's cart created with ID : {}", createdCart);
 
     return AuthenticatedClient.builder()
             .jwt(token)
             .message("Registration successful")
             .enabled(true)
             .client(createdClient)
+            .cartId(createdCart.getCartId())
             .build();
   }
 
@@ -91,11 +98,14 @@ public class ClientService {
 
     final String token = jwtTokenProvider.generateToken(authentication);
 
+    final Cart clientCard = cartService.getClientCart(existingClient.getClientId());
+
     return AuthenticatedClient.builder()
             .jwt(token)
             .message("Login successful")
             .enabled(true)
             .client(existingClient)
+            .cartId(clientCard.getCartId())
             .build();
   }
 
