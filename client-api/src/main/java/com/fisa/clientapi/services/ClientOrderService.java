@@ -318,4 +318,13 @@ public class ClientOrderService {
     }
   }
 
+  public void deleteClientOrder(String clientOrderId) {
+    if (clientOrderRepository.findByClientOrderId(clientOrderId).isEmpty()) {
+      throw new ClientOrderNotFoundException();
+    }
+
+    producerOrderRepository.deleteByClientOrderId(clientOrderId);
+
+    clientOrderRepository.deleteByClientOrderId(clientOrderId);
+  }
 }

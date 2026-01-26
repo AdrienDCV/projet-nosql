@@ -1,0 +1,20 @@
+meta {
+  name: Delete client order
+  type: http
+  seq: 14
+}
+
+delete {
+  url: http://localhost:8081/client-api/client-orders/60d476f2-70b4-4760-856a-886672594caf
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
