@@ -1,4 +1,4 @@
-import {createContext, useEffect, useState} from "react";
+import {createContext, useEffect, useRef, useState} from "react";
 import type {
   Client,
   ClientAuthResponse,
@@ -50,34 +50,45 @@ export const AuthenticationContextProvider = (props: IAuthenticationContextProvi
   const [isInitializing, setIsInitializing] = useState<boolean>(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const existingToken = localStorage.getItem('token');
-    if (existingToken) {
-      const storedUser = localStorage.getItem('user');
-      if  (storedUser) {
-        setUser(JSON.parse(storedUser) as User);
-      } else {
-        setUser(undefined);
-      };
+  const justLoggedIn = useRef(false);
 
-      setAuthToken(existingToken);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("user");
+
+    if (token && storedUser) {
+      setAuthToken(token);
+      setUser(JSON.parse(storedUser) as User);
       setIsAuthenticated(true);
     }
+
+    setIsInitializing(false);
   }, []);
 
   useEffect(() => {
-    if (authToken) {
-      setIsAuthenticated(true);
-      localStorage.setItem('token', authToken);
+    if (isInitializing) return;
 
-      if (user) {
-        localStorage.setItem('user', JSON.stringify(user));
-      }
-
-      //navigate("/home");
+    if (!authToken) {
+      setIsAuthenticated(false);
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      return;
     }
-    setIsInitializing(false);
-  }, [authToken]);
+
+    setIsAuthenticated(true);
+    localStorage.setItem("token", authToken);
+
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+  }, [authToken, user, isInitializing]);
+
+  useEffect(() => {
+    if (justLoggedIn.current && authToken) {
+      navigate("/home");
+      justLoggedIn.current = false;
+    }
+  }, [authToken, navigate]);
 
   async function logClientIn(username: string, password: string) {
     try {

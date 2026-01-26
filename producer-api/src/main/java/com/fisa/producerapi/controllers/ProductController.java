@@ -1,8 +1,8 @@
 package com.fisa.producerapi.controllers;
 
 import com.fisa.producerapi.dtos.PaginatedResponseDto;
-import com.fisa.producerapi.dtos.products.requests.CreateProductDto;
-import com.fisa.producerapi.dtos.products.responses.ProductDto;
+import com.fisa.producerapi.dtos.products.requests.CreateProductRequestDto;
+import com.fisa.producerapi.dtos.products.responses.CreateProductResponseDto;
 import com.fisa.producerapi.models.Product;
 import com.fisa.producerapi.services.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -29,25 +29,25 @@ public class ProductController {
   private final ProductService productService;
 
   @PostMapping
-  public ResponseEntity<ProductDto> save(@RequestBody CreateProductDto createProductDto) {
+  public ResponseEntity<CreateProductResponseDto> save(@RequestBody CreateProductRequestDto createProductDto) {
     return new ResponseEntity<>(
-            ProductDto.toDto(
-                    productService.createProduct(CreateProductDto.toEntity(createProductDto))
+            CreateProductResponseDto.toDto(
+                    productService.createProduct(CreateProductRequestDto.toEntity(createProductDto))
             ),
             HttpStatus.CREATED
     );
   }
 
   @GetMapping
-  public ResponseEntity<PaginatedResponseDto<ProductDto>> retrieveAllProducts(@RequestParam(defaultValue = "0") int page,
-                                                                              @RequestParam(defaultValue = "20") int size) {
+  public ResponseEntity<PaginatedResponseDto<CreateProductResponseDto>> retrieveAllProducts(@RequestParam(defaultValue = "0") int page,
+                                                                                            @RequestParam(defaultValue = "20") int size) {
     final Pageable pageable = PageRequest.of(page, size);
 
     final Page<Product> products = productService.retrieveAllProducts(pageable);
 
-    final List<ProductDto> content = products.getContent().stream().map(ProductDto::toDto).toList();
+    final List<CreateProductResponseDto> content = products.getContent().stream().map(CreateProductResponseDto::toDto).toList();
 
-    final PaginatedResponseDto<ProductDto> productDtos = PaginatedResponseDto.<ProductDto>builder()
+    final PaginatedResponseDto<CreateProductResponseDto> productDtos = PaginatedResponseDto.<CreateProductResponseDto>builder()
             .content(content)
             .pageNumber(products.getNumber())
             .pageSize(products.getSize())
@@ -62,9 +62,9 @@ public class ProductController {
   }
 
   @GetMapping("/{productId}")
-  public ResponseEntity<ProductDto> retrieveProductById(@PathVariable String productId) {
+  public ResponseEntity<CreateProductResponseDto> retrieveProductById(@PathVariable String productId) {
     return new ResponseEntity<>(
-            ProductDto.toDto(productService.retrieveProductById(productId)),
+            CreateProductResponseDto.toDto(productService.retrieveProductById(productId)),
             HttpStatus.OK
     );
   }
