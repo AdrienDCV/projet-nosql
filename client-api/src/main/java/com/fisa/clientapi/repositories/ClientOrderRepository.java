@@ -11,4 +11,5 @@ public interface ClientOrderRepository extends MongoRepository<ClientOrder, Stri
 
   Optional<ClientOrder> findByClientOrderId(String clientOrderId);
 
+  void deleteByClientOrderId(String clientOrderId);
 }
