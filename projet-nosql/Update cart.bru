@@ -1,0 +1,33 @@
+meta {
+  name: Update cart
+  type: http
+  seq: 16
+}
+
+put {
+  url: http://localhost:8081/client-api/carts
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "cartId": "12d6276f-230d-4b8a-8fbb-c4302fe7a8a2",
+    "cartEntries": {
+      "e2b825c8-35fa-4766-87da-3a6c087314b3": {
+        "cartEntryId": "08844b4c-dc6d-4d2c-86a1-662c44d36349",
+        "productId": "e2b825c8-35fa-4766-87da-3a6c087314b3",
+        "quantity": 8
+      }
+    }
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

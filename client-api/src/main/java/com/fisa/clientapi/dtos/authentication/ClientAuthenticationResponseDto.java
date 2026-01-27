@@ -18,6 +18,7 @@ public class ClientAuthenticationResponseDto {
   private String message;
   private Boolean enabled;
   private ClientDto client;
+  private String cartId;
 
   public static ClientAuthenticationResponseDto toDto(AuthenticatedClient authenticatedClient) {
     return ClientAuthenticationResponseDto.builder()
@@ -25,6 +26,7 @@ public class ClientAuthenticationResponseDto {
             .message(authenticatedClient.getMessage())
             .enabled(authenticatedClient.getEnabled())
             .client(ClientDto.toDto(authenticatedClient.getClient()))
+            .cartId(authenticatedClient.getCartId())
             .build();
   }
 

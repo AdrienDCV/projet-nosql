@@ -2,19 +2,20 @@ package com.fisa.clientapi.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+import java.util.Map;
+
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AuthenticatedClient {
+public class UpdateCartRequest {
 
-  private String jwt;
-  private String message;
-  private Boolean enabled;
-  private Client client;
   private String cartId;
+  private Map<String, UpdateCartEntryRequest> cartEntries;
 
 }
