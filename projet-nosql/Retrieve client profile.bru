@@ -1,0 +1,20 @@
+meta {
+  name: Retrieve client profile
+  type: http
+  seq: 18
+}
+
+get {
+  url: http://localhost:8081/client-api/clients/profile
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
