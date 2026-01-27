@@ -37,6 +37,7 @@ public class ClientDto {
             .clientId(client.getClientId())
             .lastname(client.getLastname())
             .firstname(client.getFirstname())
+            .username(client.getUsername())
             .email(client.getEmail())
             .phone(client.getPhone())
             .role(client.getRole())
