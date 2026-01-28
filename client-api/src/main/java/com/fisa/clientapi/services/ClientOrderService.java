@@ -5,6 +5,7 @@ import com.fisa.clientapi.exceptions.OrderItemsListCannotBeNullException;
 import com.fisa.clientapi.exceptions.OrderEntriesCannotBeEmptyOrNullException;
 import com.fisa.clientapi.exceptions.ClientOrderNotFoundException;
 import com.fisa.clientapi.exceptions.ProductNotFoundException;
+import com.fisa.clientapi.exceptions.ProductOutOfStockException;
 import com.fisa.clientapi.models.Business;
 import com.fisa.clientapi.models.ClientOrder;
 import com.fisa.clientapi.models.CreateClientOrderRequest;
@@ -14,6 +15,7 @@ import com.fisa.clientapi.models.ClientOrderItem;
 import com.fisa.clientapi.models.Product;
 import com.fisa.clientapi.models.UpdateClientOrderRequest;
 import com.fisa.clientapi.models.enums.OrderStatus;
+import com.fisa.clientapi.models.enums.StockStatus;
 import com.fisa.clientapi.repositories.BusinessRepository;
 import com.fisa.clientapi.repositories.ClientOrderRepository;
 import com.fisa.clientapi.repositories.ProducerOrderRepository;
@@ -27,6 +29,7 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -125,9 +128,11 @@ public class ClientOrderService {
       );
     }
 
-    Set<String> existingProductIds = productRepository.findAllByProductIdIn(productIds).stream()
-            .map(Product::getProductId)
-            .collect(Collectors.toSet());
+    Map<String, Product> products = new HashMap<>();
+    productRepository.findAllByProductIdIn(productIds).forEach(
+            product -> products.put(product.getProductId(), product)
+    );
+    Set<String> existingProductIds = products.keySet();
 
     Set<String> missingProductIds = new HashSet<>(productIds);
     missingProductIds.removeAll(existingProductIds);
@@ -137,6 +142,25 @@ public class ClientOrderService {
               "Les produits suivants n'existent pas : " + missingProductIds
       );
     }
+
+    Set<String> outOfStocksProductNames = checkProductsStocks(clientOrderItems, products);
+    if (!outOfStocksProductNames.isEmpty()) {
+      throw new ProductOutOfStockException(
+              "Les produits suivants sont en rupture de stock : " + outOfStocksProductNames
+      );
+    }
+  }
+
+  private Set<String> checkProductsStocks(List<ClientOrderItem> orderItems, Map<String, Product> products) {
+    final Set<String> outOfStockProductNames = new HashSet<>();
+
+    orderItems.forEach(orderItem -> {
+      final Product product = products.get(orderItem.getProductId());
+
+      if (product.getStockStatus().equals(StockStatus.OUT_OF_STOCK)) outOfStockProductNames.add(orderItem.getLabel());
+    });
+
+    return outOfStockProductNames;
   }
 
   private ProducerOrder createProducerOrder(ClientOrder clientOrder, String businessId, List<ClientOrderItem> clientOrderItems) {
