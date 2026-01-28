@@ -8,6 +8,8 @@ import com.fisa.clientapi.exceptions.ProductNotFoundException;
 import com.fisa.clientapi.exceptions.ProductOutOfStockException;
 import com.fisa.clientapi.models.Business;
 import com.fisa.clientapi.models.ClientOrder;
+import com.fisa.clientapi.models.ClientOrderHistory;
+import com.fisa.clientapi.models.ClientOrderHistoryRecord;
 import com.fisa.clientapi.models.CreateClientOrderRequest;
 import com.fisa.clientapi.models.ProducerOrder;
 import com.fisa.clientapi.models.ClientOrderDetails;
@@ -28,11 +30,13 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -351,4 +355,48 @@ public class ClientOrderService {
 
     clientOrderRepository.deleteByClientOrderId(clientOrderId);
   }
+
+  public ClientOrderHistory getCurrentClientOrderHisotry(String currentClientId) {
+    final List<ClientOrder> clientOrders = clientOrderRepository.findAllByClientIdOrderByOrderDateDesc(currentClientId);
+
+    if (clientOrders.isEmpty()) {
+      return ClientOrderHistory.builder()
+              .orderHistory(new HashMap<>())
+              .build();
+    }
+
+    final List<ClientOrderHistoryRecord> orderHistoryRecords = clientOrders.stream()
+            .map(order -> {
+              final Double totalPrice = computeTotalPrice(order.getOrderItems());
+              return ClientOrderHistoryRecord.builder()
+                      .clientOrderId(order.getClientOrderId())
+                      .deliveryAddress(order.getDeliveryAddress())
+                      .totalPrice(totalPrice)
+                      .orderDate(order.getOrderDate())
+                      .build();
+            })
+            .toList();
+
+    final Map<String, List<ClientOrderHistoryRecord>> orderHistory = orderHistoryRecords.stream()
+            .collect(Collectors.groupingBy(
+                    clientOrderHistoryRecord -> getFormattedOrderDate(clientOrderHistoryRecord.getOrderDate()),
+                    LinkedHashMap::new,
+                    Collectors.toList()
+            ));
+
+    return ClientOrderHistory.builder()
+            .orderHistory(orderHistory)
+            .build();
+  }
+
+  private String getFormattedOrderDate(LocalDateTime orderDate) {
+    final DateTimeFormatter formatter =
+            DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", Locale.FRENCH);
+
+    String formattedOrderDate = orderDate.format(formatter);
+    formattedOrderDate = formattedOrderDate.substring(0, 1).toUpperCase() + formattedOrderDate.substring(1);
+
+    return formattedOrderDate;
+  }
+
 }

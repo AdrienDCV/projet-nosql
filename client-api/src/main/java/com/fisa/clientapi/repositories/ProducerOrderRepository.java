@@ -19,4 +19,6 @@ public interface ProducerOrderRepository extends MongoRepository<ProducerOrder, 
   void deleteAllByProducerOrderIdIn(List<String> producerOrderIds);
 
   void deleteByClientOrderId(String clientOrderId);
+
+  List<ProducerOrder> findAllByClientOrderIdIn(List<String> clientOrderIds);
 }

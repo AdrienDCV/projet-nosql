@@ -4,6 +4,7 @@ import com.fisa.clientapi.models.ClientOrder;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -12,4 +13,6 @@ public interface ClientOrderRepository extends MongoRepository<ClientOrder, Stri
   Optional<ClientOrder> findByClientOrderId(String clientOrderId);
 
   void deleteByClientOrderId(String clientOrderId);
+
+  List<ClientOrder> findAllByClientIdOrderByOrderDateDesc(String currentClientId);
 }
