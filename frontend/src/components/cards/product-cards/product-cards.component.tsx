@@ -1,54 +1,73 @@
+type Product = {
+    name: string;
+    image: string;
+    priceKg: string;
+    priceUnit: string;
+};
 
-const partners = [
+const products: Product[] = [
     {
-        name: "Alexandre",
-        photo: "/src/assets/images/person1.png",
-        description:
-            "Alexandre est producteur local et privilégie une agriculture raisonnée. Il met beaucoup d’attention dans la culture de ses légumes afin de garantir des produits sains. On retrouve souvent sa production sur les marchés locaux.",
+        name: "Filet mignon",
+        image: "https://www.calories.fr/images/fr/640/porc-filet-mignon.jpg",
+        priceKg: "98€/kg",
+        priceUnit: "49€ - 500g",
     },
     {
-        name: "Jerome",
-        photo: "/src/assets/images/person2.png",
-        description:
-            "Jerome est un producteur de fruits et légumes locaux qui travaille avec passion. Il cultive des produits de saison en respectant la nature et la qualité des sols. Son objectif est de proposer des fruits et légumes frais et savoureux aux habitants de la région.",
+        name: "Entrecote",
+        image: "https://www.krill.fr/media/catalog/product/cache/7db168f77a3167534cae1e7a02390ea5/0/1/013012-Entrecote-de-boeuf-150-170-g-00573359.jpg",
+        priceKg: "24€/kg",
+        priceUnit: "6€ - 250g",
     },
     {
-        name: "Cecile",
-        photo: "/src/assets/images/person3.png",
-        description:
-            "Cecile est une productrice engagée qui met en avant le savoir-faire local. Elle cultive une grande variété de légumes et quelques fruits, en limitant l’usage de produits chimiques. Son objectif est d’offrir des aliments sains tout en préservant l’environnement.",
+        name: "Filet mignon",
+        image: "https://www.calories.fr/images/fr/640/porc-filet-mignon.jpg",
+        priceKg: "98€/kg",
+        priceUnit: "49€ - 500g",
+    },
+    {
+        name: "Entrecote",
+        image: "https://www.krill.fr/media/catalog/product/cache/7db168f77a3167534cae1e7a02390ea5/0/1/013012-Entrecote-de-boeuf-150-170-g-00573359.jpg",
+        priceKg: "24€/kg",
+        priceUnit: "6€ - 250g",
     },
 ];
 
-export function ProducerCard() {
+export function ProductCards() {
     return (
-        <div className="flex flex-col bg-[#FFF6E8]">
-            {/* Section partenaires */}
-            <section className="w-full flex justify-center py-20">
-                <div className="flex flex-col md:flex-row gap-8 max-w-6xl">
-                    {partners.map((partner, index) => (
-                        <div
-                            key={index}
-                            className="flex flex-col items-center text-center rounded-2xl p-6 w-80"
-                        >
+        <section className="w-full flex justify-center py-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl">
+                {products.map((product, index) => (
+                    <div
+                        key={index}
+                        className="bg-white rounded-2xl shadow-md p-4 flex flex-col items-center text-center"
+                    >
+                        <div className="relative w-full">
                             <img
-                                src={partner.photo}
-                                alt={partner.name}
-                                className="w-44 h-44 rounded-full object-cover mb-4 shadow-lg"
+                                src={product.image}
+                                alt={product.name}
+                                className="w-full h-40 object-cover rounded-xl mb-4"
                             />
 
-                            <h3 className="text-xl text-secondary font-semibold mb-2">
-                                {partner.name}
-                            </h3>
-
-                            <p className="text-sm text-gray-700 flex-1">
-                                {partner.description}
-                            </p>
+                            {/* Icône info */}
+                            <span className="absolute top-2 left-2 bg-white rounded-full p-1 shadow">
+                                ℹ️
+                            </span>
                         </div>
-                    ))}
-                </div>
-            </section>
-        </div>
+
+                        <h3 className="text-secondary font-semibold text-lg">
+                            {product.name}
+                        </h3>
+
+                        <p className="text-sm text-gray-700 mt-2">
+                            {product.priceKg}
+                        </p>
+
+                        <p className="text-sm font-semibold">
+                            {product.priceUnit}
+                        </p>
+                    </div>
+                ))}
+            </div>
+        </section>
     );
 }
-

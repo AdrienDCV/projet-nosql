@@ -9,6 +9,7 @@ import {SignUpPage} from "./pages/authentication/sign-up/sign-up.page.tsx";
 import {SignInPage} from "./pages/authentication/sign-in/sign-in.page.tsx";
 import {CreateBusinessPage} from "./pages/create-business/create-business.page.tsx";
 import {ProfilePage} from "./pages/profile/profile.page.tsx";
+import {ProductsPage} from "./pages/products/products.page.tsx";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
             <Route path='/cart' element={<BasketPage />} />
             <Route path='/create-business' element={<CreateBusinessPage />} />
             <Route path='/profile' element={<ProfilePage />} />
+            <Route index path='/products' element={<ProductsPage />} />
           </Route>
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/sign-in' element={<SignInPage />} />
