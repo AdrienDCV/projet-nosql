@@ -1,7 +1,6 @@
 package com.fisa.producerapi.dtos.producerOrders.responses;
 
 import com.fisa.producerapi.dtos.addresses.AddressDto;
-import com.fisa.producerapi.dtos.products.responses.ProductDto;
 import com.fisa.producerapi.models.ProducerOrder;
 import com.fisa.producerapi.models.enums.OrderStatus;
 import lombok.AllArgsConstructor;
@@ -21,11 +20,10 @@ public class ProducerOrderDto {
   private String producerOrderId;
   private String clientOrderId;
   private String businessId;
-  private String clientId;
   private AddressDto deliveryAddress;
   private String email;
   private String phone;
-  private List<ProductDto> products;
+  private List<ClientOrderItemDto> products;
   private OrderStatus orderStatus;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;
@@ -35,11 +33,10 @@ public class ProducerOrderDto {
             .producerOrderId(producerOrder.getProducerOrderId())
             .clientOrderId(producerOrder.getClientOrderId())
             .businessId(producerOrder.getBusinessId())
-            .clientId(producerOrder.getClientId())
             .deliveryAddress(AddressDto.toDto(producerOrder.getDeliveryAddress()))
             .email(producerOrder.getEmail())
             .phone(producerOrder.getPhone())
-            .products(producerOrder.getProducts().stream().map(ProductDto::toDto).toList())
+            .products(producerOrder.getProducts().stream().map(ClientOrderItemDto::toDto).toList())
             .orderStatus(producerOrder.getOrderStatus())
             .createdAt(producerOrder.getCreatedAt())
             .updatedAt(producerOrder.getUpdatedAt())
