@@ -41,7 +41,7 @@ public class ProducerOrder {
     @Field("phone")
     private String phone;
     @Field("products")
-    private List<Product> products;
+    private List<ClientOrderItem> products;
     @Field("orderStatus")
     private OrderStatus orderStatus;
     @Field("createdAt")

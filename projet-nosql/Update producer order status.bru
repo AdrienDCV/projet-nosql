@@ -1,0 +1,27 @@
+meta {
+  name: Update producer order status
+  type: http
+  seq: 21
+}
+
+put {
+  url: http://localhost:8080/producer-api/producer-orders/update-status
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "producerOrderId": "209bcef6-5c8b-481b-af07-7633f8548d49",
+    "newOrderStatus": "UNDERGOING_TREATMENT"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
