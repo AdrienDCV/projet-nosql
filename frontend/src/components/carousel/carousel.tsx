@@ -2,12 +2,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 
-import img1 from "/src/assets/images/caroussel_1.jpg";
-import img2 from "/src/assets/images/caroussel_2.jpg";
-import img3 from "/src/assets/images/caroussel_3.jpg";
-
 export function Carousel() {
-  const images = [img1, img2, img3];
+  const images = [
+    "https://www.idee-cuisine.fr/wp-content/uploads/2024/03/legumes-de-saisons-par-mois.jpg",
+    "https://i.notretemps.com/1200x628/smart/2023/01/17/illustration-de-viande.jpeg",
+    "https://as2.ftcdn.net/jpg/00/05/65/45/1000_F_5654547_HDQvVBX3yVfDn0Xek0Nf2o5tDYhqDm5L.jpg"
+  ];
 
   return (
       <div className="relative w-full flex flex-row items-center">

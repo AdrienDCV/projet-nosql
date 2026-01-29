@@ -2,19 +2,19 @@
 const partners = [
     {
         name: "Alexandre",
-        photo: "/src/assets/images/person1.png",
+        photo: "https://www.serresvaldeloire.com/actus-conseils/wp-content/uploads/2021/10/maraicher.jpg",
         description:
             "Alexandre est producteur local et privilégie une agriculture raisonnée. Il met beaucoup d’attention dans la culture de ses légumes afin de garantir des produits sains. On retrouve souvent sa production sur les marchés locaux.",
     },
     {
         name: "Jerome",
-        photo: "/src/assets/images/person2.png",
+        photo: "https://www.viametiers.fr/wp-content/uploads/2023/10/metier-maraicher.jpg",
         description:
             "Jerome est un producteur de fruits et légumes locaux qui travaille avec passion. Il cultive des produits de saison en respectant la nature et la qualité des sols. Son objectif est de proposer des fruits et légumes frais et savoureux aux habitants de la région.",
     },
     {
         name: "Cecile",
-        photo: "/src/assets/images/person3.png",
+        photo: "https://www.droitconstitutionnel.org/wp-content/uploads/2023/03/jeune-femme-souriante-tenant-une-cagette-de-legumes-frais-elle-a-mis-un-petit-chapeau-de-paille-tres-tendance.jpg",
         description:
             "Cecile est une productrice engagée qui met en avant le savoir-faire local. Elle cultive une grande variété de légumes et quelques fruits, en limitant l’usage de produits chimiques. Son objectif est d’offrir des aliments sains tout en préservant l’environnement.",
     },
