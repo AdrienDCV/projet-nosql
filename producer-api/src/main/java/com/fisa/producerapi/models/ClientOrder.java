@@ -23,7 +23,7 @@ public class ClientOrder {
   @Field("clientId")
   private String clientId;
   @Field("products")
-  private List<Product> products;
+  private List<ClientOrderItem> products;
   @Field("deliveryAddress")
   private Address deliveryAddress;
   @Field("email")
