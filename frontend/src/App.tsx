@@ -3,7 +3,7 @@ import './App.css'
 import {HomePage} from "./pages/home/home.page.tsx";
 import {Navigate, Route, Routes} from "react-router";
 import {FooterComponent} from "./components/footer/footer.component.tsx";
-import {BasketPage} from "./pages/basket/basket.page.tsx";
+import {CartPage} from "./pages/basket/cart.page.tsx";
 import ProtectedRoute from "./components/protected-route/protected-route.component.tsx";
 import {SignUpPage} from "./pages/authentication/sign-up/sign-up.page.tsx";
 import {SignInPage} from "./pages/authentication/sign-in/sign-in.page.tsx";
@@ -23,7 +23,7 @@ function App() {
             <Route path='/home' element={<HomePage />} />
             <Route path='/create-business' element={<CreateBusinessPage />} />
             <Route path='/order-list' element={<OrderListPage />} />
-            <Route path='/cart' element={<BasketPage />} />
+            <Route path='/cart' element={<CartPage />} />
             <Route path='/profile' element={<ProfilePage />} />
             <Route path='/client-order-history' element={<ClientOrderHistoryPage />} />
             <Route index path='/products' element={<ProductsPage />} />

@@ -10,27 +10,27 @@ type CartItem = {
   quantity: number;
 };
 
-export function BasketPage(): React.JSX.Element {
+export function CartPage(): React.JSX.Element {
 
     const myCart = [
       {
         id: 1,
         name: "Tomates bio",
-        image: "/src/assets/images/tomate.png",
+        image: "https://serreslavoie.com/cdn/shop/articles/shutterstock_267812054.jpg?v=1652289544&width=1920",
         price: 2.5,
         quantity: 3,
       },
       {
         id: 2,
         name: "Pommes rouges",
-        image: "/src/assets/images/pommeRouge.png",
+        image: "https://pepinieredubosc.fr/wp-content/uploads/2024/09/pepiniere-du-bosc-pommier-pomme-annurca.jpg",
         price: 1.8,
         quantity: 5,
       },
       {
         id: 3,
         name: "Pommes rouges",
-        image: "/src/assets/images/pommeRouge.png",
+        image: "https://pepinieredubosc.fr/wp-content/uploads/2024/09/pepiniere-du-bosc-pommier-pomme-annurca.jpg",
         price: 1.8,
         quantity: 5,
       },
