@@ -1,0 +1,32 @@
+meta {
+  name: Update product copy
+  type: http
+  seq: 23
+}
+
+put {
+  url: http://localhost:8080/producer-api/products
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+body:json {
+  {
+    "productId": "179cb27e-fddd-4e98-a83d-49e2d5f3364b",
+    "businessId": "1aacbc15-3fe7-4d36-89ac-c047a6b824c1",
+    "label" : "produit2",
+    "price" : 78.0,
+    "stock": 100,
+    "stockStatus": "IN_STOCK",
+    "uniteMesure" : "KG"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,5 +1,6 @@
 package com.fisa.producerapi.dtos.products.responses;
 
+import com.fisa.producerapi.models.CreateProductResponse;
 import com.fisa.producerapi.models.Product;
 import com.fisa.producerapi.models.enums.StockStatus;
 import com.fisa.producerapi.models.enums.UniteMesure;
@@ -34,15 +35,15 @@ public class CreateProductResponseDto {
             .build();
   }
 
-  public static CreateProductResponseDto toDto(Product product) {
+  public static CreateProductResponseDto toDto(CreateProductResponse createProductResponse) {
     return CreateProductResponseDto.builder()
-            .productId(product.getProductId())
-            .businessId(product.getBusinessId())
-            .label(product.getLabel())
-            .price(product.getPrice())
-            .stock(product.getStock())
-            .stockStatus(product.getStockStatus())
-            .uniteMesure(product.getUniteMesure())
+            .productId(createProductResponse.getProductId())
+            .businessId(createProductResponse.getBusinessId())
+            .label(createProductResponse.getLabel())
+            .price(createProductResponse.getPrice())
+            .stock(createProductResponse.getStock())
+            .stockStatus(createProductResponse.getStockStatus())
+            .uniteMesure(createProductResponse.getUniteMesure())
             .build();
   }
 }
