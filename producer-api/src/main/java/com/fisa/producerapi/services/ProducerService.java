@@ -30,18 +30,17 @@ public class ProducerService {
   private final PasswordEncoder passwordEncoder;
   private final JwtTokenProvider jwtTokenProvider;
 
+  public Producer getCurrentProducer() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    return producerRepository.findByUsername(authentication.getName()).orElseThrow(ProducerNotFoundException::new);
+  }
 
-  /**
-   * Crée un nouveau producteur et retourne un JWT token
-   */
   public AuthenticatedProducer createProducer(ProducerSignUpRequest producerSignUpRequest) {
 
-    // Vérifier que l'email n'existe pas déjà
     if (producerRepository.findByEmail(producerSignUpRequest.getEmail()).isPresent()) {
       throw new EmailAlreadyUsedException("Email already registered");
     }
 
-    // Créer et sauvegarder le nouveau producteur
     Producer newProducer = Producer.builder()
             .producerId(UUID.randomUUID().toString())
             .username(producerSignUpRequest.getUsername())
@@ -56,11 +55,10 @@ public class ProducerService {
 
     Producer createdProducer = producerRepository.save(newProducer);
 
-    // Authentifier automatiquement après l'inscription
     Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                     producerSignUpRequest.getUsername(),
-                    producerSignUpRequest.getPassword()  // Mot de passe en clair !
+                    producerSignUpRequest.getPassword()
             )
     );
 

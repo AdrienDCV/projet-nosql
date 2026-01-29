@@ -1,0 +1,16 @@
+meta {
+  name: Retrieve producer orders
+  type: http
+  seq: 20
+}
+
+get {
+  url: http://localhost:8080/producer-api/producer-orders/1aacbc15-3fe7-4d36-89ac-c047a6b824c1
+  body: none
+  auth: none
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
