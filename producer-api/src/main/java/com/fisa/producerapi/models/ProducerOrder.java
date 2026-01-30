@@ -40,12 +40,12 @@ public class ProducerOrder {
     private String email;
     @Field("phone")
     private String phone;
-    @Field("products")
-    private List<ClientOrderItem> products;
+    @Field("orderItems")
+    private List<ClientOrderItem> orderItems;
     @Field("orderStatus")
     private OrderStatus orderStatus;
-    @Field("createdAt")
-    private LocalDateTime createdAt;
+    @Field("orderDate")
+    private LocalDateTime orderDate;
     @Field("updatedeAt")
     private LocalDateTime updatedAt;
 

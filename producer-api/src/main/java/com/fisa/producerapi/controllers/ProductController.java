@@ -33,7 +33,7 @@ public class ProductController {
   private final ProductService productService;
 
   @PostMapping
-  public ResponseEntity<CreateProductResponseDto> save(@RequestBody CreateProductRequestDto createProductDto) {
+  public ResponseEntity<CreateProductResponseDto> createNewProduct(@RequestBody CreateProductRequestDto createProductDto) {
     return new ResponseEntity<>(
             CreateProductResponseDto.toDto(
                     productService.createProduct(CreateProductRequestDto.toEntity(createProductDto))

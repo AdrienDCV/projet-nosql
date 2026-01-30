@@ -13,4 +13,6 @@ public interface ProducerOrderRepository extends MongoRepository<ProducerOrder, 
   List<ProducerOrder> findAllByBusinessId(String businessId);
 
   Optional<ProducerOrder> findByProducerOrderId(String producerOrderId);
+
+  List<ProducerOrder> findAllByBusinessIdOrderByOrderDateDesc(String businessId);
 }

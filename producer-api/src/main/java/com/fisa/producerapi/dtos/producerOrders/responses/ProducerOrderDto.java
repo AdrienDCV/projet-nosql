@@ -36,9 +36,9 @@ public class ProducerOrderDto {
             .deliveryAddress(AddressDto.toDto(producerOrder.getDeliveryAddress()))
             .email(producerOrder.getEmail())
             .phone(producerOrder.getPhone())
-            .products(producerOrder.getProducts().stream().map(ClientOrderItemDto::toDto).toList())
+            .products(producerOrder.getOrderItems().stream().map(ClientOrderItemDto::toDto).toList())
             .orderStatus(producerOrder.getOrderStatus())
-            .createdAt(producerOrder.getCreatedAt())
+            .createdAt(producerOrder.getOrderDate())
             .updatedAt(producerOrder.getUpdatedAt())
             .build();
   }

@@ -25,6 +25,7 @@ import com.fisa.clientapi.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -390,13 +391,8 @@ public class ClientOrderService {
   }
 
   private String getFormattedOrderDate(LocalDateTime orderDate) {
-    final DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("EEEE d MMMM yyyy", Locale.FRENCH);
-
-    String formattedOrderDate = orderDate.format(formatter);
-    formattedOrderDate = formattedOrderDate.substring(0, 1).toUpperCase() + formattedOrderDate.substring(1);
-
-    return formattedOrderDate;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.FRENCH);
+    return StringUtils.capitalize(orderDate.format(formatter));
   }
 
 }
