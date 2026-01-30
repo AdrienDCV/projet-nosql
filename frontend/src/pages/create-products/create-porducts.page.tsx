@@ -1,16 +1,15 @@
-import {useAuthentication} from "../../hooks/authentication-context.hook.tsx";
 import {useFormik} from "formik";
 import type {CreateProductRequest} from "../../models/create-product-request.model.tsx";
 import {Button, MenuItem, Select, TextField} from "@mui/material";
 import {useApp} from "../../hooks/app-context.hook.tsx";
-import type {Producer} from "../../models/user.model.tsx";
-import {UnitMesure} from "../../models/enum/unit-mesure.enum.tsx";
+import {MeasurementUnit} from "../../models/enum/measurement-unit.enum.ts";
+
 
 
 const validateForm = (values: {
-    image: string,
     label: string,
-    uniteMesure: UnitMesure,
+    image: string,
+    measurementUnit: MeasurementUnit,
     stock: number,
     price: number,
 }) => {
@@ -24,7 +23,7 @@ const validateForm = (values: {
         errors.street = 'Le nom du produit est requise';
     }
 
-    if (!values.uniteMesure) {
+    if (!values.measurementUnit) {
         errors.number = 'L\'unité de mesure est requis';
     }
 
@@ -40,35 +39,37 @@ const validateForm = (values: {
 };
 
 export type CreateProductForm = {
-    image: string,
     label: string,
-    uniteMesure: UnitMesure,
+    image: string,
+    description: string,
+    measurementUnit: MeasurementUnit,
     stock: number,
     price: number,
 }
 
 export const CreateProductsPage = (): React.JSX.Element => {
-    const { user } = useAuthentication();
-    const { createNewProduct } = useApp();
+    const { createNewProduct, currentProducerBusiness } = useApp();
 
     const formik = useFormik<CreateProductForm>({
         initialValues: {
-            image: "",
             label: "",
-            uniteMesure: UnitMesure.UNIT,
+            image: "",
+            description: "",
+            measurementUnit: MeasurementUnit.UNIT,
             stock: 0,
             price: 0.0,
         },
         validate: validateForm,
         onSubmit: async(values) => {
-            const producer: Producer = user as Producer;
-
             const createProductRequest: CreateProductRequest = {
-                image: values.image,
                 label: values.label,
-                uniteMesure: values.uniteMesure,
+                image: values.image,
+                description: values.description,
+                measurementUnit: values.measurementUnit,
                 stock: values.stock,
                 price: values.price,
+                businessName: currentProducerBusiness?.name,
+                businessId: currentProducerBusiness?.businessId
             }
 
             createNewProduct(createProductRequest);
@@ -115,16 +116,16 @@ export const CreateProductsPage = (): React.JSX.Element => {
                     <Select
                         label="Unité de mesure"
                         name="unite Mesure"
-                        value={formik.values.uniteMesure}
+                        value={formik.values.measurementUnit}
                         onChange={formik.handleChange}
-                        error={formik.touched.uniteMesure && !!formik.errors.uniteMesure}
+                        error={formik.touched.measurementUnit && !!formik.errors.measurementUnit}
                         required
                     >
-                        <MenuItem value={UnitMesure.UNIT}>Unité</MenuItem>
-                        <MenuItem value={UnitMesure.G}>Gramme</MenuItem>
-                        <MenuItem value={UnitMesure.KG}>Kilogramme</MenuItem>
-                        <MenuItem value={UnitMesure.ML}>MiliLitre</MenuItem>
-                        <MenuItem value={UnitMesure.L}>Litre</MenuItem>
+                        <MenuItem value={MeasurementUnit.UNIT}>Unité</MenuItem>
+                        <MenuItem value={MeasurementUnit.G}>Gramme</MenuItem>
+                        <MenuItem value={MeasurementUnit.KG}>Kilogramme</MenuItem>
+                        <MenuItem value={MeasurementUnit.ML}>MiliLitre</MenuItem>
+                        <MenuItem value={MeasurementUnit.L}>Litre</MenuItem>
                     </Select>
                     <TextField
                         label="Prix"

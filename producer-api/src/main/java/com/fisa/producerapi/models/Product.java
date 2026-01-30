@@ -11,7 +11,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-import com.fisa.producerapi.models.enums.UniteMesure;
+import com.fisa.producerapi.models.enums.MeasurementUnit;
 
 @Setter
 @Getter
@@ -41,6 +41,6 @@ public class Product {
     @Field("stockStatus")
     private StockStatus stockStatus;
     @Field("uniteMesure")
-    private UniteMesure uniteMesure;
+    private MeasurementUnit measurementUnit;
 
 }

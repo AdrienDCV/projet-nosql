@@ -2,7 +2,7 @@ package com.fisa.producerapi.dtos.products.requests;
 
 import com.fisa.producerapi.models.UpdateProductRequest;
 import com.fisa.producerapi.models.enums.StockStatus;
-import com.fisa.producerapi.models.enums.UniteMesure;
+import com.fisa.producerapi.models.enums.MeasurementUnit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +22,7 @@ public class UpdateProductRequestDto {
   private Double price;
   private Integer stock;
   private StockStatus stockStatus;
-  private UniteMesure uniteMesure;
+  private MeasurementUnit measurementUnit;
 
   public static UpdateProductRequest toEntity(UpdateProductRequestDto updateProductRequestDto) {
     return UpdateProductRequest.builder()
@@ -34,7 +34,7 @@ public class UpdateProductRequestDto {
             .price(updateProductRequestDto.getPrice())
             .stock(updateProductRequestDto.getStock())
             .stockStatus(updateProductRequestDto.getStockStatus())
-            .uniteMesure(updateProductRequestDto.getUniteMesure())
+            .measurementUnit(updateProductRequestDto.getMeasurementUnit())
             .build();
   }
 

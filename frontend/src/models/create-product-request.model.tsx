@@ -1,9 +1,12 @@
-import type {UnitMesure} from "./enum/unit-mesure.enum.tsx";
+import type {MeasurementUnit} from "./enum/measurement-unit.enum.ts";
 
 export type CreateProductRequest = {
-    image: string,
-    label: string,
-    uniteMesure: UnitMesure,
-    stock: number,
-    price: number,
+    businessId: string;
+    businessName: string;
+    label: string;
+    image: string;
+    description: string;
+    price: number;
+    stock: number;
+    measurementUnit: MeasurementUnit;
 };

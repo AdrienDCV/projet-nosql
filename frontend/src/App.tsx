@@ -18,7 +18,7 @@ import {CreateProductsPage} from "./pages/create-products/create-porducts.page.t
 function App() {
 
   return (
-    <div className="w-full h-full flex flex-col gap-8">
+    <div className="w-full h-full flex flex-col">
       <Suspense fallback={<h1>Page is loading...</h1>}>
         <Routes>
           <Route element={<ProtectedRoute />}>
