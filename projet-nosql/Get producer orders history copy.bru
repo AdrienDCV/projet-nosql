@@ -1,0 +1,20 @@
+meta {
+  name: Get producer orders history copy
+  type: http
+  seq: 24
+}
+
+get {
+  url: http://localhost:8080/producer-api/producer-orders/history
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
