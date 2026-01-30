@@ -1,5 +1,5 @@
 import type { StockStatus } from "./enum/stock-status.enum";
-import type { UniteMesure } from "./enum/unit-mesure.enum";
+import type { MeasurementUnit } from "./enum/measurement-unit.enum.ts";
 
 export type Product = {
     productId: string;
@@ -11,5 +11,5 @@ export type Product = {
     price: number;
     stock: number;
     stockStatus: StockStatus;
-    uniteMesure: UniteMesure;
+    uniteMesure: MeasurementUnit;
 }

@@ -1,4 +1,4 @@
-export enum UniteMesure {
+export enum MeasurementUnit {
     UNIT = "Unité",
     G = "g",
     KG = "kg",

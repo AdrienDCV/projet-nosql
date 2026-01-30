@@ -1,7 +1,7 @@
 package com.fisa.producerapi.dtos.producerOrders.responses;
 
 import com.fisa.producerapi.models.ClientOrderItem;
-import com.fisa.producerapi.models.enums.UniteMesure;
+import com.fisa.producerapi.models.enums.MeasurementUnit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,7 +18,7 @@ public class ClientOrderItemDto {
   private String label;
   private Double unitPrice;
   private Integer quantity;
-  private UniteMesure uniteMesure;
+  private MeasurementUnit measurementUnit;
 
   public static ClientOrderItemDto toDto(ClientOrderItem clientOrderItem) {
     return ClientOrderItemDto.builder()
@@ -27,7 +27,7 @@ public class ClientOrderItemDto {
             .label(clientOrderItem.getLabel())
             .unitPrice(clientOrderItem.getUnitPrice())
             .quantity(clientOrderItem.getQuantity())
-            .uniteMesure(clientOrderItem.getUniteMesure())
+            .measurementUnit(clientOrderItem.getMeasurementUnit())
             .build();
   }
 
@@ -38,7 +38,7 @@ public class ClientOrderItemDto {
             .label(clientOrderItemDto.getLabel())
             .unitPrice(clientOrderItemDto.getUnitPrice())
             .quantity(clientOrderItemDto.getQuantity())
-            .uniteMesure(clientOrderItemDto.getUniteMesure())
+            .measurementUnit(clientOrderItemDto.getMeasurementUnit())
             .build();
   }
 

@@ -37,7 +37,7 @@ public class ProductService {
             .label(createProductRequest.getLabel())
             .price(createProductRequest.getPrice())
             .stock(createProductRequest.getStock())
-            .uniteMesure(createProductRequest.getUniteMesure())
+            .measurementUnit(createProductRequest.getMeasurementUnit())
             .stockStatus(createProductRequest.getStock() > 0 ? StockStatus.IN_STOCK : StockStatus.OUT_OF_STOCK)
             .build());
 
@@ -48,7 +48,7 @@ public class ProductService {
             .price(createProductRequest.getPrice())
             .stock(createProductRequest.getStock())
             .stockStatus(createProductRequest.getStockStatus())
-            .uniteMesure(createProductRequest.getUniteMesure())
+            .measurementUnit(createProductRequest.getMeasurementUnit())
             .build();
   }
 
@@ -90,7 +90,7 @@ public class ProductService {
             .price(savedProduct.getPrice())
             .stock(savedProduct.getStock())
             .stockStatus(savedProduct.getStockStatus())
-            .uniteMesure(savedProduct.getUniteMesure())
+            .measurementUnit(savedProduct.getMeasurementUnit())
             .build();
   }
 

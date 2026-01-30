@@ -1,7 +1,7 @@
 package com.fisa.producerapi.models;
 
 import com.fisa.producerapi.models.enums.StockStatus;
-import com.fisa.producerapi.models.enums.UniteMesure;
+import com.fisa.producerapi.models.enums.MeasurementUnit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,6 +23,6 @@ public class UpdateProductResponse {
     private Double price;
     private Integer stock;
     private StockStatus stockStatus;
-    private UniteMesure uniteMesure;
+    private MeasurementUnit measurementUnit;
 
 }

@@ -1,0 +1,20 @@
+meta {
+  name: Retrieve current producer business
+  type: http
+  seq: 24
+}
+
+get {
+  url: http://localhost:8080/producer-api/businesses
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

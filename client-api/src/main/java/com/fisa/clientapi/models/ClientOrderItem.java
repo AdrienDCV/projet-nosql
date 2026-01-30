@@ -1,7 +1,7 @@
 package com.fisa.clientapi.models;
 
 
-import com.fisa.clientapi.models.enums.UniteMesure;
+import com.fisa.clientapi.models.enums.MeasurementUnit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +21,6 @@ public class ClientOrderItem {
   private String label;
   private Double unitPrice;
   private Integer quantity;
-  private UniteMesure uniteMesure;
+  private MeasurementUnit measurementUnit;
 
 }
