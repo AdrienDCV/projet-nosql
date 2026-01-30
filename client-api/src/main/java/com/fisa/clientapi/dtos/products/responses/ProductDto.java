@@ -17,6 +17,8 @@ public class ProductDto {
   private String productId;
   private String businessId;
   private String label;
+  private String description;
+  private String image;
   private Double price;
   private Integer stock;
   private StockStatus stockStatus;
@@ -27,6 +29,8 @@ public class ProductDto {
             .productId(productDto.getProductId())
             .businessId(productDto.getBusinessId())
             .label(productDto.getLabel())
+            .description(productDto.getDescription())
+            .image(productDto.getImage())
             .price(productDto.getPrice())
             .stock(productDto.getStock())
             .stockStatus(productDto.getStockStatus())
@@ -39,6 +43,8 @@ public class ProductDto {
             .productId(product.getProductId())
             .businessId(product.getBusinessId())
             .label(product.getLabel())
+            .description(product.getDescription())
+            .image(product.getImage())
             .price(product.getPrice())
             .stock(product.getStock())
             .stockStatus(product.getStockStatus())

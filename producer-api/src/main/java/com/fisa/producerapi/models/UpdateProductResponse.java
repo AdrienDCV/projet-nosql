@@ -18,6 +18,8 @@ public class UpdateProductResponse {
     private String productId;
     private String businessId;
     private String label;
+    private String description;
+    private String image;
     private Double price;
     private Integer stock;
     private StockStatus stockStatus;
