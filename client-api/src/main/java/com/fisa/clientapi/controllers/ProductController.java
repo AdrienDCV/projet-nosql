@@ -26,11 +26,20 @@ public class ProductController {
   private final ProductService productService;
 
   @GetMapping
-  public ResponseEntity<PaginatedResponseDto<ProductDto>> retrieveAllProducts(@RequestParam(defaultValue = "0") int page,
-                                                                          @RequestParam(defaultValue = "20") int size) {
+  public ResponseEntity<PaginatedResponseDto<ProductDto>> retrieveAllProducts(
+          @RequestParam(defaultValue = "0") int page,
+          @RequestParam(defaultValue = "20") int size,
+          @RequestParam(required = false) String label
+  ) {
     final Pageable pageable = PageRequest.of(page, size);
 
-    final Page<Product> products = productService.retrieveAllProducts(pageable);
+    final Page<Product> products;
+
+    if (label == null || label.isEmpty()) {
+      products = productService.retrieveAllProducts(pageable);
+    } else {
+      products = productService.searchProductsByLabel(label, pageable);
+    }
 
     final List<ProductDto> content = products.getContent().stream().map(ProductDto::toDto).toList();
 
