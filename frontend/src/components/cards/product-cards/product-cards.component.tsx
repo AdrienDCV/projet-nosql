@@ -1,3 +1,5 @@
+import {useApp} from "../../../hooks/app-context.hook.tsx";
+
 type Product = {
     name: string;
     image: string;
@@ -32,12 +34,15 @@ const products: Product[] = [
     },
 ];
 
-export function ProductCards() {
+export function ProductList() {
+    const { getProductDetails } = useApp();
+
     return (
         <section className="w-full flex justify-center py-12">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl">
                 {products.map((product, index) => (
                     <div
+                        onClick={() => getProductDetails(product.productId)}
                         key={index}
                         className="bg-white rounded-2xl shadow-md p-4 flex flex-col items-center text-center"
                     >

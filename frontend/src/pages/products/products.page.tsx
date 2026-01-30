@@ -1,5 +1,5 @@
 import type React from "react";
-import { ProductCards } from "../../components/cards/product-cards/product-cards.component";
+import { ProductList } from "../../components/cards/product-cards/product-cards.component";
 
 export const ProductsPage = (): React.JSX.Element => {
     return (
@@ -34,7 +34,7 @@ export const ProductsPage = (): React.JSX.Element => {
             </div>
 
             {/* Produits */}
-            <ProductCards />
+            <ProductList />
         </div>
     );
 };
