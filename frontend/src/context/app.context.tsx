@@ -2,10 +2,12 @@ import {createContext, useEffect, useState,} from "react";
 import {useAuthentication} from "../hooks/authentication-context.hook.tsx";
 import type {CreateBusinessRequest} from "../models/create-business-request.model.tsx";
 import {createBusiness} from "../services/business.service.tsx";
+import {createProduct} from "../services/product.service.tsx";
 import {useNavigate} from "react-router";
 import type {Product} from "../models/product.model.tsx";
 import {retrieveAllProducts, retrieveProductDetails} from "../services/product.service.tsx";
 import type {Paginated} from "../models/paginated.model.tsx";
+import type {CreateProductRequest} from "../models/create-product-request.model.tsx";
 
 export interface AppContextType {
   createNewBusiness: (createBusinessRequest: CreateBusinessRequest) => void;
@@ -14,6 +16,7 @@ export interface AppContextType {
   setCurrentProductDetails: (productDetails: Product) => void;
   refreshProductList: () => void;
   productList: Paginated<Product> | undefined;
+  createNewProduct: (createProductRequest: CreateProductRequest) => void;
 }
 
 interface AppContextProviderProps {
@@ -59,6 +62,16 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     }
   }
 
+  async function createNewProduct(createNewProductRequest: CreateProductRequest) {
+    try {
+      if (isAuthenticated) {
+        await createProduct(createNewProductRequest);
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   async function getProductDetails(productId: string) {
     try {
       if (isAuthenticated) {
@@ -71,14 +84,14 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     }
   }
 
-
   const value: AppContextType = {
     createNewBusiness,
     getProductDetails,
     currentProductDetails,
     setCurrentProductDetails,
     productList,
-    refreshProductList
+    refreshProductList,
+    createNewProduct,
   };
 
   return (
