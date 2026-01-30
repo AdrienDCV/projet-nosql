@@ -1,11 +1,19 @@
-import {createContext, } from "react";
+import {createContext, useEffect, useState,} from "react";
 import {useAuthentication} from "../hooks/authentication-context.hook.tsx";
 import type {CreateBusinessRequest} from "../models/create-business-request.model.tsx";
 import {createBusiness} from "../services/business.service.tsx";
 import {useNavigate} from "react-router";
+import type {Product} from "../models/product.model.tsx";
+import {retrieveAllProducts, retrieveProductDetails} from "../services/product.service.tsx";
+import type {Paginated} from "../models/paginated.model.tsx";
 
 export interface AppContextType {
   createNewBusiness: (createBusinessRequest: CreateBusinessRequest) => void;
+  getProductDetails: (productId: string) => void;
+  currentProductDetails: Product | undefined;
+  setCurrentProductDetails: (productDetails: Product) => void;
+  refreshProductList: () => void;
+  productList: Paginated<Product> | undefined;
 }
 
 interface AppContextProviderProps {
@@ -14,18 +22,17 @@ interface AppContextProviderProps {
 
 export const AppContext = createContext<AppContextType | undefined>(undefined)
 
-export const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.Element => {
+const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.Element => {
+  const [currentProductDetails, setCurrentProductDetails] = useState<Product | undefined>(undefined);
+  const [productList, setProductList] = useState<Paginated<Product> | undefined>(undefined);
   const { isAuthenticated, setIsBusinessCreated } = useAuthentication();
   const navigate = useNavigate();
 
-  // retrieve data
-  /*
   useEffect(() => {
     if (isAuthenticated) {
-      // void refreshAppointmentSettingsList(); example
+      void refreshProductList();
     }
   }, [isAuthenticated]);
-  */
 
   async function createNewBusiness(createNewBusinessRequest: CreateBusinessRequest) {
     try {
@@ -41,9 +48,37 @@ export const AppContextProvider = ({ children }: AppContextProviderProps): React
     }
   }
 
+  async function refreshProductList() {
+    try {
+      if (isAuthenticated) {
+        const data = await retrieveAllProducts();
+        setProductList(data);
+      }
+    } catch(error) {
+      console.error(error)
+    }
+  }
+
+  async function getProductDetails(productId: string) {
+    try {
+      if (isAuthenticated) {
+        const currentProductDetails: Product = await retrieveProductDetails(productId)
+
+        setCurrentProductDetails(currentProductDetails);
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
 
   const value: AppContextType = {
     createNewBusiness,
+    getProductDetails,
+    currentProductDetails,
+    setCurrentProductDetails,
+    productList,
+    refreshProductList
   };
 
   return (
@@ -52,3 +87,4 @@ export const AppContextProvider = ({ children }: AppContextProviderProps): React
       </AppContext.Provider>
   );
 }
+export default AppContextProvider

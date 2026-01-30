@@ -10,6 +10,7 @@ import {SignInPage} from "./pages/authentication/sign-in/sign-in.page.tsx";
 import {CreateBusinessPage} from "./pages/create-business/create-business.page.tsx";
 import {ProfilePage} from "./pages/profile/profile.page.tsx";
 import {ProductsPage} from "./pages/products/products.page.tsx";
+import {ProductDetailsPage} from "./pages/products/product-details.page.tsx";
 import {OrderListPage} from "./pages/order-list/order-list.page.tsx";
 import {ClientOrderHistoryPage} from "./pages/order-details/client-order-history.page.tsx";
 
@@ -27,6 +28,7 @@ function App() {
             <Route path='/profile' element={<ProfilePage />} />
             <Route path='/client-order-history' element={<ClientOrderHistoryPage />} />
             <Route index path='/products' element={<ProductsPage />} />
+            <Route index path='/product-details/:productId' element={<ProductDetailsPage />} />
           </Route>
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/sign-in' element={<SignInPage />} />
