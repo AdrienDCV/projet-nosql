@@ -7,10 +7,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
 @Setter
 @Getter
@@ -21,6 +17,8 @@ public class CreateProductRequest {
 
     private String businessId;
     private String label;
+    private String description;
+    private String image;
     private Double price;
     private Integer stock;
     private StockStatus stockStatus;

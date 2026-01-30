@@ -28,6 +28,10 @@ public class Product {
     private String productId;
     @Field("businessId")
     private String businessId;
+    @Field("description")
+    private String description;
+    @Field("image")
+    private String image;
     @Field("label")
     private String label;
     @Field("price")
@@ -38,7 +42,5 @@ public class Product {
     private StockStatus stockStatus;
     @Field("uniteMesure")
     private UniteMesure uniteMesure;
-    @Field("image")
-    private String image;
 
 }

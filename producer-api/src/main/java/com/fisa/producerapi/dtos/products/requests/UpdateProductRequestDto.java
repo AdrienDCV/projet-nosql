@@ -17,6 +17,8 @@ public class UpdateProductRequestDto {
   private String productId;
   private String businessId;
   private String label;
+  private String description;
+  private String image;
   private Double price;
   private Integer stock;
   private StockStatus stockStatus;
@@ -27,6 +29,8 @@ public class UpdateProductRequestDto {
             .productId(updateProductRequestDto.getProductId())
             .businessId(updateProductRequestDto.getBusinessId())
             .label(updateProductRequestDto.getLabel())
+            .description(updateProductRequestDto.getDescription())
+            .image(updateProductRequestDto.getImage())
             .price(updateProductRequestDto.getPrice())
             .stock(updateProductRequestDto.getStock())
             .stockStatus(updateProductRequestDto.getStockStatus())

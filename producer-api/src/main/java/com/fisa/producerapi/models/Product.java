@@ -30,6 +30,10 @@ public class Product {
     private String businessId;
     @Field("label")
     private String label;
+    @Field("description")
+    private String description;
+    @Field("image")
+    private String image;
     @Field("price")
     private Double price;
     @Field("stock")
