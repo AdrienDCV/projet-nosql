@@ -1,11 +1,11 @@
 meta {
-  name: Retrieve all products (producer-api)
+  name: Retrieve all products by label regex (producer-api)
   type: http
   seq: 10
 }
 
 get {
-  url: http://localhost:8080/producer-api/products?page=0&size=20
+  url: http://localhost:8081/client-api/products?page=0&size=20
   body: none
   auth: inherit
 }

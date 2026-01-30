@@ -1,11 +1,11 @@
 meta {
-  name: Retrieve all products (client-apit)
+  name: Retrieve all products by label regex (client-apit)
   type: http
   seq: 9
 }
 
 get {
-  url: http://localhost:8081/client-api/products?page=0&size=20
+  url: http://localhost:8081/client-api/products?page=0&size=20&label=car
   body: none
   auth: inherit
 }
@@ -13,6 +13,7 @@ get {
 params:query {
   page: 0
   size: 20
+  label: car
 }
 
 settings {

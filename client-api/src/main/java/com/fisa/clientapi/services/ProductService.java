@@ -30,4 +30,13 @@ public class ProductService {
     return productRepository.findByProductId(productId).orElseThrow(ProductNotFoundException::new);
   }
 
+  public Page<Product> searchProductsByLabel(String label, Pageable pageable) {
+    if (label == null || label.isBlank()) {
+      return Page.empty(pageable);
+    }
+
+    String regex = "(?i).*" + label + ".*";
+
+    return productRepository.findByLabelRegex(regex, pageable);
+  }
 }

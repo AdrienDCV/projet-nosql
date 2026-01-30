@@ -93,4 +93,14 @@ public class ProductService {
             .uniteMesure(savedProduct.getUniteMesure())
             .build();
   }
+
+  public Page<Product> searchProductsByLabel(String label, Pageable pageable) {
+    if (label == null || label.isBlank()) {
+      return Page.empty(pageable);
+    }
+
+    String regex = "(?i).*" + label + ".*";
+
+    return productRepository.findByLabelRegex(regex, pageable);
+  }
 }
