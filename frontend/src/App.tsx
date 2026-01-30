@@ -28,7 +28,7 @@ function App() {
             <Route path='/profile' element={<ProfilePage />} />
             <Route path='/client-order-history' element={<ClientOrderHistoryPage />} />
             <Route index path='/products' element={<ProductsPage />} />
-            <Route index path='/product-details' element={<ProductDetailsPage />} />
+            <Route index path='/product-details/:productId' element={<ProductDetailsPage />} />
           </Route>
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/sign-in' element={<SignInPage />} />
