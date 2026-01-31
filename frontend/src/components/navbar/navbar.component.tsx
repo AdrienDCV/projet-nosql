@@ -66,7 +66,7 @@ export function NavbarComponent(): React.JSX.Element {
             {/* Droite */}
             <div className="flex items-center gap-6">
                 <div>
-                    <a href="/order-list">
+                    <a href="/client-orders-history">
                         <FormatListBulletedIcon style={{ color: "#ff6a41", fontSize: "32px" }} />
                     </a>
                 </div>
