@@ -10,7 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.util.Map;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,5 +28,5 @@ public class Cart {
     @Field("clientId")
     private String clientId;
     @Field("cartEntries")
-    private Map<String, CartEntry> cartEntries;
+    private List<CartEntry> cartEntries;
 }

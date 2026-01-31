@@ -8,7 +8,6 @@ import com.fisa.clientapi.models.Cart;
 import com.fisa.clientapi.models.CartEntry;
 import com.fisa.clientapi.models.CreateCartEntryRequest;
 import com.fisa.clientapi.models.Product;
-import com.fisa.clientapi.models.UpdateCartRequest;
 import com.fisa.clientapi.repositories.CartRepository;
 import com.fisa.clientapi.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Transactional
@@ -37,7 +36,7 @@ public class CartService {
             Cart.builder()
                     .cartId(UUID.randomUUID().toString())
                     .clientId(clientId)
-                    .cartEntries(Collections.emptyMap())
+                    .cartEntries(Collections.emptyList())
                     .build()
     );
   }
@@ -51,19 +50,26 @@ public class CartService {
 
     final Cart existingCart = cartRepository.findByClientId(clientId).orElseThrow(CartNotFoundException::new);
 
-    existingCart.getCartEntries().merge(
-            createCartEntryRequest.getProductId(),
-            createNewCartEntry(createCartEntryRequest, existingProduct, existingCart.getCartId()),
-            (existingCartEntry, newCartEntry) -> {
-              existingCartEntry.setQuantity(existingCartEntry.getQuantity() + newCartEntry.getQuantity());
-              return existingCartEntry;
-            }
-    );
+    List<CartEntry> cartEntries = existingCart.getCartEntries();
+
+    Optional<CartEntry> existingEntryOpt = cartEntries.stream()
+            .filter(entry -> entry.getProductId().equals(createCartEntryRequest.getProductId()))
+            .findFirst();
+
+    if (existingEntryOpt.isPresent()) {
+      CartEntry existingEntry = existingEntryOpt.get();
+      existingEntry.setQuantity(existingEntry.getQuantity() + createCartEntryRequest.getQuantity()
+      );
+    } else {
+      CartEntry newEntry = createNewCartEntry(createCartEntryRequest, existingProduct);
+      cartEntries.add(newEntry);
+    }
+
 
     return cartRepository.save(existingCart);
   }
 
-  private CartEntry createNewCartEntry(CreateCartEntryRequest request, Product product, String cartId) {
+  private CartEntry createNewCartEntry(CreateCartEntryRequest request, Product product) {
     return CartEntry.builder()
             .cartEntryId(UUID.randomUUID().toString())
             .productId(request.getProductId())
@@ -78,22 +84,4 @@ public class CartService {
     return cartRepository.findByClientId(clientId).orElseThrow(CartNotFoundException::new);
   }
 
-  public Cart updateCart(UpdateCartRequest updateCartRequest) {
-    final Cart existingCart = cartRepository.findByCartId(updateCartRequest.getCartId())
-            .orElseThrow(CartNotFoundException::new);
-
-    Map<String, CartEntry> updatedEntries = new HashMap<>();
-
-    updateCartRequest.getCartEntries().forEach((productId, updateRequest) -> {
-      CartEntry existingEntry = existingCart.getCartEntries().get(productId);
-      if (existingEntry != null) {
-        existingEntry.setQuantity(updateRequest.getQuantity());
-        updatedEntries.put(productId, existingEntry);
-      }
-    });
-
-    existingCart.setCartEntries(updatedEntries);
-
-    return cartRepository.save(existingCart);
-  }
 }

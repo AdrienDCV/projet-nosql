@@ -6,8 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,16 +15,12 @@ import java.util.stream.Collectors;
 public class UpdateCartRequestDto {
 
   private String cartId;
-  private Map<String, UpdateCartEntryRequestDto> cartEntries;
+  private List<UpdateCartEntryRequestDto> cartEntries;
 
   public static UpdateCartRequest toEntity(UpdateCartRequestDto updateCartRequestDto) {
     return UpdateCartRequest.builder()
             .cartId(updateCartRequestDto.cartId)
-            .cartEntries(updateCartRequestDto.getCartEntries().entrySet().stream()
-                    .collect(Collectors.toMap(
-                            Map.Entry::getKey,
-                            entry -> UpdateCartEntryRequestDto.toEntity(entry.getValue())
-                    )))
+            .cartEntries(updateCartRequestDto.getCartEntries().stream().map(UpdateCartEntryRequestDto::toEntity).toList())
             .build();
   }
 
