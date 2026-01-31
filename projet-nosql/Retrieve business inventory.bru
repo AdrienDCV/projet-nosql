@@ -1,0 +1,20 @@
+meta {
+  name: Retrieve business inventory
+  type: http
+  seq: 25
+}
+
+get {
+  url: http://localhost:8080/producer-api/products/4d300bc8-f180-4fc2-a3d5-455bde77b429/inventory
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: 
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
