@@ -42,7 +42,7 @@ export function NavbarComponent(): React.JSX.Element {
                   {isAuthenticated ?
                       <button onClick={handleSignOut}>
                         <LogoutIcon style={{ color: "#FF5733", fontSize: "32px" }} />
-                        <p className="text-secondary">Déonnexion</p>
+                        <p className="text-secondary">Déconnexion</p>
                       </button> :
                       <button onClick={handleSignIn}>
                         <LoginIcon style={{ color: "#FF5733", fontSize: "32px" }} />

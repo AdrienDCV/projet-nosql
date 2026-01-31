@@ -1,6 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/swiper-bundle.css";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 export function Carousel() {
   const images = [
@@ -12,8 +14,8 @@ export function Carousel() {
   return (
       <div className="relative w-full flex flex-row items-center">
         {/* Boutons */}
-        <button className="swiper-button-prev-custom absolute left-4 z-10 bg-white p-3 rounded-full shadow">
-          ◀
+        <button className="swiper-button-prev-custom absolute left-4 z-10">
+          <ArrowBackIosIcon className="text-white" />
         </button>
         <Swiper
             modules={[Autoplay, Navigation]}
@@ -38,8 +40,8 @@ export function Carousel() {
               </SwiperSlide>
           ))}
         </Swiper>
-        <button className="swiper-button-next-custom absolute right-4 z-10 bg-white p-3 rounded-full shadow">
-          ▶
+        <button className="swiper-button-next-custom absolute right-4 z-10">
+          <ArrowForwardIosIcon className="text-white"/>
         </button>
       </div>
   );

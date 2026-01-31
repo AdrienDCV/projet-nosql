@@ -24,7 +24,7 @@ export interface AppContextType {
   refreshProductListProducer: () => void;
   productList: Paginated<Product> | undefined;
   createNewProduct: (createProductRequest: CreateProductRequest) => void;
-  currentProducerBusiness: Business;
+  currentProducerBusiness: Business | undefined;
   getCurrentProducerBusiness: () => void;
 }
 
@@ -37,22 +37,20 @@ export const AppContext = createContext<AppContextType | undefined>(undefined)
 const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.Element => {
   const [currentProductDetails, setCurrentProductDetails] = useState<Product | undefined>(undefined);
   const [productList, setProductList] = useState<Paginated<Product> | undefined>(undefined);
-  const [currentProducerBusiness, setCurrentProducerBusiness] = useState<Business>();
+  const [currentProducerBusiness, setCurrentProducerBusiness] = useState<Business | undefined>();
   const { isAuthenticated, setIsBusinessCreated, user } = useAuthentication();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) {
-      if (user?.userType === UserType.PRODUCER) {
-        void getCurrentProducerBusiness();
-        void refreshProductListProducer();
+    if (!isAuthenticated || !user) return;
 
-      } else {
-        void refreshProductListClient();
-      }
-
+    if (user.userType === UserType.PRODUCER) {
+      void getCurrentProducerBusiness();
+      void refreshProductListProducer();
+    } else {
+      void refreshProductListClient();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user]);
 
   async function createNewBusiness(createNewBusinessRequest: CreateBusinessRequest) {
     try {
@@ -116,13 +114,13 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
 
   async function getProductDetails(productId: string) {
     try {
-      if (isAuthenticated) {
-        const currentProductDetails: Product = await retrieveProductDetails(productId)
+      if (!isAuthenticated) return;
 
-        setCurrentProductDetails(currentProductDetails);
-      }
+      const currentProductDetails: Product = await retrieveProductDetails(productId);
+      setCurrentProductDetails(currentProductDetails);
+
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   }
 

@@ -17,24 +17,26 @@ public class ProductDto {
   private String productId;
   private String businessId;
   private String label;
-  private String descriptions;
+  private String description;
   private String image;
   private Double price;
   private Integer stock;
   private StockStatus stockStatus;
   private MeasurementUnit measurementUnit;
+  private String businessName;
 
   public static ProductDto toDto(Product product) {
     return ProductDto.builder()
             .productId(product.getProductId())
             .businessId(product.getBusinessId())
             .label(product.getLabel())
-            .descriptions(product.getDescription())
+            .description(product.getDescription())
             .image(product.getImage())
             .price(product.getPrice())
             .stock(product.getStock())
             .stockStatus(product.getStockStatus())
             .measurementUnit(product.getMeasurementUnit())
+            .businessName(product.getBusinessName())
             .build();
   }
 

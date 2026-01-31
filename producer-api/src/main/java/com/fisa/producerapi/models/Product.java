@@ -40,7 +40,9 @@ public class Product {
     private Integer stock;
     @Field("stockStatus")
     private StockStatus stockStatus;
-    @Field("uniteMesure")
+    @Field("measurementUnit")
     private MeasurementUnit measurementUnit;
+    @Field("businessName")
+    private String businessName;
 
 }

@@ -2,7 +2,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 
 export function FooterComponent() {
     return (
-        <footer className="w-full bg-[#FFD086] text-[#B02E0C] py-6 mt-8">
+        <footer className="w-full bg-[#FFD086] text-secondary py-6">
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between px-6 text-sm">
                 {/* Texte copyright */}
                 <p className="mb-2 md:mb-0">© 2026 — QUETTA</p>
@@ -12,7 +12,7 @@ export function FooterComponent() {
                     <span>Contact</span>
                     <span>Politique de confidentialité</span>
                     <span>Nos conditions generales</span>
-                    <InstagramIcon className="text-[#B02E0C]" style={{fontSize: "32px" }} />
+                    <InstagramIcon className="text-secondary" style={{fontSize: "32px" }} />
                 </div>
             </div>
         </footer>

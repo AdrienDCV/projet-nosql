@@ -35,20 +35,26 @@ public class ProductService {
             .productId(UUID.randomUUID().toString())
             .businessId(createProductRequest.getBusinessId())
             .label(createProductRequest.getLabel())
+            .image(createProductRequest.getImage())
+            .description(createProductRequest.getDescription())
             .price(createProductRequest.getPrice())
             .stock(createProductRequest.getStock())
             .measurementUnit(createProductRequest.getMeasurementUnit())
+            .businessName(createProductRequest.getBusinessName())
             .stockStatus(createProductRequest.getStock() > 0 ? StockStatus.IN_STOCK : StockStatus.OUT_OF_STOCK)
             .build());
 
     return CreateProductResponse.builder()
             .productId(createdProduct.getProductId())
-            .businessId(createProductRequest.getBusinessId())
-            .label(createProductRequest.getLabel())
-            .price(createProductRequest.getPrice())
-            .stock(createProductRequest.getStock())
-            .stockStatus(createProductRequest.getStockStatus())
-            .measurementUnit(createProductRequest.getMeasurementUnit())
+            .businessId(createdProduct.getBusinessId())
+            .label(createdProduct.getLabel())
+            .image(createdProduct.getImage())
+            .description(createdProduct.getDescription())
+            .price(createdProduct.getPrice())
+            .stock(createdProduct.getStock())
+            .stockStatus(createdProduct.getStockStatus())
+            .measurementUnit(createdProduct.getMeasurementUnit())
+            .businessName(createdProduct.getBusinessName())
             .build();
   }
 
