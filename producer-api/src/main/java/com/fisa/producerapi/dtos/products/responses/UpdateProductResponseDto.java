@@ -23,16 +23,20 @@ public class UpdateProductResponseDto {
   private Integer stock;
   private StockStatus stockStatus;
   private MeasurementUnit measurementUnit;
+  private String businessName;
 
   public static UpdateProductResponseDto toDto(UpdateProductResponse updateProductResponse) {
     return UpdateProductResponseDto.builder()
             .productId(updateProductResponse.getProductId())
             .businessId(updateProductResponse.getBusinessId())
             .label(updateProductResponse.getLabel())
+            .image(updateProductResponse.getImage())
+            .description(updateProductResponse.getDescription())
             .price(updateProductResponse.getPrice())
             .stock(updateProductResponse.getStock())
             .stockStatus(updateProductResponse.getStockStatus())
             .measurementUnit(updateProductResponse.getMeasurementUnit())
+            .businessName(updateProductResponse.getBusinessName())
             .build();
   }
 

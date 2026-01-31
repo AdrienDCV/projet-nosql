@@ -7,10 +7,14 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import {useAuthentication} from "../../hooks/authentication-context.hook.tsx";
 import {signOutClient, signOutProducer} from "../../services/user.service.tsx";
 import {useNavigate} from "react-router";
+import {UserType} from "../../models/enum/user-type.enum.ts";
+import {Warehouse} from "@mui/icons-material";
 
 export function NavbarComponent(): React.JSX.Element {
   const { isAuthenticated, setIsAuthenticated, setUser, setAuthToken, user} = useAuthentication();
   const navigate = useNavigate();
+
+  console.log(user);
 
   const handleSignOut = async () => {
     try {
@@ -41,12 +45,12 @@ export function NavbarComponent(): React.JSX.Element {
                 <div className="flex flex-col items-center ml-8 font-bold text-white" >
                   {isAuthenticated ?
                       <button onClick={handleSignOut}>
-                        <LogoutIcon style={{ color: "#FF5733", fontSize: "32px" }} />
-                        <p className="text-secondary">Déconnexion</p>
+                        <LogoutIcon className="text-secondary text-2xl" />
+                        <p className="text-secondary text-xs ">Déconnexion</p>
                       </button> :
                       <button onClick={handleSignIn}>
-                        <LoginIcon style={{ color: "#FF5733", fontSize: "32px" }} />
-                        <p className="text-secondary">Connexion</p>
+                        <LoginIcon className="text-secondary text-2xl" />
+                        <p className="text-secondary text-xs ">Connexion</p>
                       </button>
                   }
                 </div>
@@ -63,18 +67,31 @@ export function NavbarComponent(): React.JSX.Element {
                 </a>
             </div>
 
-            {/* Droite */}
-            <div className="flex items-center gap-6">
-                <div>
-                    <a href="/order-list">
-                        <FormatListBulletedIcon style={{ color: "#ff6a41", fontSize: "32px" }} />
-                    </a>
-                </div>
-                <div>
-                    <a href="/cart">
-                        <ShoppingBagIcon style={{ color: "#FF5733", fontSize: "32px" }} />
-                    </a>
-                </div>
+            <div className="flex justify-center items-center gap-6">
+              <div className="w-full flex flex-col items-center">
+                <a href="/client-order-history">
+                  <FormatListBulletedIcon className="text-[#FF5733] text-2xl" />
+                </a>
+                <span className="text-[#FF5733] text-xs font-bold">Historique</span>
+              </div>
+                {
+                  user?.userType === UserType.CLIENT &&
+                    <div className="w-full flex flex-col items-center">
+                        <a href="/cart">
+                            <ShoppingBagIcon className="text-[#FF5733] text-2xl" />
+                        </a>
+                        <span className="text-[#FF5733] text-xs font-bold">Historique</span>
+                    </div>
+                }
+                {
+                    user?.userType === UserType.PRODUCER &&
+                    <div className="w-full flex flex-col items-center">
+                        <a href="/producer/inventory">
+                            <Warehouse className="text-[#FF5733] text-2xl" />
+                        </a>
+                        <span className="text-[#FF5733] text-xs font-bold">Inventaire</span>
+                    </div>
+                }
                 <div>
                     <a href="/profile">
                         <AccountCircleIcon style={{ color: "#B02E0C", fontSize: "40px", marginRight: "30px" }} />

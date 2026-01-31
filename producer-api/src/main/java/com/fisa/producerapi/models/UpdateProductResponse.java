@@ -24,5 +24,6 @@ public class UpdateProductResponse {
     private Integer stock;
     private StockStatus stockStatus;
     private MeasurementUnit measurementUnit;
+    private String businessName;
 
 }

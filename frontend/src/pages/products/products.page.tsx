@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import { ProductList } from "../../components/cards/product-cards/product-cards.component";
+import { ProductList } from "../../components/product-list/product-list.component.tsx";
 import {useLocation} from "react-router";
 import {useApp} from "../../hooks/app-context.hook.tsx";
 import {SearchBar} from "../../components/searchBar/search.bar.tsx";
