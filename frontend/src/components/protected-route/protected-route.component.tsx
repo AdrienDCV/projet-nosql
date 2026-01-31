@@ -1,4 +1,4 @@
-import {Navigate, Outlet, type RouteProps, useLocation, useNavigate} from 'react-router';
+import {Navigate, Outlet, type RouteProps, useLocation} from 'react-router';
 import React from 'react';
 import {useAuthentication} from "../../hooks/authentication-context.hook.tsx";
 import {CircularProgress} from "@mui/material";

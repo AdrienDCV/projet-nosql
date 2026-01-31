@@ -1,9 +1,11 @@
 import React from "react";
 import CropOriginalIcon from "@mui/icons-material/CropOriginal";
 import { useRef, useState } from "react";
+import {useAuthentication} from "../../hooks/authentication-context.hook.tsx";
+import {UserType} from "../../models/enum/user-type.enum.ts";
 
 export function ProfilePage(): React.JSX.Element {
-
+    const { user } = useAuthentication();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [preview, setPreview] = useState<string | null>(null);
 
@@ -14,22 +16,12 @@ export function ProfilePage(): React.JSX.Element {
         }
     };
 
-    // Valeurs par défaut
-    const defaultProfile = {
-        email: "jean.dupont@email.com",
-        nom: "Dupont",
-        prenom: "Jean",
-        password: "Motdepasse123",
-        role: "consumer",
-    };
-
     return (
         <div className="flex flex-col w-full h-full bg-[#FFF6E8]">
 
             <div className="w-full h-full bg-[#FFF6E8] flex justify-center items-center px-6">
                 <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg p-8 space-y-6">
 
-                    {/* Photo de profil */}
                     <div className="flex justify-center">
                         <div
                             onClick={() => fileInputRef.current?.click()}
@@ -62,32 +54,29 @@ export function ProfilePage(): React.JSX.Element {
                         />
                     </div>
 
-                    {/* Titre */}
                     <h2 className="text-2xl font-bold text-center text-[#EB4511]">
                         Mon Profil
                     </h2>
 
-                    {/* Email */}
                     <div>
                         <label className="block text-sm font-medium mb-1">
                             Adresse Email
                         </label>
                         <input
                             type="email"
-                            value={defaultProfile.email}
+                            value={user?.email}
                             readOnly
                             className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400"
                         />
                     </div>
 
-                    {/* Nom / Prénom */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-sm font-medium mb-1">Nom</label>
                             <input
                                 type="text"
                                 readOnly
-                                value={defaultProfile.nom}
+                                value={user?.lastname}
                                 className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400"
                             />
                         </div>
@@ -96,37 +85,24 @@ export function ProfilePage(): React.JSX.Element {
                             <input
                                 type="text"
                                 readOnly
-                                value={defaultProfile.prenom}
+                                value={user?.firstname}
                                 className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400"
                             />
                         </div>
                     </div>
 
-                    {/* Mot de passe */}
-                    <div>
-                        <label className="block text-sm font-medium mb-1">Mot de passe</label>
-                        <input
-                            type="password"
-                            readOnly
-                            value={defaultProfile.password}
-                            className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-orange-400"
-                        />
-                    </div>
-
-                    {/* Type */}
                     <div>
                         <label className="block text-sm font-medium mb-1">Type de profil</label>
                         <div className="flex items-center gap-2">
-                            {defaultProfile.role === "consumer" && (
-                                <span className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full">
-                                    Consommateur
-                                </span>
-                            )}
-                            {defaultProfile.role === "producer" && (
-                                <span className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full">
-                                    Producteur
-                                </span>
-                            )}
+                            {
+                                user?.userType === UserType.CLIENT ?
+                                    <span className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full">
+                                        Client
+                                    </span> :
+                                    <span className="px-3 py-1 bg-orange-100 text-orange-800 rounded-full">
+                                        Producteur
+                                    </span>
+                            }
                         </div>
                     </div>
                 </div>

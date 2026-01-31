@@ -14,7 +14,7 @@ export const retrieveAllProductsClient = async (): Promise<Paginated<Product>> =
 
 export const retrieveAllProductsProducer = async (): Promise<Paginated<Product>> => {
   const response = await axios.get(
-      "http://localhost:8081/producer-api/products"
+      "http://localhost:8080/producer-api/products"
   )
 
   return response.data;
@@ -22,7 +22,7 @@ export const retrieveAllProductsProducer = async (): Promise<Paginated<Product>>
 
 export const retrieveProductDetails = async (productId: string): Promise<Product> => {
   const response = await axios.get(
-      `http://localhost:8081/client-api/products/${productId}`      
+      `http://localhost:8080/producer-api/products/${productId}`
   );
 
   return response.data;

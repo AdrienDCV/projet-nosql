@@ -29,7 +29,7 @@ export interface AuthenticationContextType {
       username: string,
       password: string,
   ) => void;
-  isBusinessCreated: boolean;
+  isBusinessCreated: boolean | undefined;
   setIsBusinessCreated: (isBusinessCreated: boolean) => void;
 }
 
@@ -46,7 +46,12 @@ export const AuthenticationContextProvider = (props: IAuthenticationContextProvi
   });
   const [authToken, setAuthToken] = useState<string>()
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [isBusinessCreated, setIsBusinessCreated] = useState<boolean>(false);
+  const [isBusinessCreated, setIsBusinessCreated] = useState<boolean | undefined>(() => {
+    const storedUser = localStorage.getItem('user');
+    if (!storedUser) return undefined;
+    const parsedUser = JSON.parse(storedUser) as Producer;
+    return parsedUser.businessCreated ?? undefined;
+  });
   const [isInitializing, setIsInitializing] = useState<boolean>(true);
   const navigate = useNavigate();
 
@@ -135,6 +140,8 @@ export const AuthenticationContextProvider = (props: IAuthenticationContextProvi
         }
         setUser(user);
         setIsBusinessCreated((user as Producer)?.businessCreated);
+
+        justLoggedIn.current = true;
       }
     } catch (error) {
       setIsAuthenticated(false);
@@ -153,6 +160,8 @@ export const AuthenticationContextProvider = (props: IAuthenticationContextProvi
         }
         setUser(user);
         setIsBusinessCreated((user as Producer)?.businessCreated);
+
+        justLoggedIn.current = true;
       }
     } catch (error) {
       setIsAuthenticated(false);

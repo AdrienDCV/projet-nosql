@@ -20,6 +20,7 @@ public class CreateProductRequestDto {
   private Double price;
   private Integer stock;
   private MeasurementUnit measurementUnit;
+  private String businessName;
 
   public static CreateProductRequest toEntity(CreateProductRequestDto createProductRequestDto) {
     return CreateProductRequest.builder()
@@ -30,6 +31,7 @@ public class CreateProductRequestDto {
             .price(createProductRequestDto.getPrice())
             .stock(createProductRequestDto.getStock())
             .measurementUnit(createProductRequestDto.getMeasurementUnit())
+            .businessName(createProductRequestDto.getBusinessName())
             .build();
   }
 

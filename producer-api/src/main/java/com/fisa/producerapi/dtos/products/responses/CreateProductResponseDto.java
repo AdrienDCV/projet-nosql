@@ -18,23 +18,25 @@ public class CreateProductResponseDto {
   private String productId;
   private String businessId;
   private String label;
-  private String descriptions;
+  private String description;
   private String image;
   private Double price;
   private Integer stock;
   private StockStatus stockStatus;
   private MeasurementUnit measurementUnit;
+  private String businessName;
 
   public static CreateProductRequest toEntity(CreateProductResponseDto createProductResponseDto) {
     return CreateProductRequest.builder()
             .businessId(createProductResponseDto.getBusinessId())
             .label(createProductResponseDto.getLabel())
-            .description(createProductResponseDto.getDescriptions())
+            .description(createProductResponseDto.getDescription())
             .image(createProductResponseDto.getImage())
             .price(createProductResponseDto.getPrice())
             .stock(createProductResponseDto.getStock())
             .stockStatus(createProductResponseDto.getStockStatus())
             .measurementUnit(createProductResponseDto.getMeasurementUnit())
+            .businessName(createProductResponseDto.getBusinessName())
             .build();
   }
 
@@ -43,12 +45,13 @@ public class CreateProductResponseDto {
             .productId(createProductResponse.getProductId())
             .businessId(createProductResponse.getBusinessId())
             .label(createProductResponse.getLabel())
-            .descriptions(createProductResponse.getDescription())
+            .description(createProductResponse.getDescription())
             .image(createProductResponse.getImage())
             .price(createProductResponse.getPrice())
             .stock(createProductResponse.getStock())
             .stockStatus(createProductResponse.getStockStatus())
             .measurementUnit(createProductResponse.getMeasurementUnit())
+            .businessName(createProductResponse.getBusinessName())
             .build();
   }
 }
