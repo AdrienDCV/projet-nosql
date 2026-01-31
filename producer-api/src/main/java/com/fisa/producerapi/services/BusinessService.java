@@ -1,7 +1,10 @@
 package com.fisa.producerapi.services;
 
+import com.fisa.producerapi.exceptions.businesses.BusinessNotFoundException;
 import com.fisa.producerapi.exceptions.producers.ProducerNotFoundException;
 import com.fisa.producerapi.models.Business;
+import com.fisa.producerapi.models.CreateBusinessRequest;
+import com.fisa.producerapi.models.CreateBusinessResponse;
 import com.fisa.producerapi.models.Producer;
 import com.fisa.producerapi.repositories.BusinessRepository;
 import com.fisa.producerapi.repositories.ProducerRepository;
@@ -20,20 +23,42 @@ public class BusinessService {
 
   private final ShardProvider shardProvider;
 
-  public Business createBusiness(Business business) {
-    business.setBusinessId(UUID.randomUUID().toString());
+  public CreateBusinessResponse createBusiness(CreateBusinessRequest createBusinessRequest) {
+    final Business newBusiness = Business.builder()
+            .businessId(UUID.randomUUID().toString())
+            .name(createBusinessRequest.getEmail())
+            .address(createBusinessRequest.getAddress())
+            .profession(createBusinessRequest.getProfession())
+            .description(createBusinessRequest.getDescription())
+            .phone(createBusinessRequest.getPhone())
+            .email(createBusinessRequest.getEmail())
+            .producerId(createBusinessRequest.getProducerId())
+            .build();
 
     final Producer existingProducer = producerRepository
-            .findByProducerId(business.getProducerId())
+            .findByProducerId(newBusiness.getProducerId())
             .orElseThrow(ProducerNotFoundException::new);
     existingProducer.setBusinessCreated(true);
 
-    // On lance la création lourde du shard en arrière-plan
-    shardProvider.createUserShard(business.getBusinessId());
+    shardProvider.createUserShard(newBusiness.getBusinessId());
 
     producerRepository.save(existingProducer);
 
-    return businessRepository.save(business);
+    final Business createdBusinness = businessRepository.save(newBusiness);
+
+    return CreateBusinessResponse.builder()
+            .businessId(createdBusinness.getBusinessId())
+            .name(createBusinessRequest.getName())
+            .address(createBusinessRequest.getAddress())
+            .profession(createBusinessRequest.getProfession())
+            .description(createBusinessRequest.getDescription())
+            .phone(createBusinessRequest.getPhone())
+            .email(createBusinessRequest.getEmail())
+            .producerId(createBusinessRequest.getProducerId())
+            .build();
   }
 
+  public Business retrieveBusinessByProducerId(String producerId) {
+    return businessRepository.findByProducerId(producerId).orElseThrow(BusinessNotFoundException::new);
+  }
 }

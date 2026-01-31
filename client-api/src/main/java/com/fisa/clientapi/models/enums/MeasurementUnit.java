@@ -1,6 +1,6 @@
 package com.fisa.clientapi.models.enums;
 
-public enum UniteMesure {
+public enum MeasurementUnit {
     UNIT,   
     G,      
     KG,     

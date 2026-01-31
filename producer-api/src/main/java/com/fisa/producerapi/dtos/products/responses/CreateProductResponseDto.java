@@ -3,7 +3,7 @@ package com.fisa.producerapi.dtos.products.responses;
 import com.fisa.producerapi.models.CreateProductRequest;
 import com.fisa.producerapi.models.CreateProductResponse;
 import com.fisa.producerapi.models.enums.StockStatus;
-import com.fisa.producerapi.models.enums.UniteMesure;
+import com.fisa.producerapi.models.enums.MeasurementUnit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +23,7 @@ public class CreateProductResponseDto {
   private Double price;
   private Integer stock;
   private StockStatus stockStatus;
-  private UniteMesure uniteMesure;
+  private MeasurementUnit measurementUnit;
 
   public static CreateProductRequest toEntity(CreateProductResponseDto createProductResponseDto) {
     return CreateProductRequest.builder()
@@ -34,7 +34,7 @@ public class CreateProductResponseDto {
             .price(createProductResponseDto.getPrice())
             .stock(createProductResponseDto.getStock())
             .stockStatus(createProductResponseDto.getStockStatus())
-            .uniteMesure(createProductResponseDto.getUniteMesure())
+            .measurementUnit(createProductResponseDto.getMeasurementUnit())
             .build();
   }
 
@@ -48,7 +48,7 @@ public class CreateProductResponseDto {
             .price(createProductResponse.getPrice())
             .stock(createProductResponse.getStock())
             .stockStatus(createProductResponse.getStockStatus())
-            .uniteMesure(createProductResponse.getUniteMesure())
+            .measurementUnit(createProductResponse.getMeasurementUnit())
             .build();
   }
 }

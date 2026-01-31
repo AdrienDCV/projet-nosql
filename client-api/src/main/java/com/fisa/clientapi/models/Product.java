@@ -1,7 +1,7 @@
 package com.fisa.clientapi.models;
 
 import com.fisa.clientapi.models.enums.StockStatus;
-import com.fisa.clientapi.models.enums.UniteMesure;
+import com.fisa.clientapi.models.enums.MeasurementUnit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,6 +41,6 @@ public class Product {
     @Field("stockStatus")
     private StockStatus stockStatus;
     @Field("uniteMesure")
-    private UniteMesure uniteMesure;
+    private MeasurementUnit measurementUnit;
 
 }

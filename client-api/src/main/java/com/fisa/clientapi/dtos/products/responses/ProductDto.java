@@ -2,7 +2,7 @@ package com.fisa.clientapi.dtos.products.responses;
 
 import com.fisa.clientapi.models.Product;
 import com.fisa.clientapi.models.enums.StockStatus;
-import com.fisa.clientapi.models.enums.UniteMesure;
+import com.fisa.clientapi.models.enums.MeasurementUnit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +22,7 @@ public class ProductDto {
   private Double price;
   private Integer stock;
   private StockStatus stockStatus;
-  private UniteMesure uniteMesure;
+  private MeasurementUnit measurementUnit;
 
   public static Product toEntity(ProductDto productDto) {
     return Product.builder()
@@ -34,7 +34,7 @@ public class ProductDto {
             .price(productDto.getPrice())
             .stock(productDto.getStock())
             .stockStatus(productDto.getStockStatus())
-            .uniteMesure(productDto.getUniteMesure())
+            .measurementUnit(productDto.getMeasurementUnit())
             .build();
   }
 
@@ -48,7 +48,7 @@ public class ProductDto {
             .price(product.getPrice())
             .stock(product.getStock())
             .stockStatus(product.getStockStatus())
-            .uniteMesure(product.getUniteMesure())
+            .measurementUnit(product.getMeasurementUnit())
             .build();
   }
 }

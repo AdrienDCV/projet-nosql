@@ -13,11 +13,12 @@ import {ProductsPage} from "./pages/products/products.page.tsx";
 import {ProductDetailsPage} from "./pages/products/product-details.page.tsx";
 import {OrderListPage} from "./pages/order-list/order-list.page.tsx";
 import {ClientOrderHistoryPage} from "./pages/order-details/client-order-history.page.tsx";
+import {CreateProductsPage} from "./pages/create-products/create-porducts.page.tsx";
 
 function App() {
 
   return (
-    <div className="w-full h-full flex flex-col gap-8">
+    <div className="w-full h-full flex flex-col">
       <Suspense fallback={<h1>Page is loading...</h1>}>
         <Routes>
           <Route element={<ProtectedRoute />}>
@@ -29,6 +30,7 @@ function App() {
             <Route path='/client-order-history' element={<ClientOrderHistoryPage />} />
             <Route index path='/products' element={<ProductsPage />} />
             <Route index path='/product-details/:productId' element={<ProductDetailsPage />} />
+            <Route path='/create-products' element={<CreateProductsPage />}/>
           </Route>
           <Route path='/sign-up' element={<SignUpPage />} />
           <Route path='/sign-in' element={<SignInPage />} />

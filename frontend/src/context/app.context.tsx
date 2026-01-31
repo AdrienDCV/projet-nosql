@@ -1,19 +1,31 @@
 import {createContext, useEffect, useState,} from "react";
 import {useAuthentication} from "../hooks/authentication-context.hook.tsx";
 import type {CreateBusinessRequest} from "../models/create-business-request.model.tsx";
-import {createBusiness} from "../services/business.service.tsx";
+import {createProduct} from "../services/product.service.tsx";
+import {createBusiness, retrieveCurrentProducerBusiness} from "../services/business.service.tsx";
 import {useNavigate} from "react-router";
 import type {Product} from "../models/product.model.tsx";
-import {retrieveAllProducts, retrieveProductDetails} from "../services/product.service.tsx";
+import {
+  retrieveAllProductsClient,
+  retrieveAllProductsProducer,
+  retrieveProductDetails
+} from "../services/product.service.tsx";
 import type {Paginated} from "../models/paginated.model.tsx";
+import type {CreateProductRequest} from "../models/create-product-request.model.tsx";
+import type {Business} from "../models/business.model.tsx";
+import {UserType} from "../models/enum/user-type.enum.ts";
 
 export interface AppContextType {
   createNewBusiness: (createBusinessRequest: CreateBusinessRequest) => void;
   getProductDetails: (productId: string) => void;
   currentProductDetails: Product | undefined;
   setCurrentProductDetails: (productDetails: Product) => void;
-  refreshProductList: () => void;
+  refreshProductListClient: () => void;
+  refreshProductListProducer: () => void;
   productList: Paginated<Product> | undefined;
+  createNewProduct: (createProductRequest: CreateProductRequest) => void;
+  currentProducerBusiness: Business;
+  getCurrentProducerBusiness: () => void;
 }
 
 interface AppContextProviderProps {
@@ -25,12 +37,20 @@ export const AppContext = createContext<AppContextType | undefined>(undefined)
 const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.Element => {
   const [currentProductDetails, setCurrentProductDetails] = useState<Product | undefined>(undefined);
   const [productList, setProductList] = useState<Paginated<Product> | undefined>(undefined);
-  const { isAuthenticated, setIsBusinessCreated } = useAuthentication();
+  const [currentProducerBusiness, setCurrentProducerBusiness] = useState<Business>();
+  const { isAuthenticated, setIsBusinessCreated, user } = useAuthentication();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isAuthenticated) {
-      void refreshProductList();
+      if (user?.userType === UserType.PRODUCER) {
+        void getCurrentProducerBusiness();
+        void refreshProductListProducer();
+
+      } else {
+        void refreshProductListClient();
+      }
+
     }
   }, [isAuthenticated]);
 
@@ -48,16 +68,51 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     }
   }
 
-  async function refreshProductList() {
+  async function getCurrentProducerBusiness() {
     try {
       if (isAuthenticated) {
-        const data = await retrieveAllProducts();
+        const data = await retrieveCurrentProducerBusiness();
+        setCurrentProducerBusiness(data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function refreshProductListProducer() {
+    try {
+      if (isAuthenticated) {
+        const data = await retrieveAllProductsProducer();
         setProductList(data);
       }
     } catch(error) {
       console.error(error)
     }
   }
+
+  async function createNewProduct(createNewProductRequest: CreateProductRequest) {
+    try {
+      if (isAuthenticated) {
+        await createProduct(createNewProductRequest);
+
+        void refreshProductListProducer();
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async function refreshProductListClient() {
+    try {
+      if (isAuthenticated) {
+        const data = await retrieveAllProductsClient();
+        setProductList(data);
+      }
+    } catch(error) {
+      console.error(error)
+    }
+  }
+
 
   async function getProductDetails(productId: string) {
     try {
@@ -71,14 +126,17 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     }
   }
 
-
   const value: AppContextType = {
     createNewBusiness,
     getProductDetails,
     currentProductDetails,
     setCurrentProductDetails,
     productList,
-    refreshProductList
+    createNewProduct,
+    refreshProductListClient,
+    refreshProductListProducer,
+    currentProducerBusiness,
+    getCurrentProducerBusiness
   };
 
   return (
