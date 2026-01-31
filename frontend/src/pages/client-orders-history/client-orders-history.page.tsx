@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import {ClientOrderCardComponent} from "../../components/cards/client-order-card/client-order-card.component.tsx";
-import {OrderStatus} from "../../models/enum/client-order-status.enum.ts";
+import {OrderStatus} from "../../models/enum/order-status.enum.ts";
 
 type OrderItem = {
     id: number;
@@ -11,7 +11,7 @@ type OrderItem = {
     price: number;
 };
 
-export function OrderListPage(): React.JSX.Element {
+export function ClientOrdersHistoryPage(): React.JSX.Element {
     const myOrderList: OrderItem[] = [
         {
             id: 1,
