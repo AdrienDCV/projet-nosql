@@ -1,7 +1,6 @@
 package com.fisa.producerapi.dtos.businesses.responses;
 
 import com.fisa.producerapi.dtos.addresses.AddressDto;
-import com.fisa.producerapi.models.Business;
 import com.fisa.producerapi.models.CreateBusinessResponse;
 import com.fisa.producerapi.models.enums.Profession;
 import lombok.AllArgsConstructor;

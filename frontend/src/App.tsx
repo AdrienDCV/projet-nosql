@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/protected-route/protected-route.compone
 import {SignUpPage} from "./pages/authentication/sign-up/sign-up.page.tsx";
 import {SignInPage} from "./pages/authentication/sign-in/sign-in.page.tsx";
 import {CreateBusinessPage} from "./pages/create-business/create-business.page.tsx";
+import {UpdateBusinessPage} from "./pages/update-business.page.tsx/update-business.page.tsx";
 import {ProfilePage} from "./pages/profile/profile.page.tsx";
 import {ProductsPage} from "./pages/products/products.page.tsx";
 import {ProductDetailsPage} from "./pages/products/product-details.page.tsx";
@@ -26,6 +27,7 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path='/home' element={<HomePage />} />
             <Route path='/create-business' element={<CreateBusinessPage />} />
+            <Route path='/business' element={<UpdateBusinessPage />} />
             <Route path='/order-list' element={<OrderListPage />} />
             <Route path='/cart' element={<CartPage />} />
             <Route path='/profile' element={<ProfilePage />} />

@@ -1,7 +1,8 @@
 import {createContext, useEffect, useState,} from "react";
 import {useAuthentication} from "../hooks/authentication-context.hook.tsx";
 import type {CreateBusinessRequest} from "../models/create-business-request.model.tsx";
-import {createProduct, retrieveCurrentProducerInventory, updateProduct} from "../services/product.service.tsx";
+import {retrieveCurrentProducerInventory, updateProduct} from "../services/product.service.tsx";
+import {createProduct} from "../services/product.service.tsx";
 import {createBusiness, retrieveCurrentProducerBusiness} from "../services/business.service.tsx";
 import {useNavigate} from "react-router";
 import type {Product} from "../models/product.model.tsx";
@@ -15,9 +16,11 @@ import type {CreateProductRequest} from "../models/create-product-request.model.
 import type {Business} from "../models/business.model.tsx";
 import {UserType} from "../models/enum/user-type.enum.ts";
 import type {UpdateProductRequest} from "../models/update-product-resquest.model.tsx";
+import type {UpdateBusinessRequest} from "../models/update-business-request.model.tsx";
 
 export interface AppContextType {
   createNewBusiness: (createBusinessRequest: CreateBusinessRequest) => void;
+  updateBusiness: (updateBusinessRequest: UpdateBusinessRequest) => void;
   getProductDetails: (productId: string) => void;
   currentProductDetails: Product | undefined;
   setCurrentProductDetails: (productDetails: Product) => void;
@@ -65,6 +68,17 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
         setIsBusinessCreated(true);
 
         navigate('/home');
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  async function updateBusiness(updateBusinessRequest: UpdateBusinessRequest) {
+    try {
+      if (isAuthenticated) {
+        await updateBusiness(updateBusinessRequest);
+        void getCurrentProducerBusiness();
       }
     } catch (error) {
       console.error(error)
@@ -156,6 +170,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
 
   const value: AppContextType = {
     createNewBusiness,
+    updateBusiness,
     getProductDetails,
     currentProductDetails,
     setCurrentProductDetails,

@@ -1,6 +1,5 @@
 import {createContext, useEffect, useRef, useState} from "react";
 import type {
-  Client,
   ClientAuthResponse,
   Producer,
   ProducerAuthResponse,
