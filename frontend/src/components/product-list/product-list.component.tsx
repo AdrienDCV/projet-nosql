@@ -2,6 +2,9 @@ import { useApp } from "../../hooks/app-context.hook.tsx";
 import { ProductCard } from "../../pages/products/components/product-card.component.tsx";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import type {Product} from "../../models/product.model.tsx";
+import {useState} from "react";
+import {AddItemToCart} from "../../modals/add-item-in-cart/add-item-in-cart.modal.tsx";
 
 interface IProps {
   searchTerm: string | undefined
@@ -9,6 +12,8 @@ interface IProps {
 
 export function ProductList({searchTerm}: IProps) {
   const { productList, refreshProductListProducer } = useApp();
+  const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(undefined);
+  const [openAddItemToCartModal, setOpenAddItemToCartModal] = useState<boolean>(false);
 
   if (!productList) {
     return <div>No content..</div>;
@@ -32,19 +37,29 @@ export function ProductList({searchTerm}: IProps) {
     }
   }
 
+  const handleProductCardClick = (selectedProduct: Product) => {
+    setSelectedProduct(selectedProduct);
+    setOpenAddItemToCartModal(true);
+  }
+
   return (
       <div className="w-full flex flex-col justify-center items-center py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl">
-          {productList.content.map((product, index) => (
-              <ProductCard
-                  key={product.productId}
-                  index={index}
-                  image={product.image}
-                  label={product.label}
-                  unitPrice={product.price}
-                  link= {`/product-details/${product.productId}`}
-
-              />
+          {
+            productList.content.map((product, index) => (
+                <div
+                    key={product.productId}
+                    onClick={() => handleProductCardClick(product)}
+                >
+                  <ProductCard
+                      key={product.productId}
+                      index={index}
+                      image={product.image}
+                      label={product.label}
+                      unitPrice={product.price}
+                      link= {`/product-details/${product.productId}`}
+                  />
+                </div>
           ))}
         </div>
 
@@ -57,6 +72,19 @@ export function ProductList({searchTerm}: IProps) {
             <KeyboardArrowRightIcon className=""/>
           </button>
         </div>
+
+        {
+          selectedProduct &&
+          <AddItemToCart
+            open={openAddItemToCartModal}
+            onClose={() => {
+              setOpenAddItemToCartModal(false);
+              setSelectedProduct(undefined);
+            }}
+            product={selectedProduct}
+          />
+        }
+
       </div>
   );
 }

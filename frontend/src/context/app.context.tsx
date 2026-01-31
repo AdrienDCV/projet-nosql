@@ -17,6 +17,10 @@ import type {Business} from "../models/business.model.tsx";
 import {UserType} from "../models/enum/user-type.enum.ts";
 import type {UpdateProductRequest} from "../models/update-product-resquest.model.tsx";
 import type {UpdateBusinessRequest} from "../models/update-business-request.model.tsx";
+import type {ClientCart} from "../models/client-cart.model.tsx";
+import {retrieveCurrenClientCart} from "../services/cart.service.tsx";
+import type {CreateClientCartEntry} from "../models/create-client-cart-entry.model.tsx";
+import {createNewClientCartEntry} from "../services/client-cart-entry.service.tsx";
 
 export interface AppContextType {
   createNewBusiness: (createBusinessRequest: CreateBusinessRequest) => void;
@@ -34,6 +38,9 @@ export interface AppContextType {
   setCurrentProducerInventory: (currentProducerInventory: Product[]) => void;
   refreshCurrentProducerInventory: () => void;
   updateCurrentProduct: (updateProductRequest: UpdateProductRequest) => void;
+  getCurrentClientCart: () => void;
+  currentClientCart: ClientCart | undefined;
+  addItemToClientCart: (createClientCartEntry: CreateClientCartEntry) => void;
 }
 
 interface AppContextProviderProps {
@@ -47,6 +54,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
   const [productList, setProductList] = useState<Paginated<Product> | undefined>(undefined);
   const [currentProducerInventory, setCurrentProducerInventory] = useState<Product[] | undefined>(undefined);
   const [currentProducerBusiness, setCurrentProducerBusiness] = useState<Business | undefined>();
+  const [currentClientCart, setCurrentClientCart] = useState<ClientCart | undefined>(undefined);
   const { isAuthenticated, setIsBusinessCreated, user } = useAuthentication();
   const navigate = useNavigate();
 
@@ -57,6 +65,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
       void getCurrentProducerBusiness();
     } else {
       void refreshProductListProducer("", 0);
+      void refreshCurrentClientCart();
     }
   }, [isAuthenticated, user]);
 
@@ -167,6 +176,24 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
       console.error(error);
     }
   }
+  
+  async function refreshCurrentClientCart() {
+    try {
+      const data = await retrieveCurrenClientCart();
+      setCurrentClientCart(data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function addItemToClientCart(createClientCartEntry: CreateClientCartEntry) {
+    try {
+      await createNewClientCartEntry(createClientCartEntry);
+      void refreshCurrentClientCart();
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const value: AppContextType = {
     createNewBusiness,
@@ -183,7 +210,10 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     currentProducerInventory,
     setCurrentProducerInventory,
     refreshCurrentProducerInventory,
-    updateCurrentProduct
+    updateCurrentProduct,
+    getCurrentClientCart: refreshCurrentClientCart,
+    currentClientCart,
+    addItemToClientCart
   };
 
   return (

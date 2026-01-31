@@ -104,6 +104,8 @@ export const AuthenticationContextProvider = (props: IAuthenticationContextProvi
           userType: UserType.CLIENT
         }
         setUser(user);
+
+        justLoggedIn.current = true;
       }
     } catch (error) {
       setIsAuthenticated(false);

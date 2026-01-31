@@ -23,7 +23,6 @@ export const ProductCard = ({index, image, label, unitPrice, link}: IProps): Rea
                     className="w-full h-40 object-cover rounded-xl mb-4"
                 />
 
-                {/* Icône est cliquable */}
                 <Link
                     to={link}
                     className="absolute top-2 left-2 bg-white rounded-full p-1 shadow hover:bg-gray-100 transition"
