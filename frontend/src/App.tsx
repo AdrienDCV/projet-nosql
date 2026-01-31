@@ -14,6 +14,7 @@ import {ProductDetailsPage} from "./pages/products/product-details.page.tsx";
 import {OrderListPage} from "./pages/order-list/order-list.page.tsx";
 import {ClientOrderHistoryPage} from "./pages/order-details/client-order-history.page.tsx";
 import {CreateProductsPage} from "./pages/create-products/create-porducts.page.tsx";
+import {ClientOrderDetailsPage} from "./pages/order-details/client-order-details.page.tsx";
 
 function App() {
 
@@ -24,10 +25,10 @@ function App() {
           <Route element={<ProtectedRoute />}>
             <Route path='/home' element={<HomePage />} />
             <Route path='/create-business' element={<CreateBusinessPage />} />
-            <Route path='/order-list' element={<OrderListPage />} />
-            <Route path='/cart' element={<CartPage />} />
+            <Route path='/client-orders-history' element={<ClientOrdersHistoryPage />} />
+            <Route path='/cart' element={<BasketPage />} />
             <Route path='/profile' element={<ProfilePage />} />
-            <Route path='/client-order-history' element={<ClientOrderHistoryPage />} />
+            <Route path='/client-order-details' element={<ClientOrderDetailsPage />} />
             <Route index path='/products' element={<ProductsPage />} />
             <Route index path='/product-details/:productId' element={<ProductDetailsPage />} />
             <Route path='/create-products' element={<CreateProductsPage />}/>

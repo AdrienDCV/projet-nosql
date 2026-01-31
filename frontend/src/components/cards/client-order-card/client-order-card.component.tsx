@@ -1,4 +1,4 @@
-import {OrderStatus} from "../../../models/enum/client-order-status.enum.ts";
+import {OrderStatus} from "../../../models/enum/order-status.enum.ts";
 import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import React from "react";
 
@@ -29,7 +29,7 @@ export function ClientOrderCardComponent({ address, orderId, price, status }: IP
     return (
         <div className="flex items-center bg-white rounded-2xl shadow-md p-6 border border-gray-100">
             <div className="p-3">
-                <a href="/receipt-order">
+                <a href="/client-order-details">
                     <ReceiptLongIcon style={{ color: "#ff6a41", fontSize: "42px" }} />
                 </a>
             </div>
@@ -44,7 +44,7 @@ export function ClientOrderCardComponent({ address, orderId, price, status }: IP
 
             <div className="flex flex-col items-end min-w-[150px]">
                 <span className="text-[10px] uppercase tracking-widest text-gray-400 mb-1 font-bold">
-                    Suivi
+                    Suivi :
                 </span>
                 <span className={`px-3 py-1 rounded-full text-xs font-bold border ${getStatusStyles(status)}`}>
                     {status}
