@@ -78,8 +78,10 @@ public class ProductService {
     Update update = new Update()
             .set("label", updateProductRequest.getLabel())
             .set("price", updateProductRequest.getPrice())
+            .set("image", updateProductRequest.getImage())
             .set("stock", updateProductRequest.getStock())
-            .set("stockStatus", updateProductRequest.getStockStatus());
+            .set("stockStatus", updateProductRequest.getStockStatus())
+            .set("description", updateProductRequest.getDescription());
 
     final Product savedProduct = mongoTemplate.findAndModify(
             query,
@@ -93,10 +95,13 @@ public class ProductService {
             .productId(savedProduct.getProductId())
             .businessId(savedProduct.getBusinessId())
             .label(savedProduct.getLabel())
+            .image(savedProduct.getImage())
+            .description(savedProduct.getDescription())
             .price(savedProduct.getPrice())
             .stock(savedProduct.getStock())
             .stockStatus(savedProduct.getStockStatus())
             .measurementUnit(savedProduct.getMeasurementUnit())
+            .businessName(savedProduct.getBusinessName())
             .build();
   }
 

@@ -1,10 +1,10 @@
-import { useApp } from "../../../hooks/app-context.hook.tsx";
-import { ProductCard } from "../../../pages/products/components/product-card.component.tsx";
+import { useApp } from "../../hooks/app-context.hook.tsx";
+import { ProductCard } from "../../pages/products/components/product-card.component.tsx";
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 interface IProps {
-  searchTerm: string
+  searchTerm: string | undefined
 }
 
 export function ProductList({searchTerm}: IProps) {
@@ -16,12 +16,20 @@ export function ProductList({searchTerm}: IProps) {
 
   const handlePreviousPageClick = ()=>  {
     if (productList.pageNumber - 1 < 0) return;
-    void refreshProductListProducer(searchTerm, productList.pageNumber - 1);
+    if (searchTerm) {
+      void refreshProductListProducer(searchTerm, productList.pageNumber - 1);
+    } else {
+      void refreshProductListProducer("", 0);
+    }
   }
 
   const handleNextPageClick = ()=>  {
     if (productList.pageNumber + 1 >= productList.totalPages) return;
-    void refreshProductListProducer(searchTerm, productList.pageNumber + 1);
+    if (searchTerm) {
+      void refreshProductListProducer(searchTerm, productList.pageNumber + 1);
+    } else {
+      void refreshProductListProducer("", 0);
+    }
   }
 
   return (
@@ -31,10 +39,11 @@ export function ProductList({searchTerm}: IProps) {
               <ProductCard
                   key={product.productId}
                   index={index}
-                  productId={product.productId}
                   image={product.image}
                   label={product.label}
                   unitPrice={product.price}
+                  link= {`/product-details/${product.productId}`}
+
               />
           ))}
         </div>

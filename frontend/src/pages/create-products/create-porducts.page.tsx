@@ -4,8 +4,6 @@ import {Button, MenuItem, Select, TextField} from "@mui/material";
 import {useApp} from "../../hooks/app-context.hook.tsx";
 import {MeasurementUnit} from "../../models/enum/measurement-unit.enum.ts";
 
-
-
 const validateForm = (values: {
     label: string,
     image: string,
@@ -61,6 +59,8 @@ export const CreateProductsPage = (): React.JSX.Element => {
         },
         validate: validateForm,
         onSubmit: async(values) => {
+            if (!currentProducerBusiness) return;
+
             const createProductRequest: CreateProductRequest = {
                 label: values.label,
                 image: values.image,

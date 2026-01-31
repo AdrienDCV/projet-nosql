@@ -23,6 +23,5 @@ public class UpdateProductRequest {
     private Double price;
     private Integer stock;
     private StockStatus stockStatus;
-    private MeasurementUnit measurementUnit;
 
 }

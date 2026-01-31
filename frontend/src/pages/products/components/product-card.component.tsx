@@ -2,18 +2,18 @@ import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
 import {Link} from "react-router";
 
 interface IProps {
-  productId: string;
   index: number;
   image: string;
   label: string;
   unitPrice: number
+  link : string;
 }
 
-export const ProductCard = ({productId, index, image, label, unitPrice}: IProps): React.JSX.Element => {
+export const ProductCard = ({index, image, label, unitPrice, link}: IProps): React.JSX.Element => {
 
   return (
       <Link
-          to={`/product-details/${productId}`}
+          to={ link }
           key={ index }
           className="bg-white rounded-2xl shadow-md p-4 flex flex-col items-center text-center"
       >

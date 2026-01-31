@@ -1,7 +1,7 @@
 import {createContext, useEffect, useState,} from "react";
 import {useAuthentication} from "../hooks/authentication-context.hook.tsx";
 import type {CreateBusinessRequest} from "../models/create-business-request.model.tsx";
-import {createProduct} from "../services/product.service.tsx";
+import {createProduct, retrieveCurrentProducerInventory, updateProduct} from "../services/product.service.tsx";
 import {createBusiness, retrieveCurrentProducerBusiness} from "../services/business.service.tsx";
 import {useNavigate} from "react-router";
 import type {Product} from "../models/product.model.tsx";
@@ -14,6 +14,7 @@ import type {Paginated} from "../models/paginated.model.tsx";
 import type {CreateProductRequest} from "../models/create-product-request.model.tsx";
 import type {Business} from "../models/business.model.tsx";
 import {UserType} from "../models/enum/user-type.enum.ts";
+import type {UpdateProductRequest} from "../models/update-product-resquest.model.tsx";
 
 export interface AppContextType {
   createNewBusiness: (createBusinessRequest: CreateBusinessRequest) => void;
@@ -26,6 +27,10 @@ export interface AppContextType {
   createNewProduct: (createProductRequest: CreateProductRequest) => void;
   currentProducerBusiness: Business | undefined;
   getCurrentProducerBusiness: () => void;
+  currentProducerInventory: Product[] | undefined;
+  setCurrentProducerInventory: (currentProducerInventory: Product[]) => void;
+  refreshCurrentProducerInventory: () => void;
+  updateCurrentProduct: (updateProductRequest: UpdateProductRequest) => void;
 }
 
 interface AppContextProviderProps {
@@ -37,6 +42,7 @@ export const AppContext = createContext<AppContextType | undefined>(undefined)
 const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.Element => {
   const [currentProductDetails, setCurrentProductDetails] = useState<Product | undefined>(undefined);
   const [productList, setProductList] = useState<Paginated<Product> | undefined>(undefined);
+  const [currentProducerInventory, setCurrentProducerInventory] = useState<Product[] | undefined>(undefined);
   const [currentProducerBusiness, setCurrentProducerBusiness] = useState<Business | undefined>();
   const { isAuthenticated, setIsBusinessCreated, user } = useAuthentication();
   const navigate = useNavigate();
@@ -46,9 +52,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
 
     if (user.userType === UserType.PRODUCER) {
       void getCurrentProducerBusiness();
-      void refreshProductListProducer("", 0);
     } else {
-      void refreshProductListClient();
+      void refreshProductListProducer("", 0);
     }
   }, [isAuthenticated, user]);
 
@@ -82,6 +87,19 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
       if (isAuthenticated) {
         const data = await retrieveAllProductsProducer(searchTerm, pageNumber);
         setProductList(data);
+      }
+    } catch(error) {
+      console.error(error)
+    }
+  }
+
+  async function refreshCurrentProducerInventory() {
+    try {
+      if (isAuthenticated) {
+        if (!currentProducerBusiness) return;
+
+        const data = await retrieveCurrentProducerInventory(currentProducerBusiness?.businessId);
+        setCurrentProducerInventory(data);
       }
     } catch(error) {
       console.error(error)
@@ -124,6 +142,18 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     }
   }
 
+  async function updateCurrentProduct(updateProductRequest: UpdateProductRequest) {
+    try {
+      if (!isAuthenticated) return;
+
+      await updateProduct(updateProductRequest);
+      void getProductDetails(updateProductRequest.productId);
+      void refreshCurrentProducerInventory();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const value: AppContextType = {
     createNewBusiness,
     getProductDetails,
@@ -134,7 +164,11 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     refreshProductListClient,
     refreshProductListProducer,
     currentProducerBusiness,
-    getCurrentProducerBusiness
+    getCurrentProducerBusiness,
+    currentProducerInventory,
+    setCurrentProducerInventory,
+    refreshCurrentProducerInventory,
+    updateCurrentProduct
   };
 
   return (

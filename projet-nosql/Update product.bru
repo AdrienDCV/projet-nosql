@@ -1,0 +1,31 @@
+meta {
+  name: Update product
+  type: http
+  seq: 26
+}
+
+put {
+  url: http://localhost:8080/producer-api/products
+  body: json
+  auth: bearer
+}
+
+body:json {
+  {
+    "productId": "e68eafa4-a11f-4e9b-9b03-485a8be9de5f",
+    "businessId": "4d300bc8-f180-4fc2-a3d5-455bde77b429",
+    "label": "Entrecôte de bœuf",
+    "description": "Ceci est une nouvelle description",
+    "image": "https://www.boucherie-garlaban.com/wp-content/uploads/2018/11/entrecote.jpg",
+    "price": 26.9,
+    "stock": 45,
+    "stockStatus": "IN_STOCK",
+    "measurementUnit": "KG",
+    "businessName": "Boucherie Dupont"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
