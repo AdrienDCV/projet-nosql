@@ -21,7 +21,7 @@ export interface AppContextType {
   currentProductDetails: Product | undefined;
   setCurrentProductDetails: (productDetails: Product) => void;
   refreshProductListClient: () => void;
-  refreshProductListProducer: () => void;
+  refreshProductListProducer: (searchTerm: string, pageNumber: number) => void;
   productList: Paginated<Product> | undefined;
   createNewProduct: (createProductRequest: CreateProductRequest) => void;
   currentProducerBusiness: Business | undefined;
@@ -46,7 +46,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
 
     if (user.userType === UserType.PRODUCER) {
       void getCurrentProducerBusiness();
-      void refreshProductListProducer();
+      void refreshProductListProducer("", 0);
     } else {
       void refreshProductListClient();
     }
@@ -77,10 +77,10 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     }
   }
 
-  async function refreshProductListProducer() {
+  async function refreshProductListProducer(searchTerm: string, pageNumber: number) {
     try {
       if (isAuthenticated) {
-        const data = await retrieveAllProductsProducer();
+        const data = await retrieveAllProductsProducer(searchTerm, pageNumber);
         setProductList(data);
       }
     } catch(error) {
@@ -93,7 +93,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
       if (isAuthenticated) {
         await createProduct(createNewProductRequest);
 
-        void refreshProductListProducer();
+        void refreshProductListProducer("", 0);
       }
     } catch (error) {
       console.error(error)
