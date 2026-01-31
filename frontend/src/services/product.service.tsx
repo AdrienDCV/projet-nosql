@@ -12,10 +12,12 @@ export const retrieveAllProductsClient = async (): Promise<Paginated<Product>> =
   return response.data;
 }
 
-export const retrieveAllProductsProducer = async (): Promise<Paginated<Product>> => {
-  const response = await axios.get(
-      "http://localhost:8080/producer-api/products"
-  )
+export const retrieveAllProductsProducer = async (searchTerm: string, pageNumber: number): Promise<Paginated<Product>> => {
+  const url = searchTerm.length > 0 ?
+      `http://localhost:8080/producer-api/products?page=${pageNumber}&size=20&label=${searchTerm}` :
+      `http://localhost:8080/producer-api/products?page=${pageNumber}&size=20`
+
+  const response = await axios.get(url)
 
   return response.data;
 }

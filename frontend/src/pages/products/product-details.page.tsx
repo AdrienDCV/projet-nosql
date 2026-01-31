@@ -9,8 +9,6 @@ export const ProductDetailsPage = (): React.JSX.Element => {
 
     const lastFetchedIdRef = useRef<string | null>(null);
 
-    console.log(currentProductDetails);
-
     useEffect(() => {
         if (!productId) return;
         if (lastFetchedIdRef.current === productId) return;
