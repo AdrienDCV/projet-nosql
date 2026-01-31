@@ -7,8 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,16 +16,12 @@ import java.util.stream.Collectors;
 public class CartDto {
 
   private String cartId;
-  private Map<String, CartEntryDto> cartEntries;
+  private List<CartEntryDto> cartEntries;
 
   public static CartDto toDto(Cart cart) {
     return CartDto.builder()
             .cartId(cart.getCartId())
-            .cartEntries(cart.getCartEntries().entrySet().stream()
-                    .collect(Collectors.toMap(
-                            Map.Entry::getKey,
-                            entry -> CartEntryDto.toDto(entry.getValue())
-                    )))
+            .cartEntries(cart.getCartEntries().stream().map(CartEntryDto::toDto).toList())
             .build();
   }
 

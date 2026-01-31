@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Map;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +16,6 @@ import java.util.Map;
 public class UpdateCartRequest {
 
   private String cartId;
-  private Map<String, UpdateCartEntryRequest> cartEntries;
+  private List<UpdateCartEntryRequest> cartEntries;
 
 }

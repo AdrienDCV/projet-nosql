@@ -1,6 +1,6 @@
 export type ClientCart = {
   cartId: string;
-  cartEntries: Map<string, CartEntry>;
+  cartEntries: CartEntry[];
 }
 
 export type CartEntry = {

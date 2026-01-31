@@ -1,7 +1,7 @@
 import { FiTrash2 } from "react-icons/fi";
 
 interface IProps {
-    id: number;
+    index: number;
     name: string;
     image: string;
     price: number;
@@ -9,15 +9,14 @@ interface IProps {
     onRemove: VoidFunction;
 };
 
-export function BasketCardComponent({id, name, image, price, quantity, onRemove}: IProps): React.JSX.Element {
+export function CartCardComponent({index, name, image, price, quantity, onRemove}: IProps): React.JSX.Element {
 
     return (
         <>
           <div
-              key={id}
+              key={index}
               className="flex items-center bg-white rounded-2xl shadow-md p-4 relative"
           >
-            {/* Poubelle */}
             <button
                 onClick={onRemove}
                 className="absolute left-4 text-red-500 hover:text-red-700"
@@ -25,14 +24,12 @@ export function BasketCardComponent({id, name, image, price, quantity, onRemove}
               <FiTrash2 size={24} />
             </button>
 
-            {/* Image */}
             <img
                 src={image}
                 alt={name}
                 className="w-24 h-24 rounded-lg object-cover ml-12"
             />
 
-            {/* Infos produit */}
             <div className="flex flex-col justify-center ml-6 flex-1">
               <span className="font-semibold text-lg">{name}</span>
               <span className="text-gray-600 mt-2">
@@ -43,7 +40,6 @@ export function BasketCardComponent({id, name, image, price, quantity, onRemove}
                         </span>
             </div>
 
-            {/* Quantité */}
             <div className="flex flex-col items-center">
               <span className="text-gray-800 font-semibold">Quantité : {quantity}</span>
             </div>
