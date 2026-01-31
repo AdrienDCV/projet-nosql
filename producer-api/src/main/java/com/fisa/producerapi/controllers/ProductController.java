@@ -7,6 +7,7 @@ import com.fisa.producerapi.dtos.products.responses.CreateProductResponseDto;
 import com.fisa.producerapi.dtos.products.responses.ProductDto;
 import com.fisa.producerapi.dtos.products.responses.UpdateProductResponseDto;
 import com.fisa.producerapi.models.Product;
+import com.fisa.producerapi.services.ProducerService;
 import com.fisa.producerapi.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -31,6 +32,7 @@ import java.util.List;
 public class ProductController {
 
   private final ProductService productService;
+  private final ProducerService producerService;
 
   @PostMapping
   public ResponseEntity<CreateProductResponseDto> createNewProduct(@RequestBody CreateProductRequestDto createProductDto) {
@@ -78,6 +80,17 @@ public class ProductController {
   public ResponseEntity<ProductDto> retrieveProductById(@PathVariable String productId) {
     return new ResponseEntity<>(
             ProductDto.toDto(productService.retrieveProductById(productId)),
+            HttpStatus.OK
+    );
+  }
+
+  @GetMapping("/{businessId}/inventory")
+  public ResponseEntity<List<ProductDto>> retrieveBusinessInventory(@PathVariable String businessId) {
+    return new ResponseEntity<>(
+            producerService.retrieveBusinessInventory(businessId)
+                    .stream()
+                    .map(ProductDto::toDto)
+                    .toList(),
             HttpStatus.OK
     );
   }

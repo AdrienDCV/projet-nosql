@@ -6,8 +6,10 @@ import com.fisa.producerapi.models.Producer;
 import com.fisa.producerapi.models.AuthenticatedProducer;
 import com.fisa.producerapi.models.ProducerSignInRequest;
 import com.fisa.producerapi.models.ProducerSignUpRequest;
+import com.fisa.producerapi.models.Product;
 import com.fisa.producerapi.models.enums.Role;
 import com.fisa.producerapi.repositories.ProducerRepository;
+import com.fisa.producerapi.repositories.ProductRepository;
 import com.fisa.producerapi.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -29,6 +32,7 @@ public class ProducerService {
   private final AuthenticationManager authenticationManager;
   private final PasswordEncoder passwordEncoder;
   private final JwtTokenProvider jwtTokenProvider;
+  private final ProductRepository productRepository;
 
   public Producer getCurrentProducer() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -98,5 +102,9 @@ public class ProducerService {
 
   public void signOutProducer() {
     SecurityContextHolder.clearContext();
+  }
+
+  public List<Product> retrieveBusinessInventory(String businessId) {
+    return productRepository.findAllByBusinessId(businessId);
   }
 }
