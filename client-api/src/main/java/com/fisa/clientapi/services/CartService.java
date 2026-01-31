@@ -73,6 +73,7 @@ public class CartService {
     return CartEntry.builder()
             .cartEntryId(UUID.randomUUID().toString())
             .productId(request.getProductId())
+            .businessId(product.getBusinessId())
             .productName(product.getLabel())
             .productImage(product.getImage())
             .quantity(request.getQuantity())

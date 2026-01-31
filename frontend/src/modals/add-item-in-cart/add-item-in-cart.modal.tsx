@@ -76,8 +76,8 @@ export const AddItemToCart = ({open, onClose, product,}: IProps): React.JSX.Elem
                             style={{
                               backgroundColor: '#B02E0C',
                               borderRadius: '0.5rem',
-                              color: 'black',
-                              fontWeight: 'white'
+                              color: 'white',
+                              fontWeight: 'bold'
                             }}
                             onClick={onClose}
                         >

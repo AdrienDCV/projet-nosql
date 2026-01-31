@@ -21,6 +21,5 @@ public class ClientOrderItem {
   private String label;
   private Double unitPrice;
   private Integer quantity;
-  private MeasurementUnit measurementUnit;
 
 }

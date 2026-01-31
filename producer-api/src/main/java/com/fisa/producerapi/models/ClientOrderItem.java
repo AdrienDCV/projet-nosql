@@ -1,7 +1,6 @@
 package com.fisa.producerapi.models;
 
 
-import com.fisa.producerapi.models.enums.MeasurementUnit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,6 +20,5 @@ public class ClientOrderItem {
   private String label;
   private Double unitPrice;
   private Integer quantity;
-  private MeasurementUnit measurementUnit;
 
 }

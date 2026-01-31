@@ -6,6 +6,7 @@ export type ClientCart = {
 export type CartEntry = {
   cartEntryId: string;
   productId: string;
+  businessId: string;
   productName: string;
   productImage: string;
   quantity: number;
