@@ -82,7 +82,7 @@ public class ShardProvider {
                       sh.splitAt(\\"%3$s.products\\", { businessId: \\"%1$s\\" });
                       sh.moveChunk(\\"%3$s.products\\", { businessId: \\"%1$s\\" }, \\"shard%1$sReplSet\\");
                       sh.splitAt(\\"%3$s.producerOrders\\", { businessId: \\"%1$s\\" });
-                      sh.moveChunk(\\"%3$s.producerOorders\\", { businessId: \\"%1$s\\" }, \\"shard%1$sReplSet\\");
+                      sh.moveChunk(\\"%3$s.producerOrders\\", { businessId: \\"%1$s\\" }, \\"shard%1$sReplSet\\");
                       print(\\"Shard configured for business: %1$s\\");
                     '
                   "
