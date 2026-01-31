@@ -1,12 +1,14 @@
 package com.fisa.clientapi.services;
 
 import com.fisa.clientapi.exceptions.BusinessNotFoundException;
+import com.fisa.clientapi.exceptions.CartNotFoundException;
 import com.fisa.clientapi.exceptions.OrderItemsListCannotBeNullException;
 import com.fisa.clientapi.exceptions.OrderEntriesCannotBeEmptyOrNullException;
 import com.fisa.clientapi.exceptions.ClientOrderNotFoundException;
 import com.fisa.clientapi.exceptions.ProductNotFoundException;
 import com.fisa.clientapi.exceptions.ProductOutOfStockException;
 import com.fisa.clientapi.models.Business;
+import com.fisa.clientapi.models.Cart;
 import com.fisa.clientapi.models.ClientOrder;
 import com.fisa.clientapi.models.ClientOrderHistory;
 import com.fisa.clientapi.models.ClientOrderHistoryRecord;
@@ -19,6 +21,7 @@ import com.fisa.clientapi.models.UpdateClientOrderRequest;
 import com.fisa.clientapi.models.enums.OrderStatus;
 import com.fisa.clientapi.models.enums.StockStatus;
 import com.fisa.clientapi.repositories.BusinessRepository;
+import com.fisa.clientapi.repositories.CartRepository;
 import com.fisa.clientapi.repositories.ClientOrderRepository;
 import com.fisa.clientapi.repositories.ProducerOrderRepository;
 import com.fisa.clientapi.repositories.ProductRepository;
@@ -33,6 +36,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -53,6 +57,7 @@ public class ClientOrderService {
   private final ClientOrderRepository clientOrderRepository;
   private final BusinessRepository businessRepository;
   private final ProductRepository productRepository;
+  private final CartRepository cartRepository;
 
   public ClientOrder createNewOrder(CreateClientOrderRequest createClientOrderRequest) {
     if (createClientOrderRequest == null) {
@@ -80,7 +85,15 @@ public class ClientOrderService {
 
     saveProducersOrders(newClientOrder);
 
+    clearClientCart(createClientOrderRequest);
+
     return clientOrderRepository.save(newClientOrder);
+  }
+
+  private void clearClientCart(CreateClientOrderRequest createClientOrderRequest) {
+    final Cart existingClientCart = cartRepository.findByClientId(createClientOrderRequest.getClientId()).orElseThrow(CartNotFoundException::new);
+    existingClientCart.setCartEntries(Collections.emptyList());
+    cartRepository.save(existingClientCart);
   }
 
   private Double computeTotalPrice(List<ClientOrderItem> clientOrderItems) {

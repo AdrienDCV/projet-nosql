@@ -14,6 +14,7 @@ public class CartEntryDto {
 
   private String cartEntryId;
   private String productId;
+  private String businessId;
   private String productName;
   private String productImage;
   private Integer quantity;
@@ -23,6 +24,7 @@ public class CartEntryDto {
     return CartEntryDto.builder()
             .cartEntryId(cartEntry.getCartEntryId())
             .productId(cartEntry.getProductId())
+            .businessId(cartEntry.getBusinessId())
             .productName(cartEntry.getProductName())
             .productImage(cartEntry.getProductImage())
             .quantity(cartEntry.getQuantity())

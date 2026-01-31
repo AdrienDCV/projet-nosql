@@ -11,7 +11,7 @@ interface IProps {
 
 export function CartCardComponent({index, name, image, price, quantity, onRemove}: IProps): React.JSX.Element {
 
-    return (
+  return (
         <>
           <div
               key={index}

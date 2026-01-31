@@ -20,6 +20,7 @@ public class CartEntry {
 
     private String cartEntryId;
     private String productId;
+    private String businessId;
     private String productName;
     private String productImage;
     private Integer quantity;
