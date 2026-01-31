@@ -1,6 +1,8 @@
 import type {ClientAuthResponse} from "../models/user.model.tsx";
 import axios from "axios";
 import type {CreateBusinessRequest} from "../models/create-business-request.model.tsx";
+import type {UpdateBusinessRequest} from "../models/update-business-request.model.tsx";
+import type {Business} from "../models/business.model.tsx";
 
 export const retrieveCurrentProducerBusiness = async() => {
   const response = await axios.get(
@@ -26,3 +28,20 @@ export const createBusiness = async (createBusinessRequest: CreateBusinessReques
 
   return response.data;
 }
+
+export const updateBusiness = async (updateBusinessRequest: UpdateBusinessRequest): Promise<Business> => {
+  const response = await axios.put(
+      `http://localhost:8080/producer-api/businesses`,
+      {
+        name: updateBusinessRequest.name,
+        address: updateBusinessRequest.address,
+        profession: updateBusinessRequest.profession,
+        description: updateBusinessRequest.description,
+        phone: updateBusinessRequest.phone,
+        email: updateBusinessRequest.email,
+        producerId: updateBusinessRequest.producerId,
+      }
+  );
+
+  return response.data;
+};
