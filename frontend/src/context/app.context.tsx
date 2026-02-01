@@ -24,7 +24,7 @@ import type {CreateClientCartEntry} from "../models/create-client-cart-entry.mod
 import {createNewClientCartEntry} from "../services/client-cart-entry.service.tsx";
 import type {CreateClientOrderRequest} from "../models/client-order.model.tsx";
 import {createClientOrder} from "../services/client-order.service.tsx";
-import type {OrderHistory} from "../models/order-history.model.tsx";
+import type {ClientOrderHistory, ProducerOrderHistory} from "../models/order-history.model.tsx";
 import {retrieveClientOrderHistory, retrieveProducerOrderHistory} from "../services/order.service.tsx";
 
 export interface AppContextType {
@@ -47,8 +47,10 @@ export interface AppContextType {
   currentClientCart: ClientCart | undefined;
   addItemToClientCart: (createClientCartEntry: CreateClientCartEntry) => void;
   createNewClientOrder: (createClientOrderRequest: CreateClientOrderRequest) => void;
-  refreshCurrentUserOrderHistory: () => void;
-  currentUserOrderHistory: OrderHistory | undefined;
+  refreshCurrentClientOrderHistory: () => void;
+  currentClientOrderHistory: ClientOrderHistory | undefined;
+  refreshCurrentProducerOrderHistory: () => void;
+  currentProducerOrderHistory: ProducerOrderHistory | undefined;
 }
 
 interface AppContextProviderProps {
@@ -63,7 +65,8 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
   const [currentProducerInventory, setCurrentProducerInventory] = useState<Product[] | undefined>(undefined);
   const [currentProducerBusiness, setCurrentProducerBusiness] = useState<Business | undefined>();
   const [currentClientCart, setCurrentClientCart] = useState<ClientCart | undefined>(undefined);
-  const [currentUserOrderHistory, setCurrentUserOrderHistory] = useState<OrderHistory | undefined>(undefined);
+  const [currentClientOrderHistory, setCurrentClientOrderHistory] = useState<ClientOrderHistory | undefined>(undefined);
+  const [currentProducerOrderHistory, setCurrentProducerOrderHistory] = useState<ProducerOrderHistory | undefined>(undefined);
   const { isAuthenticated, setIsBusinessCreated, user } = useAuthentication();
   const navigate = useNavigate();
 
@@ -213,16 +216,19 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     }
   }
 
-  async function refreshCurrentUserOrderHistory() {
+  async function refreshCurrentClientOrderHistory() {
     try {
       if (!isAuthenticated && !user) return;
+      setCurrentClientOrderHistory(await retrieveClientOrderHistory());
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
-      if (user?.userType === UserType.PRODUCER) {
-        setCurrentUserOrderHistory(await retrieveProducerOrderHistory());
-      } else {
-        setCurrentUserOrderHistory(await retrieveClientOrderHistory());
-      }
-
+  async function refreshCurrentProducerOrderHistory() {
+    try {
+      if (!isAuthenticated && !user) return;
+      setCurrentProducerOrderHistory(await retrieveProducerOrderHistory());
     } catch (error) {
       console.error(error);
     }
@@ -248,8 +254,10 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     currentClientCart,
     addItemToClientCart,
     createNewClientOrder,
-    refreshCurrentUserOrderHistory,
-    currentUserOrderHistory
+    refreshCurrentClientOrderHistory,
+    currentClientOrderHistory,
+    refreshCurrentProducerOrderHistory,
+    currentProducerOrderHistory,
   };
 
   return (

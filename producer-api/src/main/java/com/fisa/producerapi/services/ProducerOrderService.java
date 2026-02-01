@@ -80,7 +80,7 @@ public class ProducerOrderService {
 
     final List<ProducerOrderHistoryRecord> orderHistoryRecords = clientOrders.stream()
             .map(order -> {
-              final Double totalPrice = computeTotalPrice(order.getOrderItems());
+              final Double totalPrice = computeTotalPrice(order.getClientOrderItems());
               return ProducerOrderHistoryRecord.builder()
                       .clientOrderId(order.getClientOrderId())
                       .deliveryAddress(order.getDeliveryAddress())

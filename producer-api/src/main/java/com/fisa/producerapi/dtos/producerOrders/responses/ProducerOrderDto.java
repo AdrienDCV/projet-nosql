@@ -25,7 +25,7 @@ public class ProducerOrderDto {
   private String phone;
   private List<ClientOrderItemDto> products;
   private OrderStatus orderStatus;
-  private LocalDateTime createdAt;
+  private LocalDateTime orderDate;
   private LocalDateTime updatedAt;
 
   public static ProducerOrderDto toDto(ProducerOrder producerOrder) {
@@ -36,9 +36,9 @@ public class ProducerOrderDto {
             .deliveryAddress(AddressDto.toDto(producerOrder.getDeliveryAddress()))
             .email(producerOrder.getEmail())
             .phone(producerOrder.getPhone())
-            .products(producerOrder.getOrderItems().stream().map(ClientOrderItemDto::toDto).toList())
+            .products(producerOrder.getClientOrderItems().stream().map(ClientOrderItemDto::toDto).toList())
             .orderStatus(producerOrder.getOrderStatus())
-            .createdAt(producerOrder.getOrderDate())
+            .orderDate(producerOrder.getOrderDate())
             .updatedAt(producerOrder.getUpdatedAt())
             .build();
   }

@@ -3,6 +3,7 @@ import type {CreateProductRequest} from "../../models/create-product-request.mod
 import {Button, MenuItem, Select, TextField} from "@mui/material";
 import {useApp} from "../../hooks/app-context.hook.tsx";
 import {MeasurementUnit} from "../../models/enum/measurement-unit.enum.ts";
+import {useNavigate} from "react-router-dom";
 
 const validateForm = (values: {
     label: string,
@@ -46,7 +47,8 @@ export type CreateProductForm = {
 }
 
 export const CreateProductsPage = (): React.JSX.Element => {
-    const { createNewProduct, currentProducerBusiness } = useApp();
+    const { createNewProduct, refreshCurrentProducerInventory, currentProducerBusiness } = useApp();
+    const navigate = useNavigate();
 
     const formik = useFormik<CreateProductForm>({
         initialValues: {
@@ -67,14 +69,17 @@ export const CreateProductsPage = (): React.JSX.Element => {
                 description: values.description,
                 measurementUnit: values.measurementUnit,
                 stock: values.stock,
-                price: values.price,
+                price: Number(values.price.toString().replaceAll(',', '.')),
                 businessName: currentProducerBusiness?.name,
                 businessId: currentProducerBusiness?.businessId
             }
 
             createNewProduct(createProductRequest);
+            refreshCurrentProducerInventory();
 
             formik.resetForm();
+
+            navigate("/producer/inventory")
         }
     })
 
@@ -88,7 +93,7 @@ export const CreateProductsPage = (): React.JSX.Element => {
                 >
                     <TextField
                         label="Image"
-                        name="Image"
+                        name="image"
                         onChange={formik.handleChange}
                         value={formik.values.image}
                         error={formik.touched.image && !!formik.errors.image}
@@ -97,7 +102,7 @@ export const CreateProductsPage = (): React.JSX.Element => {
                     />
                     <TextField
                         label="Nom de votre produit"
-                        name="name"
+                        name="label"
                         onChange={formik.handleChange}
                         value={formik.values.label}
                         error={formik.touched.label && !!formik.errors.label}
@@ -115,7 +120,7 @@ export const CreateProductsPage = (): React.JSX.Element => {
                     />
                     <Select
                         label="Unité de mesure"
-                        name="unite Mesure"
+                        name="measurementUnit"
                         value={formik.values.measurementUnit}
                         onChange={formik.handleChange}
                         error={formik.touched.measurementUnit && !!formik.errors.measurementUnit}

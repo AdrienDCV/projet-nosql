@@ -2,18 +2,18 @@ import React, {useEffect} from "react";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import {ClientOrderCardComponent} from "../../components/cards/client-order-card/client-order-card.component.tsx";
 import {useApp} from "../../hooks/app-context.hook.tsx";
-import type {OrderHistoryRecord} from "../../models/order-history.model.tsx";
+import type {ProducerOrderHistoryRecord} from "../../models/order-history.model.tsx";
 import {useNavigate} from "react-router-dom";
 
-export function OrderHistoryPage(): React.JSX.Element {
-    const { currentUserOrderHistory, refreshCurrentUserOrderHistory } = useApp();
+export function ProducerOrderHistoryPage(): React.JSX.Element {
+    const { currentProducerOrderHistory, refreshCurrentProducerOrderHistory } = useApp();
     const navigate = useNavigate()
 
     useEffect(() => {
-        void refreshCurrentUserOrderHistory();
+        void refreshCurrentProducerOrderHistory();
     }, []);
 
-    const orderHistory = currentUserOrderHistory?.orderHistory;
+    const orderHistory = currentProducerOrderHistory?.orderHistory;
 
     const hasNoHistory =
         !orderHistory ||
@@ -58,7 +58,7 @@ export function OrderHistoryPage(): React.JSX.Element {
 
                 {
                     Object.entries(orderHistory).map(
-                    ([monthLabel, orderRecords]: [string, OrderHistoryRecord[]]) => (
+                    ([monthLabel, orderRecords]: [string, ProducerOrderHistoryRecord[]]) => (
                         <div key={monthLabel} className="w-full flex flex-col mb-10">
 
                             <div className="max-w-4xl mx-auto text-lg font-bold text-[#EB4511] mb-4">
@@ -66,10 +66,10 @@ export function OrderHistoryPage(): React.JSX.Element {
                             </div>
 
                             <div className="flex flex-col gap-6 max-w-4xl mx-auto">
-                                {orderRecords.map((record: OrderHistoryRecord) => (
+                                {orderRecords.map((record: ProducerOrderHistoryRecord) => (
                                     <ClientOrderCardComponent
-                                        key={record.clientOrderId}
-                                        orderId={record.clientOrderId}
+                                        key={record.producerOrderId}
+                                        orderId={record.producerOrderId}
                                         deliveryAddress={record.deliveryAddress}
                                         totalPrice={record.totalPrice}
                                     />
