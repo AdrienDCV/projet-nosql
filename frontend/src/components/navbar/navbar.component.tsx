@@ -61,10 +61,9 @@ export function NavbarComponent(): React.JSX.Element {
           </a>
         </div>
 
-        {/* DROITE */}
         <div className="flex justify-end gap-6">
           <div className="flex flex-col items-center">
-            <a href="/client-order-history">
+            <a href="/orders-history">
               <FormatListBulletedIcon className="text-[#FF5733] text-2xl" />
             </a>
             <span className="text-[#FF5733] text-xs font-bold">Historique</span>

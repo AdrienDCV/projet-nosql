@@ -63,7 +63,7 @@ export function OrderListPage(): React.JSX.Element {
                             key={item.id} // Indispensable pour React
                             id={item.id}
                             orderId={item.orderId}
-                            address={item.address}
+                            deliveryAddress={item.address}
                             status={item.status}
                             price={item.price}
                         />

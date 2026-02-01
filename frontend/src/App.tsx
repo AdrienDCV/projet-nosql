@@ -13,7 +13,7 @@ import {ProfilePage} from "./pages/profile/profile.page.tsx";
 import {ProductsPage} from "./pages/products/products.page.tsx";
 import {ProductDetailsPage} from "./pages/products/product-details.page.tsx";
 import {OrderListPage} from "./pages/order-list/order-list.page.tsx";
-import {ClientOrderHistoryPage} from "./pages/order-details/client-order-history.page.tsx";
+import {OrderHistoryPage} from "./pages/order-history/order-history.page.tsx";
 import {CreateProductsPage} from "./pages/create-products/create-porducts.page.tsx";
 import {ProducerInventoryPage} from "./pages/producer-inventory/producer-inventory.page.tsx";
 import {ProductUpdatesPage} from "./pages/products/product-update.page.tsx";
@@ -31,7 +31,7 @@ function App() {
             <Route path='/order-list' element={<OrderListPage />} />
             <Route path='/cart' element={<CartPage />} />
             <Route path='/profile' element={<ProfilePage />} />
-            <Route path='/client-order-history' element={<ClientOrderHistoryPage />} />
+            <Route path='/orders-history' element={<OrderHistoryPage />} />
             <Route index path='/products' element={<ProductsPage />} />
             <Route index path='/product-details/:productId' element={<ProductDetailsPage />} />
             <Route path='/create-products' element={<CreateProductsPage />}/>
