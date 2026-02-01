@@ -21,7 +21,7 @@ public class Address {
     private ObjectId id;
 
     @Field("addressId")
-    private String addressid;
+    private String addressId;
     @Field("street")
     private String street;
     @Field("number")
@@ -30,6 +30,8 @@ public class Address {
     private String postalCode;
     @Field("city")
     private String city;
+    @Field("country")
+    private String country;
 
 }
 

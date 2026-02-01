@@ -18,6 +18,7 @@ public class AddressDto {
   private Integer number;
   private String postalCode;
   private String city;
+  private String country;
 
   public static Address toEntity(AddressDto addressDto) {
     return Address.builder()
@@ -25,6 +26,7 @@ public class AddressDto {
             .number(addressDto.getNumber())
             .postalCode(addressDto.getPostalCode())
             .city(addressDto.getCity())
+            .country(addressDto.getCountry())
             .build();
   }
 
@@ -34,6 +36,7 @@ public class AddressDto {
             .number(address.getNumber())
             .postalCode(address.getPostalCode())
             .city(address.getCity())
+            .country(address.getCountry())
             .build();
   }
 

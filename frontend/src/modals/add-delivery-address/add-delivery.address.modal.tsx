@@ -78,7 +78,6 @@ export const AddDeliveryAddressModal = ({open, onClose, currentClientCart, clien
           country: values.country,
       }
 
-
       const clientOrderItems: ClientOrderItem[] = [];
 
       currentClientCart?.cartEntries.forEach(entry => {
@@ -99,6 +98,8 @@ export const AddDeliveryAddressModal = ({open, onClose, currentClientCart, clien
         email: client.email,
         phone: client.phone,
       }
+
+      console.log(createClientOrderRequest)
 
       void createNewClientOrder(createClientOrderRequest);
 

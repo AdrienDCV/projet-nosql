@@ -23,23 +23,23 @@ export function OrderHistoryPage(): React.JSX.Element {
 
     if (hasNoHistory) {
         return (
-            <div className="h-full flex flex-col items-center justify-center bg-[#FFF6E8] px-4">
-                <div className="flex flex-col items-center gap-4 bg-white rounded-2xl shadow-lg p-8 max-w-md w-full">
-                    <LocalMallIcon style={{ color: "#EB4511", fontSize: 50 }} />
-                    <h2 className="text-2xl font-bold text-[#EB4511]">
-                        Aucun historique pour le moment
-                    </h2>
-                    <p className="text-gray-600 text-center">
-                        Vous n’avez pas encore passé de commande.
-                        Une fois une commande validée, elle apparaîtra ici.
-                    </p>
-                    <button
-                        className="mt-2 bg-[#B02E0C] text-white font-bold py-2 px-6 rounded-xl hover:bg-[#8f220a] transition"
-                        onClick={() => navigate("/home")}
-                    >
-                        Retour à l’accueil
-                    </button>
-                </div>
+            <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center">
+                <LocalMallIcon
+                    style={{ fontSize: "64px", color: "#EB4511", opacity: 0.8 }}
+                />
+                <h2 className="text-2xl font-bold text-[#EB4511]">
+                    Aucun historique pour le moment
+                </h2>
+                <p className="text-gray-600 max-w-md">
+                    Vous n’avez pas encore passé de commande.
+                    Une fois une commande validée, elle apparaîtra ici.
+                </p>
+                <button
+                    className="mt-2 bg-[#B02E0C] text-white font-bold py-2 px-6 rounded-xl hover:bg-[#8f220a] transition"
+                    onClick={() => navigate("/home")}
+                >
+                    Retour à l’accueil
+                </button>
             </div>
         );
     }

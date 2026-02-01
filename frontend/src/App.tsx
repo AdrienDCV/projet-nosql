@@ -31,7 +31,7 @@ function App() {
             <Route path='/order-list' element={<OrderListPage />} />
             <Route path='/cart' element={<CartPage />} />
             <Route path='/profile' element={<ProfilePage />} />
-            <Route path='/orders-history' element={<OrderHistoryPage />} />
+            <Route path='/order-history' element={<OrderHistoryPage />} />
             <Route index path='/products' element={<ProductsPage />} />
             <Route index path='/product-details/:productId' element={<ProductDetailsPage />} />
             <Route path='/create-products' element={<CreateProductsPage />}/>
