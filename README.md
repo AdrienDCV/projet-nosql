@@ -20,9 +20,9 @@ Ce repo contient également le projet frontend commun aux deux APIs développés
 ## Répartition du travail
 | Développeur           |                                                                                                                         Tâches                                                                                                                         |
 |:----------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| DA COSTA VEIGA Adrien | - Architecture du projet<br/>- Initialisation des projets backend et frontend<br/>- Maquette UI<br/>- Génération automatique des shards<br/>- Implémentation de la logique métier des APIs `producer-api` et `client-api`<br/>- Développement frontend |
-| DESERT Lorick         |                                                                                                       - Maquette UI<br/>- Développement frontend                                                                                                       |
-| ROUSSELLE Nathan      |                                                                                                       - Maquette UI<br/>- Développement frontend                                                                                                       |
+| DA COSTA VEIGA Adrien | Maquette UI<br/>Génération automatique des shards<br/>Implémentation de la logique métier des APIs `producer-api` et `client-api`<br/>Développement frontend |
+| DESERT Lorick         |                                                                                                       Maquette UI<br/>Développement frontend                                                                                                       |
+| ROUSSELLE Nathan      |                                                                                                       Maquette UI<br/>Développement frontend                                                                                                       |
 
 ## Instruction d\'installation
 
@@ -48,6 +48,8 @@ les shards. Pour des raisons de sécurité et laisser le temps au shard de se co
 configuré entre la création et configuration d'un shard pour assurer la configuration des shards.
 
 ```bash
+cd ./shards
+
 # Sous UNIX/macOS
 ./build-shards.sh
 
@@ -73,12 +75,41 @@ chmod u+x ./seed-db.sh
 powershell -ExecutionPolicy Bypass -File .\SeedDb.ps1 
 ```
 
-**ATTENTION** : Les scripts ont été générés par IA. Bien qu'ils aient été vérifiés et testés, ils ne sont potentiellement 
+Les shards se voient affecter un port automatiquement à compter du port `27022`. Afin d'assurer une gestion correcte des reliquats, le calcul du port suivant est le suivant :
+```
+BASE_PORT = 27022
+
+NEXT_PORT = BASE_PORT + le_nombre_de_businesses_en_BDD
+```
+
+**ATTENTION** : Les scripts ont été générés par IA. Bien qu'ils aient été vérifiés, corrigés et testés, ils ne sont potentiellement 
 pas optimisés. Beaucoup de volumes sont créés. Bien qu'ils ne soient pas volumineux, il est préférable de les supprimer
 après l'utilisation du projet.
 
+### 3. Lancer les applications
+
+#### Frotend
+```bash
+cd frontend
+
+# Installer les dépendances
+npm install # npm i
+
+# Lancer le front
+npm run dev # Lance l'application React sur http://localhost:3000
+```
+
+#### Backend
+
+Conseillé : Depuis un IDE (IntelliJ ou VS Code)  
+Ouvrir les fichiers `producer-api/src/main/java/com/fisa/producerapi/ProducerApiApplication.java` et `client-api/src/main/java/com/fisa/clientapi/ClientApiApplication.java`
+- IntelliJ : Cliquer sur le bouton start (triangle vert) à la ligne 16.
+- VS Code : Cliquer sur `Run` au-dessus de la méthode `static void main(String[] args)`.
+
+**ATTENTION** : Lancer la BDD avant de démarrer les APIs.
+
 ## Variables d'envrionnement
-Pour des raisons de sécurité, les variables d'environnement nécessaire à l'exécution des APIs a été partagé par message privé sur Discord.
+Pour des raisons de sécurité, les variables d'environnement nécessaire à l'exécution des APIs ont été partagées par message privé sur Discord.
 
 ## Comptes utilisateurs
 | Type d'utilisateur |       Identifiant        | Mot de passe |

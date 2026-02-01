@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 public class ShardProvider {
 
   private static final String SHARDS_DIR = "src/main/resources/scripts/shards";
-  private static final int BASE_PORT = 27021;
+  private static final int BASE_PORT = 27022;
 
   private final BusinessRepository businessRepository;
 
