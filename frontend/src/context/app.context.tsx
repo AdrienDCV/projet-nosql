@@ -23,9 +23,10 @@ import {retrieveCurrenClientCart} from "../services/cart.service.tsx";
 import type {CreateClientCartEntry} from "../models/create-client-cart-entry.model.tsx";
 import {createNewClientCartEntry, deleteClientCartEntry} from "../services/client-cart-entry.service.tsx";
 import type {CreateClientOrderRequest} from "../models/client-order.model.tsx";
-import {createClientOrder} from "../services/client-order.service.tsx";
+import {createClientOrder, retrieveClientOrderDetails} from "../services/client-order.service.tsx";
 import type {ClientOrderHistory, ProducerOrderHistory} from "../models/order-history.model.tsx";
 import {retrieveClientOrderHistory, retrieveProducerOrderHistory} from "../services/order.service.tsx";
+import type {ClientOrderDetails} from "../models/client-order-details.model.tsx";
 
 export interface AppContextType {
   createNewBusiness: (createBusinessRequest: CreateBusinessRequest) => void;
@@ -52,6 +53,9 @@ export interface AppContextType {
   refreshCurrentProducerOrderHistory: () => void;
   currentProducerOrderHistory: ProducerOrderHistory | undefined;
   deleteCartEntry: (cartEntryId: string) => void;
+  currentClientOrderDetails: ClientOrderDetails | undefined;
+  setCurrentClientOrderDetails: (currentClientOrderDetails: ClientOrderDetails) => void;
+  getClientOrderDetails: (clientOrderId: string) => void;
 }
 
 interface AppContextProviderProps {
@@ -68,6 +72,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
   const [currentClientCart, setCurrentClientCart] = useState<ClientCart | undefined>(undefined);
   const [currentClientOrderHistory, setCurrentClientOrderHistory] = useState<ClientOrderHistory | undefined>(undefined);
   const [currentProducerOrderHistory, setCurrentProducerOrderHistory] = useState<ProducerOrderHistory | undefined>(undefined);
+  const [currentClientOrderDetails, setCurrentClientOrderDetails] = useState<ClientOrderDetails | undefined>(undefined);
   const { isAuthenticated, setIsBusinessCreated, user } = useAuthentication();
   const navigate = useNavigate();
 
@@ -245,6 +250,16 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     }
   }
 
+  async function getClientOrderDetails(clientOrdeId: string) {
+    try {
+      if (!isAuthenticated) return;
+      const data = await retrieveClientOrderDetails(clientOrdeId);
+      setCurrentClientOrderDetails(data);
+    } catch  (error) {
+      console.error(error);
+    }
+  }
+
   const value: AppContextType = {
     createNewBusiness,
     updateBusiness,
@@ -269,7 +284,10 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     currentClientOrderHistory,
     refreshCurrentProducerOrderHistory,
     currentProducerOrderHistory,
-    deleteCartEntry
+    deleteCartEntry,
+    setCurrentClientOrderDetails,
+    currentClientOrderDetails,
+    getClientOrderDetails,
   };
 
   return (

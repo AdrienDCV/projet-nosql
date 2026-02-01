@@ -17,7 +17,7 @@ export function ClientOrderCardComponent({ deliveryAddress, orderId, totalPrice 
   return (
         <div className="flex items-center bg-white rounded-2xl shadow-md p-6 border border-gray-100">
             <div className="p-3">
-                <a href="/receipt-order">
+                <a href="/client-order-details">
                     <ReceiptLongIcon style={{ color: "#ff6a41", fontSize: "42px" }} />
                 </a>
             </div>

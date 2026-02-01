@@ -3,6 +3,7 @@ import type {
   CreateClientOrderResponse
 } from "../models/client-order.model.tsx";
 import axios from "axios";
+import type {ClientOrderDetails} from "../models/client-order-details.model.tsx";
 
 export const createClientOrder = async (createClientOrderRequest: CreateClientOrderRequest): Promise<CreateClientOrderResponse> => {
   const response = await axios.post(
@@ -17,4 +18,12 @@ export const createClientOrder = async (createClientOrderRequest: CreateClientOr
   );
 
   return response.data;
+}
+
+export const retrieveClientOrderDetails = async (clientOrderId: string): Promise<ClientOrderDetails> => {
+  const response = await axios.get(
+      `http://localhost:8081/client-api/client-orders/details/${clientOrderId}`
+  )
+
+  return response.data
 }

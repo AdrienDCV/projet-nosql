@@ -1,5 +1,5 @@
 import type {Address} from "./address.model.tsx";
-import type {OrderStatus} from "./enum/client-order-status.enum.ts";
+import type {OrderStatus} from "./enum/order-status.enum.ts";
 
 export type CreateClientOrderRequest = {
   clientId: string;
