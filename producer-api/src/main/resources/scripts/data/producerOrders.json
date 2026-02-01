@@ -1,0 +1,378 @@
+[
+  {
+    "producerOrderId": "aaf561cb-cd32-46ab-a593-e30a658abcf3",
+    "clientOrderId": "ff2125e2-2b8f-4ce3-80be-d5ff2863c9de",
+    "businessId": "a1db9110-2d4a-4aa6-981a-a516977236cd",
+    "deliveryAddress": {
+      "street": "Rue de Java",
+      "number": 19,
+      "postalCode": "75019",
+      "city": "Paris",
+      "country": "France"
+    },
+    "email": "alice.martin@example.com",
+    "phone": "0610000001",
+    "clientOrderItems": [
+      {
+        "productId": "fad23606-a8be-4487-a9b2-10aa12b0835f",
+        "businessId": "a1db9110-2d4a-4aa6-981a-a516977236cd",
+        "label": "Radis",
+        "unitPrice": 2.5,
+        "quantity": 2
+      }
+    ],
+    "orderStatus": "REGISTERED",
+    "orderDate": {
+      "$date": "2026-02-01T11:32:20.113Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T11:32:20.113Z"
+    },
+    "_class": "com.fisa.clientapi.models.ProducerOrder"
+  },
+  {
+    "producerOrderId": "d2f28471-37dd-4790-abdc-eb5bf8424354",
+    "clientOrderId": "1046bd39-e364-4530-84a1-d2d306e0f628",
+    "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+    "deliveryAddress": {
+      "street": "Rue de Java",
+      "number": 19,
+      "postalCode": "75019",
+      "city": "Paris",
+      "country": "France"
+    },
+    "email": "email.email@test.com",
+    "phone": "0102030405",
+    "clientOrderItems": [
+      {
+        "productId": "c332b8cf-9180-4422-bbb8-c04ec9a766eb",
+        "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+        "label": "Pain de campagne",
+        "unitPrice": 2,
+        "quantity": 1
+      }
+    ],
+    "orderStatus": "REGISTERED",
+    "orderDate": {
+      "$date": "2026-02-01T11:27:05.769Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T11:27:05.769Z"
+    },
+    "_class": "com.fisa.clientapi.models.ProducerOrder"
+  },
+  {
+    "producerOrderId": "3e9161f1-9ae4-4593-8825-f783572b5d26",
+    "clientOrderId": "1046bd39-e364-4530-84a1-d2d306e0f628",
+    "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
+    "deliveryAddress": {
+      "street": "Rue de Kotlin",
+      "number": 19,
+      "postalCode": "75019",
+      "city": "Paris",
+      "country": "France"
+    },
+    "email": "email.email@test.com",
+    "phone": "0102030405",
+    "clientOrderItems": [
+      {
+        "productId": "45cee32f-c7aa-4c3b-969f-92aae01709a7",
+        "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
+        "label": "Côte de boeuf",
+        "unitPrice": 24.5,
+        "quantity": 2
+      },
+      {
+        "productId": "a8461964-6907-4d28-9480-00cd07854225",
+        "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
+        "label": "Rôti de porc",
+        "unitPrice": 14.5,
+        "quantity": 1
+      }
+    ],
+    "orderStatus": "REGISTERED",
+    "orderDate": {
+      "$date": "2026-02-01T11:27:05.769Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T11:27:05.769Z"
+    },
+    "_class": "com.fisa.clientapi.models.ProducerOrder"
+  },
+  {
+    "producerOrderId": "d2346417-a136-41fd-b407-ab06e9af9ce0",
+    "clientOrderId": "cefa8df6-3e47-452a-bdec-e033c0f24538",
+    "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+    "deliveryAddress": {
+      "street": "Rue de Kotlin",
+      "number": 19,
+      "postalCode": "75019",
+      "city": "Paris",
+      "country": "France"
+    },
+    "email": "email.email@test.com",
+    "phone": "0102030405",
+    "clientOrderItems": [
+      {
+        "productId": "c332b8cf-9180-4422-bbb8-c04ec9a766eb",
+        "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+        "label": "Pain de campagne",
+        "unitPrice": 2,
+        "quantity": 1
+      }
+    ],
+    "orderStatus": "REGISTERED",
+    "orderDate": {
+      "$date": "2026-02-01T11:29:10.054Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T11:29:10.054Z"
+    },
+    "_class": "com.fisa.clientapi.models.ProducerOrder"
+  },
+  {
+    "producerOrderId": "4bf55409-ace7-4530-b420-03f7b08b0552",
+    "clientOrderId": "cefa8df6-3e47-452a-bdec-e033c0f24538",
+    "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
+    "deliveryAddress": {
+      "street": "Rue de Spring Boot",
+      "number": 19,
+      "postalCode": "75019",
+      "city": "Paris",
+      "country": "France"
+    },
+    "email": "email.email@test.com",
+    "phone": "0102030405",
+    "clientOrderItems": [
+      {
+        "productId": "45cee32f-c7aa-4c3b-969f-92aae01709a7",
+        "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
+        "label": "Côte de boeuf",
+        "unitPrice": 24.5,
+        "quantity": 2
+      },
+      {
+        "productId": "a8461964-6907-4d28-9480-00cd07854225",
+        "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
+        "label": "Rôti de porc",
+        "unitPrice": 14.5,
+        "quantity": 1
+      }
+    ],
+    "orderStatus": "REGISTERED",
+    "orderDate": {
+      "$date": "2026-02-01T11:29:10.054Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T11:29:10.054Z"
+    },
+    "_class": "com.fisa.clientapi.models.ProducerOrder"
+  },
+  {
+    "producerOrderId": "b62f63b2-a429-4bd4-a85f-2af802c79aca",
+    "clientOrderId": "e265753a-50a8-4b81-8b05-3e0f9bbeba5f",
+    "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+    "deliveryAddress": {
+      "street": "Rue de Spring Boot",
+      "number": 19,
+      "postalCode": "75019",
+      "city": "Paris",
+      "country": "France"
+    },
+    "email": "alice.martin@example.com",
+    "phone": "0610000001",
+    "clientOrderItems": [
+      {
+        "productId": "c332b8cf-9180-4422-bbb8-c04ec9a766eb",
+        "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+        "label": "Pain de campagne",
+        "unitPrice": 2,
+        "quantity": 1
+      }
+    ],
+    "orderStatus": "REGISTERED",
+    "orderDate": {
+      "$date": "2026-02-01T11:30:24.429Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T11:30:24.429Z"
+    },
+    "_class": "com.fisa.clientapi.models.ProducerOrder"
+  },
+  {
+    "producerOrderId": "6b17523e-d994-4e37-aaad-33bf0bc80a74",
+    "clientOrderId": "e265753a-50a8-4b81-8b05-3e0f9bbeba5f",
+    "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
+    "deliveryAddress": {
+      "street": "Rue de Hexagonale",
+      "number": 19,
+      "postalCode": "75019",
+      "city": "Paris",
+      "country": "France"
+    },
+    "email": "alice.martin@example.com",
+    "phone": "0610000001",
+    "clientOrderItems": [
+      {
+        "productId": "45cee32f-c7aa-4c3b-969f-92aae01709a7",
+        "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
+        "label": "Côte de boeuf",
+        "unitPrice": 24.5,
+        "quantity": 2
+      },
+      {
+        "productId": "a8461964-6907-4d28-9480-00cd07854225",
+        "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
+        "label": "Rôti de porc",
+        "unitPrice": 14.5,
+        "quantity": 1
+      }
+    ],
+    "orderStatus": "REGISTERED",
+    "orderDate": {
+      "$date": "2026-02-01T11:30:24.429Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T11:30:24.429Z"
+    },
+    "_class": "com.fisa.clientapi.models.ProducerOrder"
+  },
+  {
+    "producerOrderId": "014bcd0e-3b08-4c8c-99af-3f244cc7d816",
+    "clientOrderId": "ff2125e2-2b8f-4ce3-80be-d5ff2863c9de",
+    "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+    "deliveryAddress": {
+      "street": "Rue de N-Tiers",
+      "number": 19,
+      "postalCode": "75019",
+      "city": "Paris",
+      "country": "France"
+    },
+    "email": "alice.martin@example.com",
+    "phone": "0610000001",
+    "clientOrderItems": [
+      {
+        "productId": "c332b8cf-9180-4422-bbb8-c04ec9a766eb",
+        "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+        "label": "Pain de campagne",
+        "unitPrice": 2,
+        "quantity": 1
+      },
+      {
+        "productId": "61113e59-4ca3-44fb-87f1-953ecf724d38",
+        "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+        "label": "Pain au chocolat",
+        "unitPrice": 1.2,
+        "quantity": 3
+      }
+    ],
+    "orderStatus": "REGISTERED",
+    "orderDate": {
+      "$date": "2026-02-01T11:32:20.113Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T11:32:20.113Z"
+    },
+    "_class": "com.fisa.clientapi.models.ProducerOrder"
+  },
+  {
+    "producerOrderId": "ceedba01-71f9-4321-a0c4-8bedd1774e08",
+    "clientOrderId": "0faea2b8-2b2d-4a2d-bbef-011b10b370ce",
+    "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+    "deliveryAddress": {
+      "street": "Rue de React",
+      "number": 19,
+      "postalCode": "75019",
+      "city": "Paris",
+      "country": "France"
+    },
+    "email": "alice.martin@example.com",
+    "phone": "0610000001",
+    "clientOrderItems": [
+      {
+        "productId": "4c87ea58-b69d-42f4-890b-36ed91d50d97",
+        "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+        "label": "Pain aux céréales",
+        "unitPrice": 2.8,
+        "quantity": 1
+      },
+      {
+        "productId": "c332b8cf-9180-4422-bbb8-c04ec9a766eb",
+        "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+        "label": "Pain de campagne",
+        "unitPrice": 2,
+        "quantity": 1
+      }
+    ],
+    "orderStatus": "REGISTERED",
+    "orderDate": {
+      "$date": "2026-02-01T11:34:06.020Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T11:34:06.020Z"
+    },
+    "_class": "com.fisa.clientapi.models.ProducerOrder"
+  },
+  {
+    "producerOrderId": "86cec789-a5bd-49a1-84f3-3bb6db9e3284",
+    "clientOrderId": "15bed100-4d75-4f3e-b865-146b118c2b0e",
+    "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+    "deliveryAddress": {
+      "street": "Avenue du Clean-Code",
+      "number": 19,
+      "postalCode": "75019",
+      "city": "Paris",
+      "country": "France"
+    },
+    "email": "alice.martin@example.com",
+    "phone": "0610000001",
+    "clientOrderItems": [
+      {
+        "productId": "c332b8cf-9180-4422-bbb8-c04ec9a766eb",
+        "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+        "label": "Pain de campagne",
+        "unitPrice": 2,
+        "quantity": 1
+      }
+    ],
+    "orderStatus": "REGISTERED",
+    "orderDate": {
+      "$date": "2026-02-01T11:34:50.349Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T11:34:50.349Z"
+    },
+    "_class": "com.fisa.clientapi.models.ProducerOrder"
+  },
+  {
+    "producerOrderId": "26c52738-4cb0-46cc-9724-aa800a161bdb",
+    "clientOrderId": "15bed100-4d75-4f3e-b865-146b118c2b0e",
+    "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
+    "deliveryAddress": {
+      "street": "Boulevard du Blue book",
+      "number": 19,
+      "postalCode": "75019",
+      "city": "Paris",
+      "country": "France"
+    },
+    "email": "alice.martin@example.com",
+    "phone": "0610000001",
+    "clientOrderItems": [
+      {
+        "productId": "d48cec9a-8c25-46ed-a616-11aa01189adf",
+        "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
+        "label": "Steak haché",
+        "unitPrice": 8.5,
+        "quantity": 3
+      }
+    ],
+    "orderStatus": "REGISTERED",
+    "orderDate": {
+      "$date": "2026-02-01T11:34:50.349Z"
+    },
+    "updatedAt": {
+      "$date": "2026-02-01T11:34:50.349Z"
+    },
+    "_class": "com.fisa.clientapi.models.ProducerOrder"
+  }
+]

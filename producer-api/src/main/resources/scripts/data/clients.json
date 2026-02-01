@@ -1,0 +1,35 @@
+[
+  {
+    "username": "alice.martin@example.com",
+    "password": "$2a$10$yQTukvUuZWlNEgrQg82PSuaUmJKkA8OGMx7n/ezcjJWYlcOmDftt.",
+    "email": "alice.martin@example.com",
+    "role": "USER",
+    "clientId": "2d46cb7d-b003-4aad-a281-6b912e2cb4b1",
+    "lastname": "Martin",
+    "firstname": "Alice",
+    "phone": "0610000001",
+    "_class": "com.fisa.clientapi.models.Client"
+  },
+  {
+    "username": "thomas.bernard@example.com",
+    "password": "$2a$10$MXTjgb4gCuow3BnSR4JG1OvfXeNKI0gR8YMYyAej2EdQhQsv1uS7e",
+    "email": "thomas.bernard@example.com",
+    "role": "USER",
+    "clientId": "dc37d12c-c735-49e1-b111-9ec4665a8ddd",
+    "lastname": "Bernard",
+    "firstname": "Thomas",
+    "phone": "0610000002",
+    "_class": "com.fisa.clientapi.models.Client"
+  },
+  {
+    "username": "claire.robert@example.com",
+    "password": "$2a$10$EhOcqwejQC3dmx1PJT8Vq.bZX6CqM0bYwdAl4z6AH3j.SU05WhdUW",
+    "email": "claire.robert@example.com",
+    "role": "USER",
+    "clientId": "be38ea10-3494-4177-8380-4a0a38b72719",
+    "lastname": "Robert",
+    "firstname": "Claire",
+    "phone": "0610000003",
+    "_class": "com.fisa.clientapi.models.Client"
+  }
+]

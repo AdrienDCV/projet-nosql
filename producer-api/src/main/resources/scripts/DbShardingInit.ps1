@@ -1,6 +1,4 @@
-#################################
 # CONFIG SERVER REPLICA SET
-#################################
 Write-Host "=== [1/4] Init Config Server Replica Set ==="
 
 $script = @"
@@ -19,9 +17,7 @@ Remove-Item config.js
 
 Start-Sleep -Seconds 8
 
-#################################
 # CORE SHARD REPLICA SET
-#################################
 Write-Host "=== [2/4] Init Core Shard Replica Set ==="
 
 $script = @"
@@ -39,9 +35,7 @@ Remove-Item core.js
 
 Start-Sleep -Seconds 8
 
-#################################
 # CLUSTER WIRING (mongos)
-#################################
 Write-Host "=== [3/4] Cluster wiring (add shard) ==="
 
 $script = @"
@@ -54,9 +48,7 @@ Remove-Item shard.js
 
 Start-Sleep -Seconds 3
 
-#################################
 # SHARDING LOGIQUE
-#################################
 Write-Host "=== [4/4] Enable sharding and shard collections ==="
 
 $script = @"
@@ -78,9 +70,7 @@ Remove-Item logic.js
 
 Start-Sleep -Seconds 3
 
-#################################
 # ADMIN USER
-#################################
 Write-Host "=== [SECURITY] Create admin user ==="
 
 $script = @"
@@ -98,4 +88,4 @@ docker cp admin.js mongos:/admin.js
 docker exec mongos mongosh --port 27020 /admin.js
 Remove-Item admin.js
 
-Write-Host "=== ✅ MongoDB sharded cluster ready ==="
+Write-Host "=== MongoDB sharded cluster ready ==="

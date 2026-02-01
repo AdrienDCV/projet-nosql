@@ -42,9 +42,9 @@ public class ProducerOrder {
   private List<ClientOrderItem> clientOrderItems;
   @Field("orderStatus")
   private OrderStatus orderStatus;
-  @Field("createdAt")
-  private LocalDateTime createdAt;
-  @Field("updatedeAt")
+  @Field("orderDate")
+  private LocalDateTime orderDate;
+  @Field("updatedAt")
   private LocalDateTime updatedAt;
 
 }
