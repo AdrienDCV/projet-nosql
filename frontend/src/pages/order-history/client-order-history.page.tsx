@@ -44,6 +44,10 @@ export function ClientOrderHistoryPage(): React.JSX.Element {
         );
     }
 
+    const handleClientOrderRecordClick = (clientOrdeId: string) => {
+      navigate(`/client-order/details/${clientOrdeId}`)
+    }
+
     return (
         <div className="w-full flex flex-col">
             <div className="w-full h-full bg-[#FFF6E8] px-8 py-10">
@@ -67,12 +71,17 @@ export function ClientOrderHistoryPage(): React.JSX.Element {
 
                             <div className="flex flex-col gap-6 max-w-4xl mx-auto">
                                 {orderRecords.map((record: ClientOrderHistoryRecord) => (
-                                    <ClientOrderCardComponent
+                                    <div
                                         key={record.clientOrderId}
-                                        orderId={record.clientOrderId}
-                                        deliveryAddress={record.deliveryAddress}
-                                        totalPrice={record.totalPrice}
-                                    />
+                                        onClick={() => handleClientOrderRecordClick(record.clientOrderId)}
+                                    >
+                                      <ClientOrderCardComponent
+                                          key={record.clientOrderId}
+                                          orderId={record.clientOrderId}
+                                          deliveryAddress={record.deliveryAddress}
+                                          totalPrice={record.totalPrice}
+                                      />
+                                    </div>
                                 ))}
                             </div>
                         </div>

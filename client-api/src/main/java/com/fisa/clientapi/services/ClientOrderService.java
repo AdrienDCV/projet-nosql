@@ -191,8 +191,8 @@ public class ClientOrderService {
             .phone(clientOrder.getPhone())
             .clientOrderItems(clientOrderItems)
             .orderStatus(OrderStatus.REGISTERED)
-            .orderDate(LocalDateTime.now())
-            .updatedAt(LocalDateTime.now())
+            .orderDate(LocalDateTime.now(ZoneOffset.UTC))
+            .updatedAt(LocalDateTime.now(ZoneOffset.UTC))
             .build();
   }
 
