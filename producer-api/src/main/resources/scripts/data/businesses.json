@@ -1,7 +1,7 @@
 [
   {
     "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
-    "name": "contact@boucherie-dupont.example.com",
+    "name": "Boucherie Durand",
     "address": {
       "street": "Rue des Tilleuls",
       "number": 25,
@@ -18,7 +18,7 @@
   },
   {
     "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
-    "name": "contact@boulangerie-morel.example.com",
+    "name": "Boulangerie Artisanale Morel",
     "address": {
       "street": "Avenue des Fleurs",
       "number": 12,
@@ -35,7 +35,7 @@
   },
   {
     "businessId": "a1db9110-2d4a-4aa6-981a-a516977236cd",
-    "name": "contact@marche-petit.example.com",
+    "name": "Le Petit jardin",
     "address": {
       "street": "Rue du Marché",
       "number": 5,
