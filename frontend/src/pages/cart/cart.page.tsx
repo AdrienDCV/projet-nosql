@@ -6,16 +6,36 @@ import {useAuthentication} from "../../hooks/authentication-context.hook.tsx";
 import Button from "@mui/material/Button";
 import {AddDeliveryAddressModal} from "../../modals/add-delivery-address/add-delivery.address.modal.tsx";
 import type {Client} from "../../models/user.model.tsx";
+import {useNavigate} from "react-router-dom";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
 
 export function CartPage(): React.JSX.Element {
   const [openAddDeliveryAddressModal, setOpenAddDeliveryAddressModal] = useState<boolean>(false);
   const { currentClientCart } = useApp();
   const { user } = useAuthentication();
+  const navigate = useNavigate()
 
   if (!currentClientCart) {
-    return (
-        <div>Panier inexistant...</div>
-    )
+      return (
+          <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center">
+              <ShoppingCartIcon
+                  style={{ fontSize: "64px", color: "#EB4511", opacity: 0.8 }}
+              />
+              <h2 className="text-2xl font-bold text-[#EB4511]">
+                  Votre panier est vide pour le moment
+              </h2>
+              <p className="text-gray-600 max-w-md">
+                  Une fois qu'un produit sera ajouté, il apparaîtra ici.
+              </p>
+              <button
+                  className="mt-2 bg-[#B02E0C] text-white font-bold py-2 px-6 rounded-xl hover:bg-[#8f220a] transition"
+                  onClick={() => navigate("/home")}
+              >
+                  Retour à l’accueil
+              </button>
+          </div>
+      );
   }
 
   const totalPrice = currentClientCart.cartEntries.reduce(
