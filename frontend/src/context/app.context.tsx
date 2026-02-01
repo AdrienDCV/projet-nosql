@@ -1,16 +1,17 @@
 import {createContext, useEffect, useState,} from "react";
 import {useAuthentication} from "../hooks/authentication-context.hook.tsx";
 import type {CreateBusinessRequest} from "../models/create-business-request.model.tsx";
-import {retrieveCurrentProducerInventory, updateProduct} from "../services/product.service.tsx";
-import {createProduct} from "../services/product.service.tsx";
+import {
+  createProduct,
+  retrieveAllProductsClient,
+  retrieveAllProductsProducer,
+  retrieveCurrentProducerInventory,
+  retrieveProductDetails,
+  updateProduct
+} from "../services/product.service.tsx";
 import {createBusiness, retrieveCurrentProducerBusiness} from "../services/business.service.tsx";
 import {useNavigate} from "react-router";
 import type {Product} from "../models/product.model.tsx";
-import {
-  retrieveAllProductsClient,
-  retrieveAllProductsProducer,
-  retrieveProductDetails
-} from "../services/product.service.tsx";
 import type {Paginated} from "../models/paginated.model.tsx";
 import type {CreateProductRequest} from "../models/create-product-request.model.tsx";
 import type {Business} from "../models/business.model.tsx";
@@ -23,6 +24,8 @@ import type {CreateClientCartEntry} from "../models/create-client-cart-entry.mod
 import {createNewClientCartEntry} from "../services/client-cart-entry.service.tsx";
 import type {CreateClientOrderRequest} from "../models/client-order.model.tsx";
 import {createClientOrder} from "../services/client-order.service.tsx";
+import type {OrderHistory} from "../models/order-history.model.tsx";
+import {retrieveClientOrderHistory, retrieveProducerOrderHistory} from "../services/order.service.tsx";
 
 export interface AppContextType {
   createNewBusiness: (createBusinessRequest: CreateBusinessRequest) => void;
@@ -40,10 +43,12 @@ export interface AppContextType {
   setCurrentProducerInventory: (currentProducerInventory: Product[]) => void;
   refreshCurrentProducerInventory: () => void;
   updateCurrentProduct: (updateProductRequest: UpdateProductRequest) => void;
-  getCurrentClientCart: () => void;
+  refreshCurrentClientCart: () => void;
   currentClientCart: ClientCart | undefined;
   addItemToClientCart: (createClientCartEntry: CreateClientCartEntry) => void;
   createNewClientOrder: (createClientOrderRequest: CreateClientOrderRequest) => void;
+  refreshCurrentUserOrderHistory: () => void;
+  currentUserOrderHistory: OrderHistory | undefined;
 }
 
 interface AppContextProviderProps {
@@ -58,6 +63,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
   const [currentProducerInventory, setCurrentProducerInventory] = useState<Product[] | undefined>(undefined);
   const [currentProducerBusiness, setCurrentProducerBusiness] = useState<Business | undefined>();
   const [currentClientCart, setCurrentClientCart] = useState<ClientCart | undefined>(undefined);
+  const [currentUserOrderHistory, setCurrentUserOrderHistory] = useState<OrderHistory | undefined>(undefined);
   const { isAuthenticated, setIsBusinessCreated, user } = useAuthentication();
   const navigate = useNavigate();
 
@@ -207,6 +213,21 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     }
   }
 
+  async function refreshCurrentUserOrderHistory() {
+    try {
+      if (!isAuthenticated && !user) return;
+
+      if (user?.userType === UserType.PRODUCER) {
+        setCurrentUserOrderHistory(await retrieveProducerOrderHistory());
+      } else {
+        setCurrentUserOrderHistory(await retrieveClientOrderHistory());
+      }
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const value: AppContextType = {
     createNewBusiness,
     updateBusiness,
@@ -223,10 +244,12 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     setCurrentProducerInventory,
     refreshCurrentProducerInventory,
     updateCurrentProduct,
-    getCurrentClientCart: refreshCurrentClientCart,
+    refreshCurrentClientCart,
     currentClientCart,
     addItemToClientCart,
-    createNewClientOrder
+    createNewClientOrder,
+    refreshCurrentUserOrderHistory,
+    currentUserOrderHistory
   };
 
   return (

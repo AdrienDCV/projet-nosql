@@ -40,7 +40,7 @@ public class ClientOrderController {
     );
   }
 
-  @GetMapping("/{clientOrderId}")
+  @GetMapping("/details/{clientOrderId}")
   public ResponseEntity<ClientOrderDetailsDto> retrieveClientOrderDetails(@PathVariable String clientOrderId) {
     return new ResponseEntity<>(
             ClientOrderDetailsDto.toDto(
@@ -50,7 +50,7 @@ public class ClientOrderController {
     );
   }
 
-  @GetMapping("/orders-history")
+  @GetMapping("/history")
   public ResponseEntity<ClientOrderHistoryDto> retrieveClientOrderHistory() {
     final Client currentClient = clientService.getCurrentClient();
 
