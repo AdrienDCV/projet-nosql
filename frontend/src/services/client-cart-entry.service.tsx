@@ -14,3 +14,7 @@ export const createNewClientCartEntry = async(createClientCartEntry: CreateClien
 
   return response.data;
 }
+
+export const deleteClientCartEntry = async (cartEntryId: string): Promise<void> => {
+    await axios.delete(`http://localhost:8081/client-api/cart-entries/${cartEntryId}`);
+}

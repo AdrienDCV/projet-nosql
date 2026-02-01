@@ -4,10 +4,7 @@ import com.fisa.clientapi.exceptions.CartAlreadyExistsException;
 import com.fisa.clientapi.exceptions.CartNotFoundException;
 import com.fisa.clientapi.exceptions.ProductNotFoundException;
 import com.fisa.clientapi.exceptions.QuantityMustBePositiveException;
-import com.fisa.clientapi.models.Cart;
-import com.fisa.clientapi.models.CartEntry;
-import com.fisa.clientapi.models.CreateCartEntryRequest;
-import com.fisa.clientapi.models.Product;
+import com.fisa.clientapi.models.*;
 import com.fisa.clientapi.repositories.CartRepository;
 import com.fisa.clientapi.repositories.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -83,6 +80,23 @@ public class CartService {
 
   public Cart getClientCart(String clientId) {
     return cartRepository.findByClientId(clientId).orElseThrow(CartNotFoundException::new);
+  }
+
+  public void deleteCartEntry(String cartEntryId, String clientId) {
+    final Optional<Cart> existingCurrentClientCart = cartRepository.findByClientId(clientId);
+
+    if (existingCurrentClientCart.isEmpty()) {
+      throw new CartNotFoundException();
+    }
+
+    final Cart currentClientCart = existingCurrentClientCart.get();
+    final List<CartEntry> updatedCarteEntries = currentClientCart.getCartEntries().stream()
+            .filter(cartEntry -> !cartEntry.getCartEntryId().equals(cartEntryId))
+            .toList();
+
+    currentClientCart.setCartEntries(updatedCarteEntries);
+
+    cartRepository.save(currentClientCart);
   }
 
 }

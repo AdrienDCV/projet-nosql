@@ -21,7 +21,7 @@ import type {UpdateBusinessRequest} from "../models/update-business-request.mode
 import type {ClientCart} from "../models/client-cart.model.tsx";
 import {retrieveCurrenClientCart} from "../services/cart.service.tsx";
 import type {CreateClientCartEntry} from "../models/create-client-cart-entry.model.tsx";
-import {createNewClientCartEntry} from "../services/client-cart-entry.service.tsx";
+import {createNewClientCartEntry, deleteClientCartEntry} from "../services/client-cart-entry.service.tsx";
 import type {CreateClientOrderRequest} from "../models/client-order.model.tsx";
 import {createClientOrder} from "../services/client-order.service.tsx";
 import type {ClientOrderHistory, ProducerOrderHistory} from "../models/order-history.model.tsx";
@@ -51,6 +51,7 @@ export interface AppContextType {
   currentClientOrderHistory: ClientOrderHistory | undefined;
   refreshCurrentProducerOrderHistory: () => void;
   currentProducerOrderHistory: ProducerOrderHistory | undefined;
+  deleteCartEntry: (cartEntryId: string) => void;
 }
 
 interface AppContextProviderProps {
@@ -234,6 +235,16 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     }
   }
 
+  async function deleteCartEntry(cartEntryId: string) {
+    try {
+      if (!isAuthenticated) return;
+      await deleteClientCartEntry(cartEntryId);
+      void refreshCurrentClientCart();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const value: AppContextType = {
     createNewBusiness,
     updateBusiness,
@@ -258,6 +269,7 @@ const AppContextProvider = ({ children }: AppContextProviderProps): React.JSX.El
     currentClientOrderHistory,
     refreshCurrentProducerOrderHistory,
     currentProducerOrderHistory,
+    deleteCartEntry
   };
 
   return (
