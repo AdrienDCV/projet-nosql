@@ -20,7 +20,7 @@ public class ProducerOrderDto {
   private String businessId;
   private List<ClientOrderItemDto> clientOrderItems;
   private OrderStatus orderStatus;
-  private LocalDateTime createdAt;
+  private LocalDateTime orderDate;
   private LocalDateTime updatedAt;
 
   public static ProducerOrderDto toDto(ProducerOrder producerOrder) {
@@ -29,7 +29,7 @@ public class ProducerOrderDto {
             .businessId(producerOrder.getBusinessId())
             .clientOrderItems(producerOrder.getClientOrderItems().stream().map(ClientOrderItemDto::toDto).toList())
             .orderStatus(producerOrder.getOrderStatus())
-            .createdAt(producerOrder.getCreatedAt())
+            .orderDate(producerOrder.getOrderDate())
             .updatedAt(producerOrder.getUpdatedAt())
             .build();
   }
@@ -40,7 +40,7 @@ public class ProducerOrderDto {
             .businessId(producerOrderDto.getBusinessId())
             .clientOrderItems(producerOrderDto.getClientOrderItems().stream().map(ClientOrderItemDto::toEntity).toList())
             .orderStatus(producerOrderDto.getOrderStatus())
-            .createdAt(producerOrderDto.getCreatedAt())
+            .orderDate(producerOrderDto.getOrderDate())
             .updatedAt(producerOrderDto.getUpdatedAt())
             .build();
   }

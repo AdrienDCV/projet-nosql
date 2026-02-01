@@ -1,0 +1,57 @@
+[
+  {
+    "cartId": "c681431c-6b57-4f7a-97a3-679e27f28e24",
+    "clientId": "2d46cb7d-b003-4aad-a281-6b912e2cb4b1",
+    "cartEntries": [],
+    "_class": "com.fisa.clientapi.models.Cart"
+  },
+  {
+    "cartId": "50e7d050-d2a1-437c-b466-1279ff0dc44b",
+    "clientId": "dc37d12c-c735-49e1-b111-9ec4665a8ddd",
+    "cartEntries": [
+      {
+        "cartEntryId": "d348f043-876f-4c40-89cf-c7e30b2bc654",
+        "productId": "45cee32f-c7aa-4c3b-969f-92aae01709a7",
+        "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
+        "productName": "Côte de boeuf",
+        "productImage": "https://cdn.la-recolte.net/recipes/profile-picture/cote-de-boeuf-grillee.jpeg",
+        "quantity": 4,
+        "unitPrice": 24.5
+      },
+      {
+        "cartEntryId": "f391b675-d8c4-4b4c-8335-73c4723014a0",
+        "productId": "a8461964-6907-4d28-9480-00cd07854225",
+        "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
+        "productName": "Rôti de porc",
+        "productImage": "https://www.maison-feger.com/upload/image/roti-de-porc-filet-p-image-28589-grande.jpg",
+        "quantity": 2,
+        "unitPrice": 14.5
+      },
+      {
+        "cartEntryId": "13c15a70-c421-433e-b477-1d7554c73876",
+        "productId": "4c87ea58-b69d-42f4-890b-36ed91d50d97",
+        "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+        "productName": "Pain aux céréales",
+        "productImage": "https://img.cuisineaz.com/660x660/2015/10/05/i91973-pain-cereales.jpg",
+        "quantity": 2,
+        "unitPrice": 2.8
+      },
+      {
+        "cartEntryId": "56648820-81ac-42dc-89da-d45a25439609",
+        "productId": "9bde965c-8479-4dbd-8d48-a6c22c4e8371",
+        "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+        "productName": "Baguette traditionnelle",
+        "productImage": "https://www.paul.fr/media/catalog/product/n/o/nouvelle_baguette_paul_1.jpg",
+        "quantity": 5,
+        "unitPrice": 1.2
+      }
+    ],
+    "_class": "com.fisa.clientapi.models.Cart"
+  },
+  {
+    "cartId": "4674b70f-7c94-48b1-ae52-e28b67e75077",
+    "clientId": "be38ea10-3494-4177-8380-4a0a38b72719",
+    "cartEntries": [],
+    "_class": "com.fisa.clientapi.models.Cart"
+  }
+]

@@ -191,7 +191,7 @@ public class ClientOrderService {
             .phone(clientOrder.getPhone())
             .clientOrderItems(clientOrderItems)
             .orderStatus(OrderStatus.REGISTERED)
-            .createdAt(LocalDateTime.now())
+            .orderDate(LocalDateTime.now())
             .updatedAt(LocalDateTime.now())
             .build();
   }
@@ -336,7 +336,7 @@ public class ClientOrderService {
                         .phone(existing.getPhone())
                         .clientOrderItems(producerOrder.getClientOrderItems())
                         .orderStatus(existing.getOrderStatus())
-                        .createdAt(existing.getCreatedAt())
+                        .orderDate(existing.getOrderDate())
                         .updatedAt(LocalDateTime.now(ZoneOffset.UTC))
                         .build();
               }

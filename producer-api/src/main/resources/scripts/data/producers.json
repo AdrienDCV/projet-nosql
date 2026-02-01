@@ -1,0 +1,38 @@
+[
+  {
+    "username": "lucas.durand@example.com",
+    "password": "$2a$10$meSbmSZeExYXjKmbOm4wxOLDIPu8JdMafEX2fvC5n7paLbmT7YJTe",
+    "email": "lucas.durand@example.com",
+    "role": "USER",
+    "producerId": "fd9e9d0f-cdbb-4b2e-b8ee-456b14083eff",
+    "lastname": "Durand",
+    "firstname": "Lucas",
+    "phone": "0100000000",
+    "businessCreated": true,
+    "_class": "com.fisa.producerapi.models.Producer"
+  },
+  {
+    "username": "emma.morel@example.com",
+    "password": "$2a$10$Ti2QYU9i4nADXmWt6GrIbOJVqV43Z2c4fwfYZl8yLVheIu2DNAI9.",
+    "email": "emma.morel@example.com",
+    "role": "USER",
+    "producerId": "da5279d2-df35-46a5-9f97-e7b062fa1a25",
+    "lastname": "Morel",
+    "firstname": "Emma",
+    "phone": "0100000000",
+    "businessCreated": true,
+    "_class": "com.fisa.producerapi.models.Producer"
+  },
+  {
+    "username": "nathan.petit@example.com",
+    "password": "$2a$10$FFmYnSYERy3bBNI4e3BR0egEE9of/qDCon5CTiKx4aAYHJBzUnM4C",
+    "email": "nathan.petit@example.com",
+    "role": "USER",
+    "producerId": "df777794-ba44-4b57-84b0-3cbdef1184fb",
+    "lastname": "Petit",
+    "firstname": "Nathan",
+    "phone": "0100000000",
+    "businessCreated": true,
+    "_class": "com.fisa.producerapi.models.Producer"
+  }
+]

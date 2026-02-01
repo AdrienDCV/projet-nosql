@@ -1,0 +1,53 @@
+[
+  {
+    "businessId": "4723e696-3408-48c6-aa75-90fe496437c8",
+    "name": "contact@boucherie-dupont.example.com",
+    "address": {
+      "street": "Rue des Tilleuls",
+      "number": 25,
+      "postalCode": "75011",
+      "city": "Paris",
+      "country": "France"
+    },
+    "profession": "BUTCHERY",
+    "description": "Boucherie artisanale proposant des viandes de qualité, issues de producteurs locaux sélectionnés avec soin.",
+    "email": "contact@boucherie-dupont.example.com",
+    "producerId": "df777794-ba44-4b57-84b0-3cbdef1184fb",
+    "_class": "com.fisa.producerapi.models.Business",
+    "phone": "0100000000"
+  },
+  {
+    "businessId": "4b6fd63a-f574-4164-a76a-80b1c744d9a7",
+    "name": "contact@boulangerie-morel.example.com",
+    "address": {
+      "street": "Avenue des Fleurs",
+      "number": 12,
+      "postalCode": "75015",
+      "city": "Paris",
+      "country": "France"
+    },
+    "profession": "BAKERY",
+    "description": "Boulangerie artisanale proposant pains et viennoiseries de qualité.",
+    "phone": "0111111111",
+    "email": "contact@boulangerie-morel.example.com",
+    "producerId": "da5279d2-df35-46a5-9f97-e7b062fa1a25",
+    "_class": "com.fisa.producerapi.models.Business"
+  },
+  {
+    "businessId": "a1db9110-2d4a-4aa6-981a-a516977236cd",
+    "name": "contact@marche-petit.example.com",
+    "address": {
+      "street": "Rue du Marché",
+      "number": 5,
+      "postalCode": "69003",
+      "city": "Lyon",
+      "country": "France"
+    },
+    "profession": "MARKET_GARDENER",
+    "description": "Producteur local proposant fruits et légumes frais issus de l'agriculture biologique.",
+    "phone": "0422222222",
+    "email": "contact@marche-petit.example.com",
+    "producerId": "df777794-ba44-4b57-84b0-3cbdef1184fb",
+    "_class": "com.fisa.producerapi.models.Business"
+  }
+]

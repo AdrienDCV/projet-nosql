@@ -1,0 +1,47 @@
+services:
+  shard-4723e696-3408-48c6-aa75-90fe496437c8:
+    image: mongo:7
+    container_name: shard-4723e696-3408-48c6-aa75-90fe496437c8
+    networks:
+      - app-network
+    command: mongod --shardsvr --replSet shard4723e696-3408-48c6-aa75-90fe496437c8ReplSet --port 27022 --bind_ip_all
+    ports:
+      - "27022:27022"
+    volumes:
+      - shard-4723e696-3408-48c6-aa75-90fe496437c8-data:/data/db
+
+  shard-4723e696-3408-48c6-aa75-90fe496437c8-init:
+    image: mongo:7
+    container_name: shard-4723e696-3408-48c6-aa75-90fe496437c8-init
+    depends_on:
+      - shard-4723e696-3408-48c6-aa75-90fe496437c8
+    networks:
+      - app-network
+    entrypoint: >
+      bash -c "
+        sleep 15 &&
+        mongosh --host shard-4723e696-3408-48c6-aa75-90fe496437c8:27022 --eval '
+          rs.initiate({
+            _id: \"shard4723e696-3408-48c6-aa75-90fe496437c8ReplSet\",
+            members: [{ _id: 0, host: \"shard-4723e696-3408-48c6-aa75-90fe496437c8:27022\" }]
+          })
+        ' &&
+        sleep 15 &&
+        mongosh --host mongos:27020 --eval '
+          sh.addShard(\"shard4723e696-3408-48c6-aa75-90fe496437c8ReplSet/shard-4723e696-3408-48c6-aa75-90fe496437c8:27022\");
+          sh.splitAt(\"projetnosql.products\", { businessId: \"4723e696-3408-48c6-aa75-90fe496437c8\" });
+          sh.moveChunk(\"projetnosql.products\", { businessId: \"4723e696-3408-48c6-aa75-90fe496437c8\" }, \"shard4723e696-3408-48c6-aa75-90fe496437c8ReplSet\");
+          sh.splitAt(\"projetnosql.producerOrders\", { businessId: \"4723e696-3408-48c6-aa75-90fe496437c8\" });
+          sh.moveChunk(\"projetnosql.producerOrders\", { businessId: \"4723e696-3408-48c6-aa75-90fe496437c8\" }, \"shard4723e696-3408-48c6-aa75-90fe496437c8ReplSet\");
+          print(\"Shard configured for business: 4723e696-3408-48c6-aa75-90fe496437c8\");
+        '
+      "
+    restart: "no"
+
+volumes:
+  shard-4723e696-3408-48c6-aa75-90fe496437c8-data: {}
+
+networks:
+  app-network:
+    external: true
+    name: scripts_default
