@@ -1,9 +1,18 @@
 package com.fisa.clientapi;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import tools.jackson.databind.ObjectMapper;
 
+@OpenAPIDefinition(
+				info = @Info(
+								title = "Client API",
+								version = "1.0",
+								description = "Client API documentation and endpoints testing"
+				)
+)
 @SpringBootApplication
 public class ClientApiApplication {
 
