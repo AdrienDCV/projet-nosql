@@ -73,12 +73,19 @@ chmod u+x ./seed-db.sh
 powershell -ExecutionPolicy Bypass -File .\SeedDb.ps1 
 ```
 
-**ATTENTION** : Les scripts ont été générés par IA. Bien qu'ils aient été vérifiés et testés, ils ne sont potentiellement 
+Les shards se voient affecter un port automatiquement à compter du port `27022`. Afin d'assurer une gestion correcte des reliquats, le calcul du port suivant est le suivant :
+```
+BASE_PORT = 27022
+
+NEXT_PORT = BASE_PORT + le_nombre_de_businesses_en_BDD
+```
+
+**ATTENTION** : Les scripts ont été générés par IA. Bien qu'ils aient été vérifiés, corrigés et testés, ils ne sont potentiellement 
 pas optimisés. Beaucoup de volumes sont créés. Bien qu'ils ne soient pas volumineux, il est préférable de les supprimer
 après l'utilisation du projet.
 
 ## Variables d'envrionnement
-Pour des raisons de sécurité, les variables d'environnement nécessaire à l'exécution des APIs a été partagé par message privé sur Discord.
+Pour des raisons de sécurité, les variables d'environnement nécessaire à l'exécution des APIs ont été partagées par message privé sur Discord.
 
 ## Comptes utilisateurs
 | Type d'utilisateur |       Identifiant        | Mot de passe |
