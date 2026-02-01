@@ -8,10 +8,7 @@ import com.fisa.clientapi.services.ClientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,5 +32,14 @@ public class CartEntryController {
             HttpStatus.CREATED
     );
   }
+
+    @DeleteMapping("/{cartEntryId}")
+    public ResponseEntity<Void> deleteCartEntry(@PathVariable String cartEntryId ) {
+        final Client currentClient = clientService.getCurrentClient();
+
+        cartService.deleteCartEntry(cartEntryId, currentClient.getClientId());
+
+        return ResponseEntity.noContent().build();
+    }
 
 }

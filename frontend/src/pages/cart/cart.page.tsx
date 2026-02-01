@@ -9,7 +9,7 @@ import type {Client} from "../../models/user.model.tsx";
 
 export function CartPage(): React.JSX.Element {
   const [openAddDeliveryAddressModal, setOpenAddDeliveryAddressModal] = useState<boolean>(false);
-  const { currentClientCart } = useApp();
+  const { currentClientCart, deleteCartEntry } = useApp();
   const { user } = useAuthentication();
 
   if (!currentClientCart) {
@@ -22,6 +22,12 @@ export function CartPage(): React.JSX.Element {
       (total, entry) => total + entry.unitPrice * entry.quantity,
       0
   );
+
+  const handleDeleteClick = (cartEntryId: string) => {
+    if (currentClientCart.cartEntries.length < 1) return;
+
+    void deleteCartEntry(cartEntryId);
+  }
 
   const emptyCart = (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4 text-center">
@@ -59,7 +65,7 @@ export function CartPage(): React.JSX.Element {
                         image={entry.productImage}
                         price={entry.unitPrice}
                         quantity={entry.quantity}
-                        onRemove={() => {}}
+                        onRemove={() => handleDeleteClick(entry.cartEntryId)}
                     />
                 ))}
               </div>
