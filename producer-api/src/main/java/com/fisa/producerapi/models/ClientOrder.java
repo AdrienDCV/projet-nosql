@@ -30,8 +30,8 @@ public class ClientOrder {
   private String email;
   @Field("phone")
   private String phone;
-  @Field("createdAt")
-  private String createdAt;
+  @Field("orderDate")
+  private String orderDate;
   @Field("updatedAt")
   private String updatedAt;
 

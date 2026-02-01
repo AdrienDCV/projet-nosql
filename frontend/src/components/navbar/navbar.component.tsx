@@ -5,11 +5,11 @@ import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import ApartmentIcon from '@mui/icons-material/Apartment';
-import { Warehouse } from "@mui/icons-material";
-import { useAuthentication } from "../../hooks/authentication-context.hook.tsx";
-import { signOutClient, signOutProducer } from "../../services/user.service.tsx";
-import { useNavigate } from "react-router-dom";
-import { UserType } from "../../models/enum/user-type.enum.ts";
+import {Warehouse} from "@mui/icons-material";
+import {useAuthentication} from "../../hooks/authentication-context.hook.tsx";
+import {signOutClient, signOutProducer} from "../../services/user.service.tsx";
+import {useNavigate} from "react-router-dom";
+import {UserType} from "../../models/enum/user-type.enum.ts";
 
 export function NavbarComponent(): React.JSX.Element {
   const { isAuthenticated, setIsAuthenticated, setUser, setAuthToken, user } = useAuthentication();
@@ -50,7 +50,6 @@ export function NavbarComponent(): React.JSX.Element {
           )}
         </div>
 
-        {/* CENTRE */}
         <div className="flex justify-center">
           <a href="/home">
             <img
@@ -63,7 +62,7 @@ export function NavbarComponent(): React.JSX.Element {
 
         <div className="flex justify-end gap-6">
           <div className="flex flex-col items-center">
-            <a href="/order-history">
+            <a href={user?.userType === UserType.PRODUCER ? "/producer/order-history" : "/client/order-history"}>
               <FormatListBulletedIcon className="text-[#FF5733] text-2xl" />
             </a>
             <span className="text-[#FF5733] text-xs font-bold">Historique</span>
